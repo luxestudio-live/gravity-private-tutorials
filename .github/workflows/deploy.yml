@@ -1,6 +1,4 @@
-# Deploy Next.js to GitHub Pages
 
-This workflow will build and deploy your Next.js static site to the `gh-pages` branch for GitHub Pages hosting.
 
 name: Deploy to GitHub Pages
 
