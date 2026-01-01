@@ -10,84 +10,84 @@ type GalleryCategory = "all" | "classroom" | "events" | "achievements" | "cultur
 const galleryImages = [
   {
     id: 1,
-    src: "/gallery-classroom-1.jpg",
+    src: "/decent-academy-v1/gallery-classroom-1.jpg",
     category: "classroom",
     title: "Interactive Learning Session",
     description: "Students engaged in collaborative problem-solving",
   },
   {
     id: 2,
-    src: "/gallery-achievement-1.jpg",
+    src: "/decent-academy-v1/gallery-achievement-1.jpg",
     category: "achievements",
     title: "JEE Toppers Celebration",
     description: "Congratulating our AIR achievers",
   },
   {
     id: 3,
-    src: "/gallery-cultural-1.jpg",
+    src: "/decent-academy-v1/gallery-cultural-1.jpg",
     category: "cultural",
     title: "Annual Day Performance",
     description: "Students showcasing their talents",
   },
   {
     id: 4,
-    src: "/gallery-sports-1.jpg",
+    src: "/decent-academy-v1/gallery-sports-1.jpg",
     category: "sports",
     title: "Sports Day Events",
     description: "Inter-batch sports competition",
   },
   {
     id: 5,
-    src: "/gallery-event-1.jpg",
+    src: "/decent-academy-v1/gallery-event-1.jpg",
     category: "events",
     title: "Science Exhibition",
     description: "Student projects on display",
   },
   {
     id: 6,
-    src: "/gallery-classroom-2.jpg",
+    src: "/decent-academy-v1/gallery-classroom-2.jpg",
     category: "classroom",
     title: "Laboratory Experiments",
     description: "Hands-on practical sessions",
   },
   {
     id: 7,
-    src: "/gallery-achievement-2.jpg",
+    src: "/decent-academy-v1/gallery-achievement-2.jpg",
     category: "achievements",
     title: "Board Exam Toppers",
     description: "10th standard distinction holders",
   },
   {
     id: 8,
-    src: "/gallery-cultural-2.jpg",
+    src: "/decent-academy-v1/gallery-cultural-2.jpg",
     category: "cultural",
     title: "Traditional Day Celebration",
     description: "Celebrating our cultural heritage",
   },
   {
     id: 9,
-    src: "/gallery-event-2.jpg",
+    src: "/decent-academy-v1/gallery-event-2.jpg",
     category: "events",
     title: "Parent-Teacher Meet",
     description: "Collaborative discussion on student progress",
   },
   {
     id: 10,
-    src: "/gallery-classroom-3.jpg",
+    src: "/decent-academy-v1/gallery-classroom-3.jpg",
     category: "classroom",
     title: "Smart Classroom Technology",
     description: "Digital learning environment",
   },
   {
     id: 11,
-    src: "/gallery-achievement-3.jpg",
+    src: "/decent-academy-v1/gallery-achievement-3.jpg",
     category: "achievements",
     title: "CET State Rankers",
     description: "Celebrating top CET performers",
   },
   {
     id: 12,
-    src: "/gallery-sports-2.jpg",
+    src: "/decent-academy-v1/gallery-sports-2.jpg",
     category: "sports",
     title: "Cricket Tournament",
     description: "Annual inter-academy match",
@@ -176,7 +176,7 @@ export default function GalleryPage() {
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <img
-                  src={image.src || "/placeholder.svg?height=400&width=400"}
+                  src={image.src || "/decent-academy-v1/placeholder.svg?height=400&width=400"}
                   alt={image.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -207,7 +207,7 @@ export default function GalleryPage() {
           </button>
           <div className="max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
             <img
-              src={selectedImage.src || "/placeholder.svg?height=800&width=1200"}
+              src={selectedImage.src || "/decent-academy-v1/placeholder.svg?height=800&width=1200"}
               alt={selectedImage.title}
               className="w-full h-auto rounded-2xl shadow-2xl"
             />

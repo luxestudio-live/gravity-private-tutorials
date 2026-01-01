@@ -8,7 +8,7 @@ const testimonials = [
     name: "Priya Sharma",
     course: "12th Science (JEE)",
     rank: "AIR 245 in JEE Mains",
-    image: "/student-success.jpg",
+    image: "/decent-academy-v1/student-success.jpg",
     content:
       "The faculty at Decent Academy transformed my approach to learning. Their personalized attention and innovative teaching methods helped me achieve my dream rank.",
     rating: 5,
@@ -17,7 +17,7 @@ const testimonials = [
     name: "Rahul Patil",
     course: "12th Science (CET)",
     rank: "State Rank 12",
-    image: "/student-cet-topper.jpg",
+    image: "/decent-academy-v1/student-cet-topper.jpg",
     content:
       "Best decision I made for my career. The structured curriculum and regular assessments kept me on track throughout my preparation journey.",
     rating: 5,
@@ -26,7 +26,7 @@ const testimonials = [
     name: "Ananya Desai",
     course: "10th Standard",
     rank: "98.4% in Boards",
-    image: "/student-10th-ranker.jpg",
+    image: "/decent-academy-v1/student-10th-ranker.jpg",
     content:
       "The teachers make complex topics so easy to understand. I not only improved my grades but also developed a genuine love for learning.",
     rating: 5,
