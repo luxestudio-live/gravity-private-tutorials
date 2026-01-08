@@ -7,6 +7,9 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
+        {/* Horizontal Gradient Effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10" />
+        
         {/* Logo Background */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <img 
