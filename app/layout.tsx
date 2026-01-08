@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Playfair_Display, Inter } from "next/font/google"
+import { Playfair_Display, Inter, Bebas_Neue } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { FloatingEnquireButton } from "@/components/floating-enquire-button"
 import "./globals.css"
@@ -14,6 +14,13 @@ const playfairDisplay = Playfair_Display({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
+})
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bebas",
   display: "swap",
 })
 
@@ -70,7 +77,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfairDisplay.variable} ${inter.variable} font-sans antialiased`}>
+      <body className={`${playfairDisplay.variable} ${inter.variable} ${bebasNeue.variable} font-sans antialiased`}>
         {children}
         <FloatingEnquireButton />
         <Analytics />

@@ -156,16 +156,32 @@
   }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-.animate-shimmer {
-  animation: shimmer 3s infinite;
-  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-  background-size: 1000px 100%;
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 40px rgba(249, 115, 22, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(249, 115, 22, 0.4);
+  }
 }
 
 .animate-scale-in {
   animation: scale-in 0.5s ease-out;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
 }

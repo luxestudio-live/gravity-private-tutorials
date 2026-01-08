@@ -53,7 +53,7 @@ export function Navbar() {
               alt="Decent Academy" 
               className="h-12 w-auto"
             />
-            <span className="text-2xl lg:text-3xl font-bold tracking-tight">
+            <span className="text-2xl lg:text-3xl font-[family-name:var(--font-bebas)] font-normal tracking-wide">
               <span className="text-primary">DECENT</span>{" "}
               <span className="text-primary">ACADEMY</span>
             </span>
