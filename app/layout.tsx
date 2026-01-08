@@ -24,19 +24,16 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/decent-academy-v1/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/decent-academy-v1/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/decent-academy-v1/icon.svg",
+        url: "/decent-academy-v1/DecentLogo.svg",
         type: "image/svg+xml",
       },
+      {
+        url: "/decent-academy-v1/DecentLogo.png",
+        type: "image/png",
+      },
     ],
-    apple: "/decent-academy-v1/apple-icon.png",
+    apple: "/decent-academy-v1/DecentLogo.png",
+    shortcut: "/decent-academy-v1/DecentLogo.svg",
   },
 }
 
