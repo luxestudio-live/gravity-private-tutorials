@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Playfair_Display, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { FloatingEnquireButton } from "@/components/floating-enquire-button"
 import "./globals.css"
 
 const playfairDisplay = Playfair_Display({
@@ -71,6 +72,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfairDisplay.variable} ${inter.variable} font-sans antialiased`}>
         {children}
+        <FloatingEnquireButton />
         <Analytics />
       </body>
     </html>
