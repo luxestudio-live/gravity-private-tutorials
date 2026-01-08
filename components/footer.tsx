@@ -26,11 +26,11 @@ export function Footer() {
   return (
     <footer className="relative bg-gradient-to-br from-foreground/95 via-foreground to-primary/30 text-background overflow-hidden">
       {/* Large Logo Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-5">
+      <div className="absolute inset-0 flex items-center justify-center py-8 opacity-8">
         <img 
           src="/decent-academy-v1/DecentLogo.png" 
           alt="" 
-          className="w-[600px] md:w-[900px] h-auto object-contain"
+          className="w-[500px] md:w-[700px] h-auto object-contain max-h-[90%]"
         />
       </div>
       
