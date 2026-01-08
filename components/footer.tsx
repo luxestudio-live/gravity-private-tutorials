@@ -38,9 +38,9 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h3 className="text-3xl font-bold mb-4">
               <span className="text-primary">
-                Decent
+                DECENT
               </span>
-              <span className="text-primary ml-2">Academy</span>
+              <span className="text-primary ml-2">ACADEMY</span>
             </h3>
             <p className="text-background/70 leading-relaxed mb-6 max-w-md">
               Empowering students to achieve academic excellence through innovative teaching methods and personalized
