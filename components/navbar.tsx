@@ -46,10 +46,17 @@ export function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl lg:text-3xl font-bold tracking-tight transition-all duration-300 hover:scale-105 group"
+            className="flex items-center gap-3 transition-all duration-300 hover:scale-105 group"
           >
-            <span className="text-primary">Decent</span>{" "}
-            <span className="text-foreground group-hover:text-primary transition-colors duration-300">Academy</span>
+            <img 
+              src="/decent-academy-v1/DecentLogo.png" 
+              alt="Decent Academy" 
+              className="h-12 w-auto"
+            />
+            <span className="text-2xl lg:text-3xl font-bold tracking-tight">
+              <span className="text-primary">Decent</span>{" "}
+              <span className="text-primary">Academy</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
