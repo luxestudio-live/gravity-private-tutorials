@@ -43,7 +43,7 @@ const courseData = {
   },
   science: {
     title: "11th & 12th Science",
-    subtitle: "JEE, CET & NEET Preparation",
+    subtitle: "JEE, NEET & CET Preparation",
     icon: Beaker,
     color: "from-accent to-secondary",
     description:

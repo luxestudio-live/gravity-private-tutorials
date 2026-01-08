@@ -6,14 +6,14 @@ const courses = [
   {
     icon: GraduationCap,
     title: "5th to 10th Standard",
-    medium: "Marathi & Semi English Medium",
+    medium: "English Medium",
     subjects: ["Mathematics", "Science", "Languages", "Social Studies"],
     color: "from-primary to-accent",
   },
   {
     icon: Beaker,
     title: "11th & 12th Science",
-    medium: "CET & JEE Preparation",
+    medium: "JEE, NEET & CET Preparation",
     subjects: ["Physics", "Chemistry", "Mathematics", "Biology"],
     color: "from-accent to-secondary",
   },
