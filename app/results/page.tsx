@@ -3,8 +3,7 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Trophy, Medal, Star } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Trophy, Medal, Star, Award, Sparkles, TrendingUp } from "lucide-react"
 
 type ResultYear = "2024" | "2023" | "2022"
 
@@ -190,134 +189,111 @@ export default function ResultsPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden pt-20">
+      {/* Hero Section with modern gradient */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-primary/5 to-secondary/5">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-          <div
-            className="absolute bottom-20 right-10 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-float"
-            style={{ animationDelay: "2s" }}
-          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(var(--primary-rgb),0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(var(--accent-rgb),0.1),transparent_50%)]" />
         </div>
 
-        <div className="container mx-auto px-4 lg:px-8 py-12">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
-              <Trophy className="w-4 h-4" />
+        <div className="container mx-auto px-4 lg:px-8 py-16">
+          <div className="max-w-5xl mx-auto text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-sm rounded-full text-primary text-sm font-semibold border border-primary/20 shadow-lg">
+              <Sparkles className="w-5 h-5 text-secondary" />
               <span>Celebrating Excellence Since 2006</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight">
-              Outstanding
-              <span className="block mt-2 text-primary">Results & Achievements</span>
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-tight">
+              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                Outstanding
+              </span>
+              <span className="block mt-4 text-foreground">Results 2024-25</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              Our students' success stories that inspire and motivate
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Celebrating success stories that inspire excellence
             </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Year Selector */}
-      <section className="py-8 bg-background/95 backdrop-blur-lg border-y border-border/50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-center gap-4">
-            <span className="text-foreground/80 font-medium">Select Year:</span>
-            <Select value={selectedYear} onValueChange={(value) => setSelectedYear(value as ResultYear)}>
-              <SelectTrigger className="w-48 border-2 border-primary/20 hover:border-primary/50 transition-colors duration-300">
-                <SelectValue placeholder="Select Year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="2024">2024 Results</SelectItem>
-                <SelectItem value="2023">2023 Results</SelectItem>
-                <SelectItem value="2022">2022 Results</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </section>
-
-      {/* Highlights */}
-      <section className="py-16 lg:py-20">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
-              {selectedYear}
-              <span className="block mt-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Year Highlights
-              </span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-20">
-            {results.highlights.map((highlight, index) => (
-              <div
-                key={index}
-                className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 text-center"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500" />
-                <div className="relative z-10">
-                  <div className="text-xs font-semibold text-muted-foreground uppercase mb-2">{highlight.category}</div>
-                  <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8">
+              {results.highlights.map((highlight, index) => (
+                <div
+                  key={index}
+                  className="group p-6 bg-card/60 backdrop-blur-md rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                >
+                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
                     {highlight.value}
                   </div>
-                  <div className="text-sm font-medium text-foreground/80">{highlight.label}</div>
+                  <div className="text-sm font-medium text-muted-foreground">{highlight.label}</div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Achievers - Premium Design */}
+      <section className="py-20 lg:py-32 bg-muted/30">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
+              <Trophy className="w-4 h-4" />
+              <span>National & State Ranks</span>
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Star Achievers
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground">Excellence in NEET, JEE & CET</p>
           </div>
 
-          {/* Featured National & State Rank Holders */}
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4">
-              <Trophy className="inline-block w-8 h-8 text-primary mr-2" />
-              Featured National & State Rank Holders
-            </h3>
-            <p className="text-muted-foreground text-lg">Excellence in NEET, JEE & CET</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto mb-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {results.featuredToppers?.map((topper, index) => (
               <div
                 key={index}
-                className="group relative bg-card rounded-3xl border-2 border-primary/30 hover:border-primary overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2"
+                className="group relative"
               >
-                {/* Gradient Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20" />
-
-                {/* Rank Badge */}
-                <div className="relative top-4 right-4 float-right bg-gradient-to-r from-secondary to-accent text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl flex items-center gap-2 w-fit">
-                  <Trophy className="w-4 h-4" />
-                  <span>{index + 1}</span>
-                </div>
-
-                <div className="p-8 relative z-10 clear-both">
-                  {/* Category Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 text-accent rounded-lg text-xs font-bold mb-3">
-                    {topper.category}
-                  </div>
+                {/* Glow effect on hover */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+                
+                <div className="relative h-full bg-card rounded-3xl border-2 border-border hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                  {/* Top gradient bar */}
+                  <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
                   
-                  {/* Score Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-accent text-white rounded-xl font-bold text-lg mb-4 shadow-lg">
-                    <Star className="w-5 h-5" />
-                    <span>{topper.score}</span>
-                  </div>
+                  <div className="p-8">
+                    {/* Rank badge */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl text-primary text-xs font-bold uppercase tracking-wider">
+                        {topper.category}
+                      </div>
+                      <div className="w-12 h-12 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        {index + 1}
+                      </div>
+                    </div>
 
-                  {/* Name & Details */}
-                  <h4 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">
-                    {topper.name}
-                  </h4>
-                  <p className="text-primary font-semibold mb-1">{topper.rank}</p>
-                  <p className="text-sm text-muted-foreground mb-4">{topper.standard}</p>
+                    {/* Score - Large and prominent */}
+                    <div className="mb-6 text-center">
+                      <div className="text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
+                        {topper.score}
+                      </div>
+                      <div className="text-sm font-semibold text-secondary">{topper.rank}</div>
+                    </div>
 
-                  {/* Details */}
-                  <div className="pt-4 border-t border-border/50">
-                    <div className="space-y-2">
+                    {/* Name */}
+                    <h4 className="text-2xl font-bold mb-2 text-center group-hover:text-primary transition-colors duration-300">
+                      {topper.name}
+                    </h4>
+                    
+                    {/* Standard */}
+                    <p className="text-center text-muted-foreground font-medium mb-4">{topper.standard}</p>
+
+                    {/* Details */}
+                    <div className="pt-4 border-t border-border/50">
                       {topper.subjects.map((subject, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full" />
-                          <span className="text-sm text-foreground/80">{subject}</span>
+                        <div key={idx} className="flex items-center gap-2 text-sm text-foreground/70">
+                          <Award className="w-4 h-4 text-accent flex-shrink-0" />
+                          <span>{subject}</span>
                         </div>
                       ))}
                     </div>
@@ -326,183 +302,283 @@ export default function ResultsPage() {
               </div>
             ))}
           </div>
-
-          {/* SSC Toppers Section */}
-          {results.sscToppers && (
-            <>
-              <div className="text-center mb-12 mt-20">
-                <h3 className="text-3xl font-bold mb-4">
-                  <Medal className="inline-block w-8 h-8 text-secondary mr-2" />
-                  S.S.C. Toppers - Academic Year 2024-25
-                </h3>
-                <p className="text-muted-foreground text-lg">Outstanding 10th Standard Performance</p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-20">
-                {results.sscToppers.map((topper, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-card rounded-2xl border border-border/50 hover:border-secondary/50 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <div className="p-6 relative z-10">
-                      {topper.rank && (
-                        <div className="absolute top-4 right-4 bg-gradient-to-r from-secondary to-accent text-white px-3 py-1 rounded-full text-xs font-bold">
-                          {topper.rank}
-                        </div>
-                      )}
-                      
-                      <div className="text-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-secondary to-accent text-white rounded-xl font-bold text-xl mb-3 shadow-lg">
-                          {topper.score}
-                        </div>
-                        
-                        <h4 className="text-lg font-bold mb-1 group-hover:text-secondary transition-colors duration-300">
-                          {topper.name}
-                        </h4>
-                        <p className="text-sm text-muted-foreground">{topper.standard}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Commerce Toppers Section */}
-          {results.commerceToppers && (
-            <>
-              <div className="text-center mb-12 mt-20">
-                <h3 className="text-3xl font-bold mb-4">
-                  <Medal className="inline-block w-8 h-8 text-primary mr-2" />
-                  Commerce Toppers 2025
-                </h3>
-                <p className="text-muted-foreground text-lg">12th Commerce Excellence</p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20">
-                {results.commerceToppers.map((topper, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <div className="p-6 relative z-10">
-                      <div className="text-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-xl mb-3 shadow-lg">
-                          {topper.score}
-                        </div>
-                        
-                        <h4 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-300">
-                          {topper.name}
-                        </h4>
-                        <p className="text-sm text-muted-foreground">{topper.college}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Science Toppers Section */}
-          {results.scienceToppers && (
-            <>
-              <div className="text-center mb-12 mt-20">
-                <h3 className="text-3xl font-bold mb-4">
-                  <Medal className="inline-block w-8 h-8 text-accent mr-2" />
-                  Science Toppers 2025
-                </h3>
-                <p className="text-muted-foreground text-lg">12th Science Excellence</p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto mb-20">
-                {results.scienceToppers.map((topper, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-card rounded-2xl border border-border/50 hover:border-accent/50 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <div className="p-6 relative z-10">
-                      <div className="text-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent to-secondary text-white rounded-xl font-bold text-xl mb-3 shadow-lg">
-                          {topper.score}
-                        </div>
-                        
-                        <h4 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors duration-300">
-                          {topper.name}
-                        </h4>
-                        <p className="text-sm text-muted-foreground">{topper.college}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-16 lg:py-20 bg-muted/30">
+      {/* SSC Toppers - Modern Grid */}
+      <section className="py-20 lg:py-32 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
-              Overall
-              <span className="block mt-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Performance Statistics
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-semibold mb-6">
+              <Medal className="w-4 h-4" />
+              <span>SSC Excellence</span>
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                SSC Toppers
               </span>
             </h2>
+            <p className="text-xl text-muted-foreground">Outstanding performances in 10th Board Exams</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {Object.entries(results.statistics).map(([standard, stats], index) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {results.sscToppers?.map((topper, index) => (
               <div
-                key={standard}
-                className="group bg-card rounded-3xl border border-border/50 hover:border-primary/50 p-10 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                key={index}
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-secondary/50 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <h3 className="text-3xl font-bold mb-8 text-center group-hover:text-primary transition-colors duration-300">
-                  {standard === "10th" ? "10th Standard" : "11th & 12th"}
-                </h3>
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-foreground/80">Total Students</span>
-                    <span className="text-2xl font-bold text-primary">{stats.total}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-foreground/80">Above 90%</span>
-                    <span className="text-2xl font-bold text-accent">{stats.above90}</span>
-                  </div>
-                  {stats.above85 && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-foreground/80">Above 85%</span>
-                      <span className="text-2xl font-bold text-secondary">{stats.above85}</span>
+                {/* Top accent */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary rounded-t-2xl" />
+                
+                {/* Rank indicator */}
+                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                  {index + 1}
+                </div>
+
+                <div className="pt-2">
+                  {/* Score */}
+                  <div className="text-center mb-4">
+                    <div className="text-4xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent mb-1">
+                      {topper.score}
                     </div>
-                  )}
-                  {stats.above80 && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-foreground/80">Above 80%</span>
-                      <span className="text-2xl font-bold text-secondary">{stats.above80}</span>
-                    </div>
-                  )}
-                  {stats.above75 && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-foreground/80">Above 75%</span>
-                      <span className="text-2xl font-bold text-secondary">{stats.above75}</span>
-                    </div>
-                  )}
-                  <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                    <span className="text-foreground/80 font-semibold">Pass Rate</span>
-                    <span className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                      {stats.passRate}%
-                    </span>
+                    <div className="text-xs text-muted-foreground font-medium">{topper.rank || "Top Performer"}</div>
                   </div>
+
+                  {/* Name */}
+                  <h4 className="text-lg font-bold mb-2 text-center group-hover:text-secondary transition-colors">
+                    {topper.name}
+                  </h4>
+                  
+                  {/* Standard */}
+                  <p className="text-center text-muted-foreground text-sm">{topper.standard}</p>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Commerce & Science Toppers - Side by Side */}
+      <section className="py-20 lg:py-32 bg-muted/30">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
+            {/* Commerce Toppers */}
+            <div>
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
+                  <TrendingUp className="w-4 h-4" />
+                  <span>Commerce Stream</span>
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-bold mb-3">
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Commerce
+                  </span>
+                </h2>
+                <p className="text-lg text-muted-foreground">HSC Commerce Achievers</p>
+              </div>
+
+              <div className="space-y-4">
+                {results.commerceToppers?.map((topper, index) => (
+                  <div
+                    key={index}
+                    className="group bg-card rounded-xl border border-border hover:border-primary/50 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-x-1"
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Rank badge */}
+                      <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        {index + 1}
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        {/* Name & Score */}
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="text-xl font-bold group-hover:text-primary transition-colors">
+                            {topper.name}
+                          </h4>
+                          <div className="text-2xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent ml-2">
+                            {topper.score}
+                          </div>
+                        </div>
+                        
+                        {/* Details */}
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span>{topper.college}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Science Toppers */}
+            <div>
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent text-sm font-semibold mb-6">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Science Stream</span>
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-bold mb-3">
+                  <span className="bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
+                    Science
+                  </span>
+                </h2>
+                <p className="text-lg text-muted-foreground">HSC Science Achievers</p>
+              </div>
+
+              <div className="space-y-4">
+                {results.scienceToppers?.map((topper, index) => (
+                  <div
+                    key={index}
+                    className="group bg-card rounded-xl border border-border hover:border-accent/50 p-6 transition-all duration-300 hover:shadow-lg hover:translate-x-1"
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Rank badge */}
+                      <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-accent to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        {index + 1}
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        {/* Name & Score */}
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="text-xl font-bold group-hover:text-accent transition-colors">
+                            {topper.name}
+                          </h4>
+                          <div className="text-2xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent ml-2">
+                            {topper.score}
+                          </div>
+                        </div>
+                        
+                        {/* Details */}
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <span>{topper.college}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+        </div>
+      </section>
+
+
+      {/* Statistics Section - Modern Design */}
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                  Performance Overview
+                </span>
+              </h2>
+              <p className="text-xl text-muted-foreground">Excellence across all standards</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {Object.entries(results.statistics).map(([standard, stats], index) => (
+                <div
+                  key={standard}
+                  className="group relative bg-card/60 backdrop-blur-sm rounded-3xl border-2 border-border hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {/* Gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Top accent bar */}
+                  <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
+                  
+                  <div className="relative z-10 p-10">
+                    {/* Header */}
+                    <div className="text-center mb-8">
+                      <h3 className="text-3xl font-bold mb-2 group-hover:text-primary transition-colors">
+                        {standard === "10th" ? "10th Standard" : "11th & 12th"}
+                      </h3>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold">
+                        <Trophy className="w-4 h-4" />
+                        <span>{stats.total} Students</span>
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center">
+                            <Star className="w-5 h-5 text-white" />
+                          </div>
+                          <span className="text-foreground font-medium">Above 90%</span>
+                        </div>
+                        <span className="text-3xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent">
+                          {stats.above90}
+                        </span>
+                      </div>
+
+                      {stats.above85 && (
+                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center">
+                              <Medal className="w-5 h-5 text-white" />
+                            </div>
+                            <span className="text-foreground font-medium">Above 85%</span>
+                          </div>
+                          <span className="text-3xl font-bold bg-gradient-to-br from-secondary to-primary bg-clip-text text-transparent">
+                            {stats.above85}
+                          </span>
+                        </div>
+                      )}
+
+                      {stats.above80 && (
+                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                              <Award className="w-5 h-5 text-white" />
+                            </div>
+                            <span className="text-foreground font-medium">Above 80%</span>
+                          </div>
+                          <span className="text-3xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
+                            {stats.above80}
+                          </span>
+                        </div>
+                      )}
+
+                      {stats.above75 && (
+                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center">
+                              <TrendingUp className="w-5 h-5 text-white" />
+                            </div>
+                            <span className="text-foreground font-medium">Above 75%</span>
+                          </div>
+                          <span className="text-3xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent">
+                            {stats.above75}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Pass Rate - Highlighted */}
+                      <div className="mt-6 p-6 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border-2 border-primary/30">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
+                              <Sparkles className="w-6 h-6 text-white" />
+                            </div>
+                            <span className="text-lg font-bold text-foreground">Pass Rate</span>
+                          </div>
+                          <span className="text-4xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
+                            {stats.passRate}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
