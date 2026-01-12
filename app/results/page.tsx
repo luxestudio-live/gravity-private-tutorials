@@ -462,9 +462,6 @@ export default function ResultsPage() {
           </div>
         </div>
       </section>
-        </div>
-      </section>
-
 
       {/* Statistics Section - Modern Design */}
       <section className="py-20 lg:py-32 bg-gradient-to-br from-primary/5 via-background to-accent/5">
