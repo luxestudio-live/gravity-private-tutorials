@@ -34,9 +34,6 @@ const values = [
 const milestones = [
   { year: "2006", event: "Academy Founded", description: "Started with a vision to transform education" },
   { year: "2015", event: "1000+ Students", description: "Reached milestone of teaching 1000 students" },
-  { year: "2018", event: "Top Rankers", description: "Produced first AIR under 100 in JEE" },
-  { year: "2020", event: "Digital Expansion", description: "Launched hybrid learning programs" },
-  { year: "2023", event: "Excellence Award", description: "Recognized as Best Coaching Institute" },
   { year: "2025", event: "5000+ Alumni", description: "Growing network of successful students" },
 ]
 
