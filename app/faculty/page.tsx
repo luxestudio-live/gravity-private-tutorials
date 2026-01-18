@@ -165,10 +165,10 @@ export default function FacultyPage() {
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
               Experienced educators dedicated to nurturing excellence and shaping futures
-      export default function FacultyPage() {
-        // No filter, show all faculty
-        const faculty = facultyList
-      </section>
+export default function FacultyPage() {
+  // No filter, show all faculty
+  const faculty = facultyList
+  // ...existing code...
 
       {/* Faculty Toggle */}
       {/* Removed filter section, all faculty shown below */}
