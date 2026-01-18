@@ -56,6 +56,106 @@ export default function ContactPage() {
     phone: "",
     message: "",
   })
+// ...existing code...
+  return (
+    <main className="min-h-screen">
+      <Navbar />
+      {/* Hero Section */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
+          <div
+            className="absolute bottom-20 right-10 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-float"
+            style={{ animationDelay: "2s" }}
+          />
+        </div>
+        <div className="container mx-auto px-4 lg:px-8 py-20">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
+              <MessageSquare className="w-4 h-4" />
+              <span>We're Here to Help</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight">
+              Get in
+              <span className="block mt-2 text-primary">Touch With Us</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
+              Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* Contact Info Cards */}
+      <section className="py-20 lg:py-32">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-20">
+            {contactInfo.map((info, index) => (
+              <div
+                key={index}
+                className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 text-center"
+              >
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${info.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`}
+                />
+                <div className="relative z-10">
+                  <div
+                    className={`w-16 h-16 bg-gradient-to-br ${info.color} rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}
+                  >
+                    <info.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
+                    {info.title}
+                  </h3>
+                  <div className="space-y-2">
+                    {info.details.map((detail, idx) => (
+                      <p key={idx} className="text-sm text-muted-foreground leading-relaxed">
+                        {detail}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Main Contact Section */}
+          <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+            {/* Contact Form */}
+            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 p-8 lg:p-12 transition-all duration-500 hover:shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl" />
+              <div className="relative z-10">
+                <h2 className="text-3xl font-bold mb-6 group-hover:text-primary transition-colors duration-300">
+                  Send Us a Message
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      Full Name *
+                    </label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name"
+                      required
+                      className="border-2 focus:border-primary transition-colors duration-300"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      Email Address *
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="your@email.com"
+                      required
+                      className="border-2 focus:border-primary transition-colors duration-300"
+                    />
+                  </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
                       Phone Number *
@@ -71,12 +171,27 @@ export default function ContactPage() {
                       className="border-2 focus:border-primary transition-colors duration-300"
                     />
                   </div>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
-          </div>
-        </div>
-      </section>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                      Message
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Type your message here..."
+                      rows={5}
+                      className="border-2 focus:border-primary transition-colors duration-300"
+                    />
+                  </div>
+                  <Button type="submit" className="w-full py-3 text-lg font-semibold">
+                    <Send className="w-5 h-5 mr-2" /> Send Message
+                  </Button>
+                </form>
+              </div>
+            </div>
+            {/* ...existing code... */}
 
       {/* Contact Info Cards */}
       <section className="py-20 lg:py-32">
