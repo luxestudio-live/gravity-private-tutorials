@@ -41,9 +41,9 @@ const contactInfo = [
 
 const socialMedia = [
   { icon: Facebook, label: "Facebook", href: "#", color: "hover:bg-blue-500" },
-  { icon: Instagram, label: "Instagram", href: "#", color: "hover:bg-pink-500" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/decent_academy78?igsh=emp6Y2lsb2pxOHp6", color: "hover:bg-pink-500" },
   { icon: Youtube, label: "YouTube", href: "#", color: "hover:bg-red-500" },
-  { icon: MessageSquare, label: "WhatsApp", href: "#", color: "hover:bg-green-500" },
+  { icon: MessageSquare, label: "WhatsApp", href: "https://wa.me/919967397919", color: "hover:bg-green-500" },
 ]
 
 export default function ContactPage() {
@@ -438,7 +438,7 @@ export default function ContactPage() {
               },
               {
                 q: "Are there scholarship options?",
-                a: "Merit-based scholarships are available for top performers in entrance tests. Rankers from school get 30% off on fees.",
+                a: "Top 3 rankers from any school get 30% discount on any courses.",
               },
             ].map((faq, index) => (
               <div
