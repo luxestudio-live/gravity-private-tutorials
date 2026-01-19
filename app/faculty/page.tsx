@@ -134,16 +134,12 @@ export default function FacultyPage() {
 				<div className="container mx-auto px-4 lg:px-8">
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 						{facultyList.map((member, index) => (
-							{
-								name: "Jayant Pawar",
-								subject: "Counsellor",
-								qualification: "",
-								experience: "",
-								specialization: "",
-								achievements: [],
-								image: "jayant.jpeg",
-								color: "from-primary to-accent",
-							},
+							<div
+								key={index}
+								className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+							>
+								{/* Image */}
+								<div className="relative h-80 overflow-hidden bg-muted">
 									<img
 										src={member.image || "/placeholder.svg"}
 										alt={member.name}
