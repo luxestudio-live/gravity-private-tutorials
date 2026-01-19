@@ -72,10 +72,12 @@ export function Navbar() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" /decent-academy-v1/>
               </decent-academy-v1/Link>
             ))}
-            <Button className="ml-4 relative overflow-hidden group" size="lg">
-              <span className="relative z-10">Enroll Now</decent-academy-v1/span>
-              <span className="absolute inset-0 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" /decent-academy-v1/>
-            </decent-academy-v1/Button>
+            <Link href="/contact">
+              <Button className="ml-4 relative overflow-hidden group" size="lg">
+                <span className="relative z-10">Enroll Now</decent-academy-v1/span>
+                <span className="absolute inset-0 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" /decent-academy-v1/>
+              </decent-academy-v1/Button>
+            </Link>
           </decent-academy-v1/div>
 
           {/decent-academy-v1/* Mobile Menu Button */decent-academy-v1/}
@@ -102,9 +104,11 @@ export function Navbar() {
                   {link.name}
                 </decent-academy-v1/Link>
               ))}
-              <Button className="mt-4 mx-4" size="lg">
-                Enroll Now
-              </decent-academy-v1/Button>
+              <Link href="/contact" onClick={() => setIsOpen(false)}>
+                <Button className="mt-4 mx-4 w-[calc(100%-2rem)]" size="lg">
+                  Enroll Now
+                </decent-academy-v1/Button>
+              </Link>
             </decent-academy-v1/div>
           </decent-academy-v1/div>
         )}

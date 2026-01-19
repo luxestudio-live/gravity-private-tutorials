@@ -138,7 +138,7 @@ export function Footer() {
               <div>
                 <div className="font-medium mb-1">Visit Us</decent-academy-v1/div>
                 <div className="text-background/decent-academy-v1/80 text-sm leading-relaxed">
-                  Shop no 1, Bus Stop, Tembipada Road, near Shiv Darshan Path, Bhandup West, Mumbai, Maharashtra 400078
+                  Shop No 1, Ground Floor, Sai Smruti Building, Near Nath Pai School, Nardas Nagar, T. P. Road, Bhandup West, Mumbai - 400078
                 </decent-academy-v1/div>
               </decent-academy-v1/div>
             </decent-academy-v1/div>
