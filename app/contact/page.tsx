@@ -440,7 +440,7 @@ export default function ContactPage() {
               },
               {
                 q: "Are there scholarship options?",
-                a: "Merit-based scholarships are available for top performers in entrance tests.",
+                a: "Merit-based scholarships are available for top performers in entrance tests. Rankers from school get 30% off on fees.",
               },
             ].map((faq, index) => (
               <div

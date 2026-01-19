@@ -14,12 +14,12 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Vinay Lalwani",
-    course: "Tally Course",
+    name: "Tejas Pawar",
+    course: "Student",
     rank: "",
     image: "/decent-academy-v1/placeholder-user.jpg",
     content:
-      "My experience after joining tally in decent was awesome. Concepts were taught in detailed and all the doubts were clear.",
+      "Number 1 classes in Bhandup. All teachers teach very politely and great.",
     rating: 5,
   },
   {
