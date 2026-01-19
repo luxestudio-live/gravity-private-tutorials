@@ -13,16 +13,16 @@ const contactInfo = [
     icon: MapPin,
     title: "Visit Us",
     details: [
-      "Shop no 1, Bus Stop, Tembipada Road",
-      "near Shiv Darshan Path, Bhandup West",
-      "Mumbai, Maharashtra 400078",
+      "Shop No 1, Ground Floor, Sai Smruti Building",
+      "Near Nath Pai School, Nardas Nagar, T. P. Road",
+      "Bhandup West, Mumbai - 400078",
     ],
     color: "from-primary to-accent",
   },
   {
     icon: Phone,
     title: "Call / WhatsApp",
-    details: ["+91 99673 97919", "+91 99673 97919 (WhatsApp)", "Mon-Sat: 9 AM - 6 PM"],
+    details: ["+91 99673 97919", "+91 99673 97919 (WhatsApp)", "Mon-Sun: 9 AM - 9 PM"],
     color: "from-accent to-secondary",
   },
   {
@@ -34,7 +34,7 @@ const contactInfo = [
   {
     icon: Clock,
     title: "Office Hours",
-    details: ["Monday - Saturday", "9:00 AM - 6:00 PM", "Sunday: Closed"],
+    details: ["Monday - Sunday", "9:00 AM - 9:00 PM", "Open All Days"],
     color: "from-primary to-accent",
   },
 ]
