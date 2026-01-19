@@ -24,7 +24,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "ramkrishna-badgujar.jpeg",
+		image: "/decent-academy-v1/ramkrishna-badgujar.jpeg",
 		color: "from-secondary to-primary",
 	},
 	{
@@ -34,7 +34,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "sujeet-patil.png",
+		image: "/decent-academy-v1/sujeet-patil.png",
 		color: "from-accent to-secondary",
 	},
 	{
@@ -44,7 +44,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "pratik-sawant.jpeg",
+		image: "/decent-academy-v1/pratik-sawant.jpeg",
 		color: "from-accent to-secondary",
 	},
 	{
@@ -54,7 +54,7 @@ const facultyList: FacultyMember[] = [
 		experience: "16 Years",
 		specialization: "O.CM. / S.P",
 		achievements: [],
-		image: "pravin-devidas-thorat.jpeg",
+		image: "/decent-academy-v1/pravin-devidas-thorat.jpeg",
 		color: "from-primary to-accent",
 	},
 	{
@@ -64,7 +64,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "santosh-gopal-sawant.jpeg",
+		image: "/decent-academy-v1/santosh-gopal-sawant.jpeg",
 		color: "from-secondary to-primary",
 	},
 	{
@@ -74,7 +74,7 @@ const facultyList: FacultyMember[] = [
 		experience: "11 Years",
 		specialization: "",
 		achievements: [],
-		image: "arun-saheb-gauda.jpg",
+		image: "/decent-academy-v1/arun-saheb-gauda.jpeg",
 		color: "from-primary to-accent",
 	},
 	{
@@ -84,7 +84,7 @@ const facultyList: FacultyMember[] = [
 		experience: "21 Years",
 		specialization: "",
 		achievements: [],
-		image: "pankaj.jpeg",
+		image: "/decent-academy-v1/pankaj.jpeg",
 		color: "from-accent to-secondary",
 	},
 	{
@@ -94,7 +94,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "jayant.jpeg",
+		image: "/decent-academy-v1/jayant.jpeg",
 		color: "from-primary to-accent",
 	},
 ]
@@ -143,7 +143,7 @@ export default function FacultyPage() {
 									<img
 										src={member.image || "/placeholder.svg"}
 										alt={member.name}
-										className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+										className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
 									/>
 									<div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
 								</div>
