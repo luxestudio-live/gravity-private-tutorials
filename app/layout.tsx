@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Decent Academy",
     images: [
       {
-        url: "/decent-academy-v1/DecentLogo.png",
+        url: "/DecentLogo.png",
         width: 1200,
         height: 630,
         alt: "Decent Academy - A Symbol of Knowledge",
@@ -52,21 +52,21 @@ export const metadata: Metadata = {
     title: "Decent Academy - Premium Coaching for Excellence",
     description:
       "Leading coaching institute for 5th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
-    images: ["/decent-academy-v1/DecentLogo.png"],
+    images: ["/DecentLogo.png"],
   },
   icons: {
     icon: [
       {
-        url: "/decent-academy-v1/DecentLogo.svg",
+        url: "/DecentLogo.svg",
         type: "image/svg+xml",
       },
       {
-        url: "/decent-academy-v1/DecentLogo.png",
+        url: "/DecentLogo.png",
         type: "image/png",
       },
     ],
-    apple: "/decent-academy-v1/DecentLogo.png",
-    shortcut: "/decent-academy-v1/DecentLogo.svg",
+    apple: "/DecentLogo.png",
+    shortcut: "/DecentLogo.svg",
   },
 }
 

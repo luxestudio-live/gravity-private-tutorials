@@ -13,7 +13,7 @@ export function HeroSection() {
         {/* Logo Background */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <img 
-            src="/decent-academy-v1/DecentLogo.png" 
+            src="/DecentLogo.png" 
             alt="" 
             className="w-[400px] md:w-[600px] h-auto object-contain"
           />

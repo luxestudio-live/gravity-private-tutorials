@@ -34,7 +34,7 @@ export function Footer() {
       {/* Large Logo Watermark */}
       <div className="absolute inset-0 flex items-center justify-center py-8 opacity-8">
         <img 
-          src="/decent-academy-v1/DecentLogo.png" 
+          src="/DecentLogo.png" 
           alt="" 
           className="w-[500px] md:w-[700px] h-auto object-contain max-h-[90%]"
         />

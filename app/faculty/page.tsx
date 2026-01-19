@@ -24,7 +24,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/ramkrishna-badgujar.jpeg",
+		image: "/ramkrishna-badgujar.jpeg",
 		color: "from-secondary to-primary",
 	},
 	{
@@ -34,7 +34,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/sujeet-patil.png",
+		image: "/sujeet-patil.png",
 		color: "from-accent to-secondary",
 	},
 	{
@@ -44,7 +44,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/pratik-sawant.jpeg",
+		image: "/pratik-sawant.jpeg",
 		color: "from-accent to-secondary",
 	},
 	{
@@ -54,7 +54,7 @@ const facultyList: FacultyMember[] = [
 		experience: "16 Years",
 		specialization: "O.CM. / S.P",
 		achievements: [],
-		image: "/decent-academy-v1/pravin-devidas-thorat.jpeg",
+		image: "/pravin-devidas-thorat.jpeg",
 		color: "from-primary to-accent",
 	},
 	{
@@ -64,7 +64,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/santosh-gopal-sawant.jpeg",
+		image: "/santosh-gopal-sawant.jpeg",
 		color: "from-secondary to-primary",
 	},
 	{
@@ -74,7 +74,7 @@ const facultyList: FacultyMember[] = [
 		experience: "11 Years",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/arun-saheb-gauda.jpeg",
+		image: "/arun-saheb-gauda.jpeg",
 		color: "from-primary to-accent",
 	},
 	{
@@ -84,7 +84,7 @@ const facultyList: FacultyMember[] = [
 		experience: "21 Years",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/pankaj.jpeg",
+		image: "/pankaj.jpeg",
 		color: "from-accent to-secondary",
 	},
 	{
@@ -94,7 +94,7 @@ const facultyList: FacultyMember[] = [
 		experience: "",
 		specialization: "",
 		achievements: [],
-		image: "/decent-academy-v1/jayant.jpeg",
+		image: "/jayant.jpeg",
 		color: "from-primary to-accent",
 	},
 ]

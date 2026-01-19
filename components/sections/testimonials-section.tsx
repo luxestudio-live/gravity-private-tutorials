@@ -8,7 +8,7 @@ const testimonials = [
     name: "Veena Pednekar",
     course: "Student",
     rank: "",
-    image: "/decent-academy-v1/placeholder-user.jpg",
+    image: "/placeholder-user.jpg",
     content:
       "My classes at Decent Academy was an incredibly positive experience, marked by highly knowledgeable teachers who made complex concepts easy to understand and provided ample support through doubt-clearing sessions.",
     rating: 5,
@@ -17,7 +17,7 @@ const testimonials = [
     name: "Tejas Pawar",
     course: "Student",
     rank: "",
-    image: "/decent-academy-v1/placeholder-user.jpg",
+    image: "/placeholder-user.jpg",
     content:
       "Number 1 classes in Bhandup. All teachers teach very politely and great.",
     rating: 5,
@@ -26,7 +26,7 @@ const testimonials = [
     name: "Priya Sharma",
     course: "Student",
     rank: "",
-    image: "/decent-academy-v1/placeholder-user.jpg",
+    image: "/placeholder-user.jpg",
     content:
       "Very nice tution class techers and their teaching quality is very good they understand every student and solve their every issue",
     rating: 5,

@@ -48,7 +48,7 @@ export function Navbar() {
             className="flex items-center gap-3 transition-all duration-300 hover:scale-105 group"
           >
             <img 
-              src="/decent-academy-v1/DecentLogo.png" 
+              src="/DecentLogo.png" 
               alt="Decent Academy" 
               className="h-12 w-auto"
             />

@@ -8,91 +8,91 @@ import { Camera, X } from "lucide-react"
 const galleryImages = [
   {
     id: 1,
-    src: "/decent-academy-v1/da2.jpeg",
+    src: "/da2.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 2,
-    src: "/decent-academy-v1/da3.jpeg",
+    src: "/da3.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 3,
-    src: "/decent-academy-v1/da4.jpeg",
+    src: "/da4.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 4,
-    src: "/decent-academy-v1/da7.jpeg",
+    src: "/da7.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 5,
-    src: "/decent-academy-v1/da8.jpeg",
+    src: "/da8.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 6,
-    src: "/decent-academy-v1/da9.jpeg",
+    src: "/da9.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 7,
-    src: "/decent-academy-v1/daa1.png",
+    src: "/daa1.png",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 8,
-    src: "/decent-academy-v1/daa2.png",
+    src: "/daa2.png",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 9,
-    src: "/decent-academy-v1/daa3.png",
+    src: "/daa3.png",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 10,
-    src: "/decent-academy-v1/daa4.png",
+    src: "/daa4.png",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 11,
-    src: "/decent-academy-v1/daa5.jpeg",
+    src: "/daa5.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 12,
-    src: "/decent-academy-v1/daa6.jpeg",
+    src: "/daa6.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 13,
-    src: "/decent-academy-v1/da1.jpeg",
+    src: "/da1.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 14,
-    src: "/decent-academy-v1/da5.jpeg",
+    src: "/da5.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
   {
     id: 15,
-    src: "/decent-academy-v1/da6.jpeg",
+    src: "/da6.jpeg",
     title: "Decent Academy",
     description: "Moments from Decent Academy",
   },
@@ -146,7 +146,7 @@ export default function GalleryPage() {
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <img
-                  src={image.src || "/decent-academy-v1/placeholder.svg?height=400&width=400"}
+                  src={image.src || "/placeholder.svg?height=400&width=400"}
                   alt={image.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -177,7 +177,7 @@ export default function GalleryPage() {
           </button>
           <div className="max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
             <img
-              src={selectedImage.src || "/decent-academy-v1/placeholder.svg?height=800&width=1200"}
+              src={selectedImage.src || "/placeholder.svg?height=800&width=1200"}
               alt={selectedImage.title}
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
