@@ -1,4 +1,4 @@
-import { cn } from '@/decent-academy-v1/lib/decent-academy-v1/utils'
+import { cn } from '@/lib/utils'
 
 function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
   return (

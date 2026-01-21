@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/decent-academy-v1/react-slot'
 import { ChevronRight, MoreHorizontal } from 'lucide-react'
 
-import { cn } from '@/decent-academy-v1/lib/decent-academy-v1/utils'
+import { cn } from '@/lib/utils'
 
 function Breadcrumb({ ...props }: React.ComponentProps<'nav'>) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />

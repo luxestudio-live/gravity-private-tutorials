@@ -26,10 +26,10 @@ export function Footer() {
   return (
     <footer className="relative text-background overflow-hidden">
       {/* Dark Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-foreground/decent-academy-v1/95 via-foreground to-primary/decent-academy-v1/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-foreground/95 via-foreground to-primary/30" />
       
       {/* Glassmorphism Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/decent-academy-v1/40 via-black/decent-academy-v1/30 to-transparent backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-transparent backdrop-blur-sm" />
       
       {/* Large Logo Watermark */}
       <div className="absolute inset-0 flex items-center justify-center py-8 opacity-8">
@@ -42,9 +42,9 @@ export function Footer() {
       
       {/* Dynamic Gradient Overlay */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-gradient-radial from-primary/decent-academy-v1/40 via-secondary/decent-academy-v1/30 to-transparent blur-3xl animate-float" />
-        <div className="absolute bottom-0 left-0 w-[350px] h-[350px] md:w-[550px] md:h-[550px] bg-gradient-radial from-accent/decent-academy-v1/40 via-primary/decent-academy-v1/25 to-transparent blur-3xl animate-float" style={{ animationDelay: "3s" }} />
-        <div className="absolute top-1/decent-academy-v1/3 left-1/decent-academy-v1/2 -translate-x-1/decent-academy-v1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-gradient-radial from-secondary/decent-academy-v1/30 to-transparent blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-gradient-radial from-primary/40 via-secondary/30 to-transparent blur-3xl animate-float" />
+        <div className="absolute bottom-0 left-0 w-[350px] h-[350px] md:w-[550px] md:h-[550px] bg-gradient-radial from-accent/40 via-primary/25 to-transparent blur-3xl animate-float" style={{ animationDelay: "3s" }} />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-gradient-radial from-secondary/30 to-transparent blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
       </div>
       
       <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-20 relative z-10">
@@ -64,13 +64,13 @@ export function Footer() {
             <div className="flex gap-3">
               {[
                 { icon: Facebook, href: "#" },
-                { icon: Instagram, href: "https:/decent-academy-v1/www.instagram.com/decent-academy-v1/decent_academy78?igsh=emp6Y2lsb2pxOHp6" },
+                { icon: Instagram, href: "https://www.instagram.com/decent_academy78?igsh=emp6Y2lsb2pxOHp6" },
                 { icon: Youtube, href: "#" },
               ].map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
-                  className="w-10 h-10 bg-background/decent-academy-v1/10 backdrop-blur-sm border border-accent/decent-academy-v1/30 hover:bg-accent hover:border-accent hover:text-foreground rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                  className="w-10 h-10 bg-background/10 backdrop-blur-sm border border-accent/30 hover:bg-accent hover:border-accent hover:text-foreground rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -161,7 +161,7 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-background/decent-academy-v1/70 text-sm text-center md:text-left">
+          <p className="text-background/70 text-sm text-center md:text-left">
             © 2025 Decent Academy. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">

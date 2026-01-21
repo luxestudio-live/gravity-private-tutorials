@@ -37,10 +37,10 @@ export function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <section className="py-20 lg:py-32 bg-muted/decent-academy-v1/30 relative overflow-hidden">
+    <section className="py-20 lg:py-32 bg-muted/30 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-10 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 left-10 w-64 h-64 bg-accent/decent-academy-v1/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 left-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -64,7 +64,7 @@ export function TestimonialsSection() {
                 className={`group relative bg-card rounded-3xl border transition-all duration-500 cursor-pointer ${
                   activeIndex === index
                     ? "border-primary shadow-2xl scale-105 lg:col-span-1"
-                    : "border-border/50 hover:border-primary/decent-academy-v1/30 hover:shadow-xl hover:-translate-y-1"
+                    : "border-border/50 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1"
                 }`}
               >
                 {/* Quote Icon */}
@@ -81,14 +81,14 @@ export function TestimonialsSection() {
                   </div>
 
                   {/* Content */}
-                  <p className="text-foreground/decent-academy-v1/90 leading-relaxed mb-6 italic">"{testimonial.content}"</p>
+                  <p className="text-foreground/90 leading-relaxed mb-6 italic">"{testimonial.content}"</p>
 
                   {/* Student Info */}
                   <div className="flex items-center gap-4 pt-6 border-t border-border/50">
                     <img
                       src={testimonial.image || "/placeholder.svg"}
                       alt={testimonial.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/decent-academy-v1/20"
+                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/20"
                     />
                     <div>
                       <div className="font-bold text-foreground">{testimonial.name}</div>

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/decent-academy-v1/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from '@/decent-academy-v1/lib/decent-academy-v1/utils'
+import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 
 function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
@@ -31,13 +31,13 @@ function ItemSeparator({
 }
 
 const itemVariants = cva(
-  'group/decent-academy-v1/item flex items-center border border-transparent text-sm rounded-md transition-colors [a&]:hover:bg-accent/decent-academy-v1/50 [a&]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+  'group/decent-academy-v1/item flex items-center border border-transparent text-sm rounded-md transition-colors [a&]:hover:bg-accent/50 [a&]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
   {
     variants: {
       variant: {
         default: 'bg-transparent',
         outline: 'border-border',
-        muted: 'bg-muted/decent-academy-v1/50',
+        muted: 'bg-muted/50',
       },
       size: {
         default: 'p-4 gap-4 ',

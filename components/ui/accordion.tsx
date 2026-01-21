@@ -4,7 +4,7 @@ import * as React from 'react'
 import * as AccordionPrimitive from '@radix-ui/decent-academy-v1/react-accordion'
 import { ChevronDownIcon } from 'lucide-react'
 
-import { cn } from '@/decent-academy-v1/lib/decent-academy-v1/utils'
+import { cn } from '@/lib/utils'
 
 function Accordion({
   ...props

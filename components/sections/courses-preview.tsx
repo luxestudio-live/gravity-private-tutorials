@@ -46,7 +46,7 @@ export function CoursesPreview() {
           {courses.map((course, index) => (
             <div
               key={index}
-              className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+              className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
             >
               {/* Gradient Overlay */}
               <div
@@ -78,7 +78,7 @@ export function CoursesPreview() {
                 </div>
 
                 {/* Button */}
-                <Button variant="ghost" className="w-full group/decent-academy-v1/btn justify-between hover:bg-primary/10" asChild>
+                <Button variant="ghost" className="w-full group/btn justify-between hover:bg-primary/10" asChild>
                   <Link href="/courses">
                     <span>Learn More</span>
                     <ArrowRight className="w-4 h-4 group-hover/decent-academy-v1/btn:translate-x-1 transition-transform duration-300" />

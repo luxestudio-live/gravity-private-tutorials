@@ -8,7 +8,7 @@ export function HeroSection() {
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         {/* Horizontal Gradient Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/decent-academy-v1/10 via-secondary/decent-academy-v1/5 to-accent/decent-academy-v1/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10" />
         
         {/* Logo Background */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
@@ -23,7 +23,7 @@ export function HeroSection() {
       <div className="container mx-auto px-4 lg:px-8 py-20">
         <div className="max-w-5xl mx-auto text-center space-y-8">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium animate-scale-in border border-primary/decent-academy-v1/20 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium animate-scale-in border border-primary/20 backdrop-blur-sm">
             <Sparkles className="w-4 h-4" />
             <span>Leading Coaching Institute Since 2006</span>
           </div>
@@ -58,7 +58,7 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-6 group border-2 hover:bg-primary/decent-academy-v1/5 bg-background/decent-academy-v1/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
+              className="text-lg px-8 py-6 group border-2 hover:bg-primary/5 bg-background/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
               asChild
             >
               <Link href="/contact">Book Free Demo</Link>
@@ -75,7 +75,7 @@ export function HeroSection() {
             ].map((stat, index) => (
               <div
                 key={index}
-                className="p-6 bg-card/decent-academy-v1/90 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group"
+                className="p-6 bg-card/90 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group"
               >
                 <div className="text-3xl md:text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
                   {stat.value}
@@ -88,7 +88,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/decent-academy-v1/2 -translate-x-1/decent-academy-v1/2 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-primary rounded-full flex items-start justify-center p-2">
           <div className="w-1.5 h-3 bg-primary rounded-full animate-pulse" />
         </div>

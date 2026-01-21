@@ -19,7 +19,7 @@ const resultsData = {
       {
         name: "Hrithik Pandey",
         standard: "NEET-2023",
-        score: "681/decent-academy-v1/720",
+        score: "681/720",
         rank: "AIR - 1499",
         category: "Medical",
         subjects: ["Medical Entrance"],
@@ -27,7 +27,7 @@ const resultsData = {
       {
         name: "Ritesh Vishwakarma",
         standard: "NEET-2022",
-        score: "645/decent-academy-v1/720",
+        score: "645/720",
         rank: "AIR - 5333",
         category: "Medical",
         subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"],
@@ -98,7 +98,7 @@ const resultsData = {
       {
         name: "Hrithik Pandey",
         standard: "NEET-2023",
-        score: "681/decent-academy-v1/720",
+        score: "681/720",
         rank: "AIR - 1499",
         image: "",
         subjects: ["Medical Entrance"],
@@ -106,7 +106,7 @@ const resultsData = {
       {
         name: "Ritesh Vishwakarma",
         standard: "NEET-2022",
-        score: "645/decent-academy-v1/720",
+        score: "645/720",
         rank: "AIR - 5333",
         image: "",
         subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"],
@@ -144,7 +144,7 @@ const resultsData = {
       {
         name: "Hrithik Pandey",
         standard: "NEET-2023",
-        score: "681/decent-academy-v1/720",
+        score: "681/720",
         rank: "AIR - 1499",
         image: "",
         subjects: ["Medical Entrance"],
@@ -152,7 +152,7 @@ const resultsData = {
       {
         name: "Ritesh Vishwakarma",
         standard: "NEET-2022",
-        score: "645/decent-academy-v1/720",
+        score: "645/720",
         rank: "AIR - 5333",
         image: "",
         subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"],
@@ -190,7 +190,7 @@ export default function ResultsPage() {
       <Navbar />
 
       {/* Hero Section with modern gradient */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-primary/decent-academy-v1/5 to-secondary/5">
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-primary/5 to-secondary/5">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(var(--primary-rgb),0.1),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(var(--accent-rgb),0.1),transparent_50%)]" />
@@ -198,7 +198,7 @@ export default function ResultsPage() {
 
         <div className="container mx-auto px-4 lg:px-8 py-16">
           <div className="max-w-5xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/decent-academy-v1/10 via-secondary/decent-academy-v1/10 to-accent/decent-academy-v1/10 backdrop-blur-sm rounded-full text-primary text-sm font-semibold border border-primary/decent-academy-v1/20 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-sm rounded-full text-primary text-sm font-semibold border border-primary/20 shadow-lg">
               <Sparkles className="w-5 h-5 text-secondary" />
               <span>Celebrating Excellence Since 2006</span>
             </div>
@@ -219,7 +219,7 @@ export default function ResultsPage() {
               {results.highlights.map((highlight, index) => (
                 <div
                   key={index}
-                  className="group p-6 bg-card/decent-academy-v1/60 backdrop-blur-md rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                  className="group p-6 bg-card/60 backdrop-blur-md rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
                   <div className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
                     {highlight.value}
@@ -233,7 +233,7 @@ export default function ResultsPage() {
       </section>
 
       {/* Featured Achievers - Premium Design */}
-      <section className="py-20 lg:py-32 bg-muted/decent-academy-v1/30">
+      <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
@@ -257,14 +257,14 @@ export default function ResultsPage() {
                 {/* Glow effect on hover */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
                 
-                <div className="relative h-full bg-card rounded-3xl border-2 border-border hover:border-primary/decent-academy-v1/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                <div className="relative h-full bg-card rounded-3xl border-2 border-border hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                   {/* Top gradient bar */}
                   <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
                   
                   <div className="p-8">
                     {/* Rank badge */}
                     <div className="flex items-center justify-between mb-6">
-                      <div className="px-4 py-2 bg-gradient-to-r from-primary/decent-academy-v1/20 to-secondary/decent-academy-v1/20 rounded-xl text-primary text-xs font-bold uppercase tracking-wider">
+                      <div className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl text-primary text-xs font-bold uppercase tracking-wider">
                         {topper.category}
                       </div>
                       <div className="w-12 h-12 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
@@ -291,7 +291,7 @@ export default function ResultsPage() {
                     {/* Details */}
                     <div className="pt-4 border-t border-border/50">
                       {topper.subjects.map((subject, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-foreground/decent-academy-v1/70">
+                        <div key={idx} className="flex items-center gap-2 text-sm text-foreground/70">
                           <Award className="w-4 h-4 text-accent flex-shrink-0" />
                           <span>{subject}</span>
                         </div>
@@ -309,7 +309,7 @@ export default function ResultsPage() {
       <section className="py-20 lg:py-32 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/decent-academy-v1/10 rounded-full text-secondary text-sm font-semibold mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-semibold mb-6">
               <Medal className="w-4 h-4" />
               <span>SSC Excellence</span>
             </div>
@@ -325,7 +325,7 @@ export default function ResultsPage() {
             {results.sscToppers?.map((topper, index) => (
               <div
                 key={index}
-                className="group relative bg-gradient-to-br from-card to-card/decent-academy-v1/50 rounded-2xl border border-border hover:border-secondary/decent-academy-v1/50 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-secondary/50 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
                 {/* Top accent */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary rounded-t-2xl" />
@@ -359,7 +359,7 @@ export default function ResultsPage() {
       </section>
 
       {/* Commerce & Science Toppers - Side by Side */}
-      <section className="py-20 lg:py-32 bg-muted/decent-academy-v1/30">
+      <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
             {/* Commerce Toppers */}
@@ -381,7 +381,7 @@ export default function ResultsPage() {
                 {results.commerceToppers?.map((topper, index) => (
                   <div
                     key={index}
-                    className="group bg-card rounded-xl border border-border hover:border-primary/decent-academy-v1/50 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-x-1"
+                    className="group bg-card rounded-xl border border-border hover:border-primary/50 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-x-1"
                   >
                     <div className="flex items-start gap-4">
                       {/* Rank badge */}
@@ -414,7 +414,7 @@ export default function ResultsPage() {
             {/* Science Toppers */}
             <div>
               <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/decent-academy-v1/10 rounded-full text-accent text-sm font-semibold mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent text-sm font-semibold mb-6">
                   <Sparkles className="w-4 h-4" />
                   <span>Science Stream</span>
                 </div>
@@ -430,7 +430,7 @@ export default function ResultsPage() {
                 {results.scienceToppers?.map((topper, index) => (
                   <div
                     key={index}
-                    className="group bg-card rounded-xl border border-border hover:border-accent/decent-academy-v1/50 p-6 transition-all duration-300 hover:shadow-lg hover:translate-x-1"
+                    className="group bg-card rounded-xl border border-border hover:border-accent/50 p-6 transition-all duration-300 hover:shadow-lg hover:translate-x-1"
                   >
                     <div className="flex items-start gap-4">
                       {/* Rank badge */}
@@ -464,7 +464,7 @@ export default function ResultsPage() {
       </section>
 
       {/* Statistics Section - Modern Design */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-primary/decent-academy-v1/5 via-background to-accent/decent-academy-v1/5">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -480,11 +480,11 @@ export default function ResultsPage() {
               {Object.entries(results.statistics).map(([standard, stats], index) => (
                 <div
                   key={standard}
-                  className="group relative bg-card/decent-academy-v1/60 backdrop-blur-sm rounded-3xl border-2 border-border hover:border-primary/decent-academy-v1/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
+                  className="group relative bg-card/60 backdrop-blur-sm rounded-3xl border-2 border-border hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/decent-academy-v1/10 via-secondary/decent-academy-v1/10 to-accent/decent-academy-v1/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Top accent bar */}
                   <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
@@ -503,7 +503,7 @@ export default function ResultsPage() {
 
                     {/* Stats */}
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 bg-background/decent-academy-v1/50 rounded-xl">
+                      <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center">
                             <Star className="w-5 h-5 text-white" />
@@ -516,7 +516,7 @@ export default function ResultsPage() {
                       </div>
 
                       {stats.above85 && (
-                        <div className="flex items-center justify-between p-4 bg-background/decent-academy-v1/50 rounded-xl">
+                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center">
                               <Medal className="w-5 h-5 text-white" />
@@ -530,7 +530,7 @@ export default function ResultsPage() {
                       )}
 
                       {stats.above80 && (
-                        <div className="flex items-center justify-between p-4 bg-background/decent-academy-v1/50 rounded-xl">
+                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
                               <Award className="w-5 h-5 text-white" />
@@ -544,7 +544,7 @@ export default function ResultsPage() {
                       )}
 
                       {stats.above75 && (
-                        <div className="flex items-center justify-between p-4 bg-background/decent-academy-v1/50 rounded-xl">
+                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center">
                               <TrendingUp className="w-5 h-5 text-white" />
@@ -558,7 +558,7 @@ export default function ResultsPage() {
                       )}
 
                       {/* Pass Rate - Highlighted */}
-                      <div className="mt-6 p-6 bg-gradient-to-br from-primary/decent-academy-v1/20 to-accent/decent-academy-v1/20 rounded-2xl border-2 border-primary/decent-academy-v1/30">
+                      <div className="mt-6 p-6 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border-2 border-primary/30">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">

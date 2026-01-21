@@ -117,7 +117,7 @@ export default function GalleryPage() {
 
         <div className="container mx-auto px-4 lg:px-8 py-12">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/decent-academy-v1/20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
               <Camera className="w-4 h-4" />
               <span>Capturing Memorable Moments</span>
             </div>
@@ -151,7 +151,7 @@ export default function GalleryPage() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/decent-academy-v1/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-background">
                     <h3 className="text-lg font-bold mb-1">{image.title}</h3>
                     <p className="text-sm text-background/80">{image.description}</p>
@@ -166,12 +166,12 @@ export default function GalleryPage() {
       {/* Lightbox Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-foreground/decent-academy-v1/95 z-50 flex items-center justify-center p-4 animate-scale-in"
+          className="fixed inset-0 bg-foreground/95 z-50 flex items-center justify-center p-4 animate-scale-in"
           onClick={() => setSelectedImage(null)}
         >
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 w-12 h-12 bg-background/decent-academy-v1/10 hover:bg-background/decent-academy-v1/20 rounded-full flex items-center justify-center transition-colors duration-300 group"
+            className="absolute top-4 right-4 w-12 h-12 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors duration-300 group"
           >
             <X className="w-6 h-6 text-background group-hover:rotate-90 transition-transform duration-300" />
           </button>

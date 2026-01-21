@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from '@/decent-academy-v1/lib/decent-academy-v1/utils'
+import { cn } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
@@ -117,7 +117,7 @@ function FieldLabel({
       className={cn(
         'group/decent-academy-v1/field-label peer/decent-academy-v1/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/decent-academy-v1/field:opacity-50',
         'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-4',
-        'has-data-[state=checked]:bg-primary/decent-academy-v1/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10',
+        'has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10',
         className,
       )}
       {...props}
@@ -170,7 +170,7 @@ function FieldSeparator({
       )}
       {...props}
     >
-      <Separator className="absolute inset-0 top-1/decent-academy-v1/2" />
+      <Separator className="absolute inset-0 top-1/2" />
       {children && (
         <span
           className="bg-background text-muted-foreground relative mx-auto block w-fit px-2"

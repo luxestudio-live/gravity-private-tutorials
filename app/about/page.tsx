@@ -54,7 +54,7 @@ export default function AboutPage() {
 
         <div className="container mx-auto px-4 lg:px-8 py-12">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/decent-academy-v1/20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
               <Award className="w-4 h-4" />
               <span>20 Years of Educational Excellence</span>
             </div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Mission */}
-            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-12 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 p-12 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
               <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500" />
               <div className="relative z-10">
                 <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -94,8 +94,8 @@ export default function AboutPage() {
             </div>
 
             {/* Vision */}
-            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-12 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/decent-academy-v1/10 to-secondary/decent-academy-v1/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500" />
+            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 p-12 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-secondary/10 opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500" />
               <div className="relative z-10">
                 <div className="w-20 h-20 bg-gradient-to-br from-accent to-secondary rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
                   <Eye className="w-10 h-10 text-white" />
@@ -115,7 +115,7 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-16 lg:py-20 bg-muted/decent-academy-v1/30">
+      <section className="py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
@@ -133,7 +133,7 @@ export default function AboutPage() {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
               >
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`}
@@ -173,7 +173,7 @@ export default function AboutPage() {
           <div className="max-w-5xl mx-auto">
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-1/decent-academy-v1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-secondary hidden lg:block" />
+              <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-secondary hidden lg:block" />
 
               {/* Timeline Items */}
               <div className="space-y-12">
@@ -187,7 +187,7 @@ export default function AboutPage() {
                     {/* Content */}
                     <div className="flex-1">
                       <div
-                        className={`group bg-card rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 ${
+                        className={`group bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 ${
                           index % 2 === 0 ? "lg:text-right" : "lg:text-left"
                         }`}
                       >
@@ -200,7 +200,7 @@ export default function AboutPage() {
                     </div>
 
                     {/* Center Dot */}
-                    <div className="hidden lg:block absolute left-1/decent-academy-v1/2 -translate-x-1/decent-academy-v1/2">
+                    <div className="hidden lg:block absolute left-1/2 -translate-x-1/2">
                       <div className="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-full border-4 border-background shadow-lg" />
                     </div>
 
@@ -215,7 +215,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 lg:py-20 bg-muted/decent-academy-v1/30">
+      <section className="py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto bg-gradient-to-br from-primary via-accent to-secondary rounded-3xl p-12 lg:p-16 text-center text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
@@ -229,10 +229,10 @@ export default function AboutPage() {
             </div>
             <div className="relative z-10">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">Ready to Begin Your Journey?</h2>
-              <p className="text-xl mb-8 text-white/decent-academy-v1/90 text-pretty leading-relaxed max-w-2xl mx-auto">
+              <p className="text-xl mb-8 text-white/90 text-pretty leading-relaxed max-w-2xl mx-auto">
                 Join thousands of successful students who transformed their academic careers with us
               </p>
-              <Button size="lg" className="bg-white text-primary hover:bg-white/decent-academy-v1/90 text-lg px-8 py-6 group" asChild>
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 group" asChild>
                 <Link href="/contact">
                   <span className="flex items-center gap-2">
                     Contact Us Today

@@ -41,9 +41,9 @@ const contactInfo = [
 
 const socialMedia = [
   { icon: Facebook, label: "Facebook", href: "#", color: "hover:bg-blue-500" },
-  { icon: Instagram, label: "Instagram", href: "https:/decent-academy-v1/www.instagram.com/decent-academy-v1/decent_academy78?igsh=emp6Y2lsb2pxOHp6", color: "hover:bg-pink-500" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/decent_academy78?igsh=emp6Y2lsb2pxOHp6", color: "hover:bg-pink-500" },
   { icon: Youtube, label: "YouTube", href: "#", color: "hover:bg-red-500" },
-  { icon: MessageSquare, label: "WhatsApp", href: "https:/decent-academy-v1/wa.me/decent-academy-v1/919967397919", color: "hover:bg-green-500" },
+  { icon: MessageSquare, label: "WhatsApp", href: "https://wa.me/919967397919", color: "hover:bg-green-500" },
 ]
 
 export default function ContactPage() {
@@ -122,7 +122,7 @@ export default function ContactPage() {
       const response = await fetch("https://formspree.io/f/xlggbbbk", {
         method: "POST",
         headers: {
-          "Content-Type": "application/decent-academy-v1/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       })
@@ -162,7 +162,7 @@ export default function ContactPage() {
         </div>
         <div className="container mx-auto px-4 lg:px-8 py-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/decent-academy-v1/20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
               <MessageSquare className="w-4 h-4" />
               <span>We're Here to Help</span>
             </div>
@@ -183,7 +183,7 @@ export default function ContactPage() {
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 text-center"
+                className="group relative bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 text-center"
               >
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${info.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`}
@@ -211,8 +211,8 @@ export default function ContactPage() {
           {/* Main Contact Section */}
           <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
             {/* Contact Form */}
-            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-8 lg:p-12 transition-all duration-500 hover:shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/decent-academy-v1/5 to-accent/decent-academy-v1/5 rounded-3xl" />
+            <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 p-8 lg:p-12 transition-all duration-500 hover:shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl" />
               <div className="relative z-10">
                 <h2 className="text-3xl font-bold mb-6 group-hover:text-primary transition-colors duration-300">
                   Send Us a Message
@@ -290,11 +290,11 @@ export default function ContactPage() {
                     type="submit" 
                     size="lg" 
                     disabled={isSubmitting || submitSuccess}
-                    className="w-full group/decent-academy-v1/btn relative overflow-hidden disabled:opacity-50"
+                    className="w-full group/btn relative overflow-hidden disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span className="relative z-10 flex items-center justify-center gap-2">
-                        <svg className="animate-spin h-5 w-5" xmlns="http:/decent-academy-v1/www.w3.org/decent-academy-v1/2000/decent-academy-v1/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -330,7 +330,7 @@ export default function ContactPage() {
             {/* Map & Social */}
             <div className="space-y-8">
               {/* Map */}
-              <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 overflow-hidden transition-all duration-500 hover:shadow-2xl h-[400px]">
+              <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl h-[400px]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3968574835597!2d72.9373964!3d19.124098999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7ddb6c9c1b7%3A0x9d9c9c9c9c9c9c9c!2sShop%20No%201%2C%20Ground%20Floor%2C%20Sai%20Smruti%20Building%2C%20Near%20Nath%20Pai%20School%2C%20Nardas%20Nagar%2C%20T.%20P.%20Road%2C%20Bhandup%20West%2C%20Mumbai%2C%20Maharashtra%20400078!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
                   width="100%"
@@ -352,7 +352,7 @@ export default function ContactPage() {
               </div>
 
               {/* Social Media */}
-              <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-8 transition-all duration-500 hover:shadow-2xl">
+              <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-secondary/5 rounded-3xl" />
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold mb-6 group-hover:text-primary transition-colors duration-300">
@@ -389,11 +389,11 @@ export default function ContactPage() {
                 </div>
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold mb-4">Need Immediate Assistance?</h3>
-                  <p className="text-white/decent-academy-v1/90 mb-6 leading-relaxed">
+                  <p className="text-white/90 mb-6 leading-relaxed">
                     Call us directly or visit our campus for a personal consultation
                   </p>
                   <div className="flex flex-col gap-3">
-                    <Button size="lg" className="bg-white text-primary hover:bg-white/decent-academy-v1/90 w-full group/decent-academy-v1/btn" asChild>
+                    <Button size="lg" className="bg-white text-primary hover:bg-white/90 w-full group/btn" asChild>
                       <a href="tel:+919967397919">
                         <Phone className="w-5 h-5 mr-2 group-hover/decent-academy-v1/btn:rotate-12 transition-transform duration-300" />
                         Call Now
@@ -402,10 +402,10 @@ export default function ContactPage() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-2 border-white text-white hover:bg-white/decent-academy-v1/10 w-full bg-transparent"
+                      className="border-2 border-white text-white hover:bg-white/10 w-full bg-transparent"
                       asChild
                     >
-                      <a href="https:/decent-academy-v1/wa.me/decent-academy-v1/919967397919" target="_blank" rel="noopener noreferrer">
+                      <a href="https://wa.me/919967397919" target="_blank" rel="noopener noreferrer">
                         <MessageSquare className="w-5 h-5 mr-2" />
                         WhatsApp Us
                       </a>
@@ -419,7 +419,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 lg:py-32 bg-muted/decent-academy-v1/30">
+      <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
@@ -451,7 +451,7 @@ export default function ContactPage() {
             ].map((faq, index) => (
               <div
                 key={index}
-                className="group bg-card rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+                className="group bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
               >
                 <h3 className="text-lg font-bold mb-3 group-hover:text-primary transition-colors duration-300">
                   {faq.q}

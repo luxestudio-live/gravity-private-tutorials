@@ -1,6 +1,6 @@
 'use client'
 
-import { useToast } from '@/decent-academy-v1/hooks/decent-academy-v1/use-toast'
+import { useToast } from '@/hooks/use-toast'
 import {
   Toast,
   ToastClose,

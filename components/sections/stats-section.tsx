@@ -29,7 +29,7 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="py-20 lg:py-32 bg-muted/decent-academy-v1/30">
+    <section className="py-20 lg:py-32 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
@@ -47,7 +47,7 @@ export function StatsSection() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="group relative p-8 bg-card rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+              className="group relative p-8 bg-card rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Gradient Background on Hover */}

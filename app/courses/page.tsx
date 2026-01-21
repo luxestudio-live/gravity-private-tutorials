@@ -151,7 +151,7 @@ export default function CoursesPage() {
                   className={`group relative px-6 py-4 rounded-xl font-medium transition-all duration-300 w-full sm:w-auto ${
                     activeCategory === category
                       ? "bg-gradient-to-r from-primary to-accent text-white shadow-xl scale-105"
-                      : "bg-card border border-border/50 hover:border-primary/decent-academy-v1/50 hover:shadow-lg hover:-translate-y-1"
+                      : "bg-card border border-border/50 hover:border-primary/50 hover:shadow-lg hover:-translate-y-1"
                   }`}
                 >
                   <span className="flex items-center justify-center gap-2">
@@ -187,7 +187,7 @@ export default function CoursesPage() {
             {activeCourse.standards.map((standard, index) => (
               <div
                 key={index}
-                className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/decent-academy-v1/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 animate-scale-in"
+                className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 animate-scale-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Gradient Overlay */}
@@ -211,7 +211,7 @@ export default function CoursesPage() {
                       {standard.subjects.map((subject, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-medium border border-primary/decent-academy-v1/20"
+                          className="px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-medium border border-primary/20"
                         >
                           {subject}
                         </span>
@@ -245,7 +245,7 @@ export default function CoursesPage() {
                   </div>
 
                   {/* Enroll Button */}
-                  <Button className="w-full mt-6 group/decent-academy-v1/btn" asChild>
+                  <Button className="w-full mt-6 group/btn" asChild>
                     <Link href="/contact">
                       <span className="flex items-center justify-center gap-2">
                         Enroll Now
@@ -261,7 +261,7 @@ export default function CoursesPage() {
       </section>
 
       {/* Additional Features */}
-      <section className="py-16 lg:py-20 bg-muted/decent-academy-v1/30">
+      <section className="py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
@@ -283,7 +283,7 @@ export default function CoursesPage() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="group bg-card rounded-2xl border border-border/50 hover:border-primary/decent-academy-v1/50 p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
+                className="group bg-card rounded-2xl border border-border/50 hover:border-primary/50 p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
               >
                 <feature.icon className="w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">

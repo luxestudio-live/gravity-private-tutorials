@@ -6,7 +6,7 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
-import { cn } from '@/decent-academy-v1/lib/decent-academy-v1/utils'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
 type CarouselApi = UseEmblaCarouselType[1]
@@ -187,8 +187,8 @@ function CarouselPrevious({
       className={cn(
         'absolute size-8 rounded-full',
         orientation === 'horizontal'
-          ? 'top-1/decent-academy-v1/2 -left-12 -translate-y-1/decent-academy-v1/2'
-          : '-top-12 left-1/decent-academy-v1/2 -translate-x-1/decent-academy-v1/2 rotate-90',
+          ? 'top-1/2 -left-12 -translate-y-1/2'
+          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
       disabled={!canScrollPrev}
@@ -217,8 +217,8 @@ function CarouselNext({
       className={cn(
         'absolute size-8 rounded-full',
         orientation === 'horizontal'
-          ? 'top-1/decent-academy-v1/2 -right-12 -translate-y-1/decent-academy-v1/2'
-          : '-bottom-12 left-1/decent-academy-v1/2 -translate-x-1/decent-academy-v1/2 rotate-90',
+          ? 'top-1/2 -right-12 -translate-y-1/2'
+          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
       disabled={!canScrollNext}

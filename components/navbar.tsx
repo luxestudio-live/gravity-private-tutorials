@@ -91,7 +91,7 @@ export function Navbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden py-6 bg-background/decent-academy-v1/98 backdrop-blur-xl border-t border-border/50 shadow-2xl rounded-b-2xl animate-scale-in">
+          <div className="lg:hidden py-6 bg-background/98 backdrop-blur-xl border-t border-border/50 shadow-2xl rounded-b-2xl animate-scale-in">
             <div className="flex flex-col gap-2">
               {navLinks.map((link, index) => (
                 <Link
