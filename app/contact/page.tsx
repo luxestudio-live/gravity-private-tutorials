@@ -109,7 +109,7 @@ export default function ContactPage() {
       newErrors.phone = "Please enter a valid 10-digit phone number"
     }
 
-    /decent-academy-v1/ Check if there are any errors
+    // Check if there are any errors
     if (newErrors.name || newErrors.email || newErrors.phone) {
       setErrors(newErrors)
       return
