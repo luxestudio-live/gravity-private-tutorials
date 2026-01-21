@@ -6,6 +6,7 @@ import { Star, Quote } from "lucide-react"
 const testimonials = [
   {
     name: "Veena Pednekar",
+    initials: "VP",
     course: "Student",
     rank: "",
     image: "/placeholder-user.jpg",
@@ -15,6 +16,7 @@ const testimonials = [
   },
   {
     name: "Tejas Pawar",
+    initials: "TP",
     course: "Student",
     rank: "",
     image: "/placeholder-user.jpg",
@@ -24,6 +26,7 @@ const testimonials = [
   },
   {
     name: "Priya Sharma",
+    initials: "PS",
     course: "Student",
     rank: "",
     image: "/placeholder-user.jpg",
@@ -85,11 +88,9 @@ export function TestimonialsSection() {
 
                   {/* Student Info */}
                   <div className="flex items-center gap-4 pt-6 border-t border-border/50">
-                    <img
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/20"
-                    />
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg border-2 border-primary/20">
+                      {testimonial.initials}
+                    </div>
                     <div>
                       <div className="font-bold text-foreground">{testimonial.name}</div>
                       <div className="text-sm text-muted-foreground">{testimonial.course}</div>
