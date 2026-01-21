@@ -195,7 +195,6 @@ export default function FacultyPage() {
 										alt={member.name}
 										className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
 									/>
-									<div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
 								</div>
 								<div className="relative z-10 p-8 -mt-12">
 									{/* Badge */}
