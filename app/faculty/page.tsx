@@ -193,7 +193,9 @@ export default function FacultyPage() {
 									<img
 										src={member.image || "/placeholder.svg"}
 										alt={member.name}
-										className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+										className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ${
+											member.name === "Sujeet Patil" ? "object-center" : "object-top"
+										}`}
 									/>
 								</div>
 								<div className="relative z-10 p-8 -mt-12">
