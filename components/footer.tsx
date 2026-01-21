@@ -173,6 +173,22 @@ export function Footer() {
             </Link>
           </div>
         </div>
+
+        {/* Credit */}
+        <div className="mt-6 pt-6 border-t border-background/20 text-center">
+          <p className="text-background/60 text-sm italic">
+            Dreamed, designed, and brought to life by{" "}
+            <a 
+              href="https://www.luxestudio.live" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-accent hover:text-secondary transition-colors duration-300 font-medium"
+            >
+              LuxeStudio
+            </a>
+            {" "}— where ideas find their elegance.
+          </p>
+        </div>
       </div>
     </footer>
   )
