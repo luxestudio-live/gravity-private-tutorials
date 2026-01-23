@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Playfair_Display, Inter, Bebas_Neue } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { FloatingEnquireButton } from "@/components/floating-enquire-button"
+import { AuthProvider } from "@/lib/auth-context"
 import "./globals.css"
 
 const playfairDisplay = Playfair_Display({
@@ -78,9 +79,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfairDisplay.variable} ${inter.variable} ${bebasNeue.variable} font-sans antialiased`}>
-        {children}
-        <FloatingEnquireButton />
-        <Analytics />
+        <AuthProvider>
+          {children}
+          <FloatingEnquireButton />
+          <Analytics />
+        </AuthProvider>
       </body>
     </html>
   )
