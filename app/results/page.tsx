@@ -1,14 +1,44 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Trophy, Medal, Star, Award, Sparkles, TrendingUp } from "lucide-react"
+import { db } from "@/lib/firebase"
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 
-type ResultYear = "2024" | "2023" | "2022"
+type Highlight = { label: string; value: string; category: string }
+type FeaturedTopper = { name: string; standard: string; score: string; rank: string; category: string; subjects?: string[]; image?: string }
+type SimpleTopper = { name: string; score: string; rank?: string; standard?: string; college?: string; image?: string }
+type ResultStatistics = {
+  ["10th"]?: { total: number; above90?: number; above85?: number; above80?: number; above75?: number; passRate: number }
+  ["12th"]?: { total: number; above90?: number; above85?: number; above80?: number; above75?: number; passRate: number }
+}
+type ResultsContent = {
+  highlights?: Highlight[]
+  featuredToppers?: FeaturedTopper[]
+  sscToppers?: SimpleTopper[]
+  commerceToppers?: SimpleTopper[]
+  scienceToppers?: SimpleTopper[]
+  statistics?: ResultStatistics
+}
 
-const resultsData = {
-  "2024": {
+type Topper = {
+  id: string
+  academicYear: string
+  category: string
+  name: string
+  score: string
+  rank?: string
+  standard?: string
+  school?: string
+  college?: string
+  image?: string
+}
+
+// Fallback data to use if Firestore is empty
+const fallbackResultsByYear: Record<string, ResultsContent> = {
+  "2024-2025": {
     highlights: [
       { label: "Students Above 90%", value: "16", category: "SSC Toppers" },
       { label: "Students Above 85%", value: "35", category: "SSC Results" },
@@ -16,38 +46,10 @@ const resultsData = {
       { label: "Success Rate", value: "100%", category: "Pass Percentage" },
     ],
     featuredToppers: [
-      {
-        name: "Hrithik Pandey",
-        standard: "NEET-2023",
-        score: "681/720",
-        rank: "AIR - 1499",
-        category: "Medical",
-        subjects: ["Medical Entrance"],
-      },
-      {
-        name: "Ritesh Vishwakarma",
-        standard: "NEET-2022",
-        score: "645/720",
-        rank: "AIR - 5333",
-        category: "Medical",
-        subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"],
-      },
-      {
-        name: "Rudra Vengurlekar",
-        standard: "JEE-ADV 2021",
-        score: "98.33%",
-        rank: "AIR - 8025 • Gold Medal",
-        category: "Engineering",
-        subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."],
-      },
-      {
-        name: "Riddhi Bhor",
-        standard: "MHT-CET 2023",
-        score: "99.46%",
-        rank: "VIT Pune-Chem Eng",
-        category: "Engineering",
-        subjects: ["Vishwakarma Institute of Technology"],
-      },
+      { name: "Hrithik Pandey", standard: "NEET-2023", score: "681/720", rank: "AIR - 1499", category: "Medical", subjects: ["Medical Entrance"] },
+      { name: "Ritesh Vishwakarma", standard: "NEET-2022", score: "645/720", rank: "AIR - 5333", category: "Medical", subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"] },
+      { name: "Rudra Vengurlekar", standard: "JEE-ADV 2021", score: "98.33%", rank: "AIR - 8025 • Gold Medal", category: "Engineering", subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."] },
+      { name: "Riddhi Bhor", standard: "MHT-CET 2023", score: "99.46%", rank: "VIT Pune-Chem Eng", category: "Engineering", subjects: ["Vishwakarma Institute of Technology"] },
     ],
     sscToppers: [
       { name: "Sanskruti M.", score: "96.20%", rank: "1st", standard: "PBAG" },
@@ -87,107 +89,138 @@ const resultsData = {
       "12th": { total: 85, above90: 15, above75: 68, passRate: 98.8 },
     },
   },
-  "2023": {
-    highlights: [
-      { label: "NEET AIR", value: "1499", category: "NEET-2023" },
-      { label: "NEET AIR", value: "5333", category: "NEET-2022" },
-      { label: "JEE-ADV", value: "98.33%", category: "Percentile" },
-      { label: "MHT-CET", value: "99.46%", category: "2023" },
-    ],
-    toppers: [
-      {
-        name: "Hrithik Pandey",
-        standard: "NEET-2023",
-        score: "681/720",
-        rank: "AIR - 1499",
-        image: "",
-        subjects: ["Medical Entrance"],
-      },
-      {
-        name: "Ritesh Vishwakarma",
-        standard: "NEET-2022",
-        score: "645/720",
-        rank: "AIR - 5333",
-        image: "",
-        subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"],
-      },
-      {
-        name: "Rudra Vengurlekar",
-        standard: "JEE-ADV 2021",
-        score: "98.33 Percentile",
-        rank: "AIR - 8025 • Gold Medal",
-        image: "",
-        subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."],
-      },
-      {
-        name: "Riddhi Bhor",
-        standard: "MHT-CET 2023",
-        score: "99.46%",
-        rank: "VIT Pune-Chem Eng",
-        image: "",
-        subjects: ["Vishwakarma Institute of Technology"],
-      },
-    ],
-    statistics: {
-      "10th": { total: 138, above90: 118, above75: 135, passRate: 100 },
-      "12th": { total: 152, above90: 88, above75: 145, passRate: 98.8 },
-    },
-  },
-  "2022": {
-    highlights: [
-      { label: "NEET AIR", value: "1499", category: "NEET-2023" },
-      { label: "NEET AIR", value: "5333", category: "NEET-2022" },
-      { label: "JEE-ADV", value: "98.33%", category: "Percentile" },
-      { label: "MHT-CET", value: "99.46%", category: "2023" },
-    ],
-    toppers: [
-      {
-        name: "Hrithik Pandey",
-        standard: "NEET-2023",
-        score: "681/720",
-        rank: "AIR - 1499",
-        image: "",
-        subjects: ["Medical Entrance"],
-      },
-      {
-        name: "Ritesh Vishwakarma",
-        standard: "NEET-2022",
-        score: "645/720",
-        rank: "AIR - 5333",
-        image: "",
-        subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"],
-      },
-      {
-        name: "Rudra Vengurlekar",
-        standard: "JEE-ADV 2021",
-        score: "98.33 Percentile",
-        rank: "AIR - 8025 • Gold Medal",
-        image: "",
-        subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."],
-      },
-      {
-        name: "Riddhi Bhor",
-        standard: "MHT-CET 2023",
-        score: "99.46%",
-        rank: "VIT Pune-Chem Eng",
-        image: "",
-        subjects: ["Vishwakarma Institute of Technology"],
-      },
-    ],
-    statistics: {
-      "10th": { total: 125, above90: 105, above75: 122, passRate: 100 },
-      "12th": { total: 142, above90: 78, above75: 135, passRate: 95.7 },
-    },
-  },
 }
 
 export default function ResultsPage() {
-  const [selectedYear, setSelectedYear] = useState<ResultYear>("2024")
-  const results = resultsData[selectedYear]
+  const getFallbackForYear = (year: string) => fallbackResultsByYear[year] || null
+
+  const [years, setYears] = useState<string[]>([])
+  const [selectedYear, setSelectedYear] = useState<string>("2024-2025")
+  const [results, setResults] = useState<ResultsContent | null>(getFallbackForYear("2024-2025"))
+  const [featured, setFeatured] = useState<FeaturedTopper[]>(getFallbackForYear("2024-2025")?.featuredToppers || [])
+  const [ssc, setSsc] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.sscToppers || [])
+  const [commerce, setCommerce] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.commerceToppers || [])
+  const [science, setScience] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.scienceToppers || [])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // Firestore fetch: first get available years, then load selected year
+  useEffect(() => {
+    const fetchYears = async () => {
+      try {
+        const resultsSnap = await getDocs(collection(db, "resultsPages"))
+        const resultsYears = resultsSnap.docs.map((d) => d.id)
+
+        const toppersSnap = await getDocs(collection(db, "toppers"))
+        const topperYearsSet = new Set<string>()
+        toppersSnap.forEach((d) => {
+          const data = d.data()
+          if (data.academicYear) topperYearsSet.add(data.academicYear)
+        })
+
+        const combined = Array.from(new Set([...resultsYears, ...topperYearsSet, ...Object.keys(fallbackResultsByYear)])).sort().reverse()
+
+        if (combined.length > 0) {
+          setYears(combined)
+          setSelectedYear(combined[0])
+        } else {
+          setYears([])
+          setSelectedYear("")
+          setResults(null)
+          setLoading(false)
+        }
+      } catch (err) {
+        console.error("Error fetching years", err)
+        setError("Could not load academic years.")
+        setYears(Object.keys(fallbackResultsByYear))
+        setSelectedYear(Object.keys(fallbackResultsByYear)[0] || "")
+        setResults(fallbackResultsByYear[Object.keys(fallbackResultsByYear)[0]] || null)
+        setLoading(false)
+      }
+    }
+
+    fetchYears()
+  }, [])
+
+  useEffect(() => {
+    const fetchYearData = async () => {
+      if (!selectedYear) return
+      try {
+        setLoading(true)
+
+        // 1) Page-level data (highlights/statistics) from resultsPages
+        let yearResults = getFallbackForYear(selectedYear)
+        try {
+          const docRef = doc(db, "resultsPages", selectedYear)
+          const docSnap = await getDoc(docRef)
+          if (docSnap.exists()) {
+            yearResults = docSnap.data() as ResultsContent
+          }
+        } catch (err) {
+          console.warn("resultsPages fetch fallback", err)
+        }
+        setResults(yearResults || null)
+
+        // 2) Toppers by academicYear from toppers collection
+        try {
+          const q = query(collection(db, "toppers"), where("academicYear", "==", selectedYear))
+          const snap = await getDocs(q)
+          const list = snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<Topper, "id">) })) as Topper[]
+
+          if (list.length > 0) {
+            setFeatured(list.filter((t) => t.category === "Featured"))
+            setSsc(list.filter((t) => t.category === "SSC"))
+            setCommerce(list.filter((t) => t.category === "Commerce"))
+            setScience(list.filter((t) => t.category === "Science"))
+          } else if (yearResults) {
+            // fallback to stored page data if no toppers
+            setFeatured(yearResults.featuredToppers || [])
+            setSsc(yearResults.sscToppers || [])
+            setCommerce(yearResults.commerceToppers || [])
+            setScience(yearResults.scienceToppers || [])
+          } else {
+            setFeatured([])
+            setSsc([])
+            setCommerce([])
+            setScience([])
+          }
+        } catch (err) {
+          console.error("Error fetching toppers", err)
+          if (yearResults) {
+            setFeatured(yearResults.featuredToppers || [])
+            setSsc(yearResults.sscToppers || [])
+            setCommerce(yearResults.commerceToppers || [])
+            setScience(yearResults.scienceToppers || [])
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching results", err)
+        setError("Could not load results for this year.")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchYearData()
+  }, [selectedYear])
+
+  const highlights = results?.highlights || []
+  const statistics = results?.statistics || {}
 
   return (
     <main className="min-h-screen">
       <Navbar />
+
+      {loading && (
+        <div className="container mx-auto px-4 lg:px-8 py-10 text-center text-muted-foreground">
+          Loading results...
+        </div>
+      )}
+      {!loading && !results && (
+        <div className="container mx-auto px-4 lg:px-8 py-10 text-center text-destructive">
+          No results available for {selectedYear}. Please try a different academic year.
+        </div>
+      )}
 
       {/* Hero Section with modern gradient */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-primary/5 to-secondary/5">
@@ -207,16 +240,35 @@ export default function ResultsPage() {
               <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                 Outstanding
               </span>
-              <span className="block mt-4 text-foreground">Results 2024-25</span>
+              <span className="block mt-4 text-foreground">Results {selectedYear}</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Celebrating success stories that inspire excellence
             </p>
 
+            {/* Academic Year Selector */}
+            {years.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-3 pt-6">
+                {years.map((year) => (
+                  <button
+                    key={year}
+                    onClick={() => setSelectedYear(year)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
+                      selectedYear === year
+                        ? "bg-primary text-white border-primary"
+                        : "bg-card/60 text-foreground border-border hover:border-primary/50"
+                    }`}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8">
-              {results.highlights.map((highlight, index) => (
+              {highlights.map((highlight, index) => (
                 <div
                   key={index}
                   className="group p-6 bg-card/60 backdrop-blur-md rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
@@ -249,7 +301,7 @@ export default function ResultsPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            {results.featuredToppers?.map((topper, index) => (
+            {featured.map((topper, index) => (
               <div
                 key={index}
                 className="group relative"
@@ -261,42 +313,56 @@ export default function ResultsPage() {
                   {/* Top gradient bar */}
                   <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
                   
-                  <div className="p-8">
+                  {/* Image Section */}
+                  {topper.image && (
+                    <div className="relative w-full h-40 md:h-48 overflow-hidden bg-muted">
+                      <img 
+                        src={topper.image} 
+                        alt={topper.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80" />
+                    </div>
+                  )}
+                  
+                  <div className={topper.image ? "p-6 pt-4" : "p-8"}>
                     {/* Rank badge */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl text-primary text-xs font-bold uppercase tracking-wider">
+                    <div className="flex items-center justify-between mb-4 md:mb-6">
+                      <div className="px-3 md:px-4 py-1.5 md:py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl text-primary text-xs font-bold uppercase tracking-wider">
                         {topper.category}
                       </div>
-                      <div className="w-12 h-12 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      <div className="w-10 md:w-12 h-10 md:h-12 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-lg">
                         {index + 1}
                       </div>
                     </div>
 
                     {/* Score - Large and prominent */}
-                    <div className="mb-6 text-center">
-                      <div className="text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
+                    <div className="mb-4 md:mb-6 text-center">
+                      <div className="text-3xl md:text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-1 md:mb-2">
                         {topper.score}
                       </div>
-                      <div className="text-sm font-semibold text-secondary">{topper.rank}</div>
+                      <div className="text-xs md:text-sm font-semibold text-secondary">{topper.rank}</div>
                     </div>
 
                     {/* Name */}
-                    <h4 className="text-2xl font-bold mb-2 text-center group-hover:text-primary transition-colors duration-300">
+                    <h4 className="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-center group-hover:text-primary transition-colors duration-300 line-clamp-2">
                       {topper.name}
                     </h4>
                     
                     {/* Standard */}
-                    <p className="text-center text-muted-foreground font-medium mb-4">{topper.standard}</p>
+                    <p className="text-center text-muted-foreground font-medium mb-3 md:mb-4 text-sm md:text-base">{topper.standard}</p>
 
                     {/* Details */}
-                    <div className="pt-4 border-t border-border/50">
-                      {topper.subjects.map((subject, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-foreground/70">
-                          <Award className="w-4 h-4 text-accent flex-shrink-0" />
-                          <span>{subject}</span>
-                        </div>
-                      ))}
-                    </div>
+                    {topper.subjects && topper.subjects.length > 0 && (
+                      <div className="pt-3 md:pt-4 border-t border-border/50">
+                        {topper.subjects.map((subject, idx) => (
+                          <div key={idx} className="flex items-center gap-2 text-xs md:text-sm text-foreground/70">
+                            <Award className="w-3 md:w-4 h-3 md:h-4 text-accent flex-shrink-0" />
+                            <span className="line-clamp-1">{subject}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -322,35 +388,48 @@ export default function ResultsPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {results.sscToppers?.map((topper, index) => (
+            {ssc.map((topper, index) => (
               <div
                 key={index}
-                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-secondary/50 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-secondary/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
                 {/* Top accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary rounded-t-2xl" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary" />
                 
-                {/* Rank indicator */}
-                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-                  {index + 1}
+                {/* Image or Avatar */}
+                <div className="relative w-full h-24 md:h-32 bg-muted overflow-hidden">
+                  {topper.image ? (
+                    <img 
+                      src={topper.image} 
+                      alt={topper.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-secondary/30 to-accent/30 flex items-center justify-center">
+                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent">
+                        #{index + 1}
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/60" />
                 </div>
 
-                <div className="pt-2">
+                <div className="p-4 md:p-6">
                   {/* Score */}
-                  <div className="text-center mb-4">
-                    <div className="text-4xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent mb-1">
+                  <div className="text-center mb-3 md:mb-4">
+                    <div className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent mb-1">
                       {topper.score}
                     </div>
-                    <div className="text-xs text-muted-foreground font-medium">{topper.rank || "Top Performer"}</div>
+                    <div className="text-xs md:text-sm text-muted-foreground font-medium">{topper.rank || "Top Performer"}</div>
                   </div>
 
                   {/* Name */}
-                  <h4 className="text-lg font-bold mb-2 text-center group-hover:text-secondary transition-colors">
+                  <h4 className="text-base md:text-lg font-bold mb-1 text-center group-hover:text-secondary transition-colors line-clamp-2">
                     {topper.name}
                   </h4>
                   
                   {/* Standard */}
-                  <p className="text-center text-muted-foreground text-sm">{topper.standard}</p>
+                  <p className="text-center text-muted-foreground text-xs md:text-sm">{topper.standard}</p>
                 </div>
               </div>
             ))}
@@ -378,31 +457,41 @@ export default function ResultsPage() {
               </div>
 
               <div className="space-y-4">
-                {results.commerceToppers?.map((topper, index) => (
+                {commerce.map((topper, index) => (
                   <div
                     key={index}
-                    className="group bg-card rounded-xl border border-border hover:border-primary/50 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-x-1"
+                    className="group bg-card rounded-xl border border-border hover:border-primary/50 p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:-translate-x-1"
                   >
-                    <div className="flex items-start gap-4">
-                      {/* Rank badge */}
-                      <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
-                        {index + 1}
+                    <div className="flex items-start gap-3 md:gap-4">
+                      {/* Image or Rank badge */}
+                      <div className="flex-shrink-0">
+                        {topper.image ? (
+                          <img 
+                            src={topper.image} 
+                            alt={topper.name}
+                            className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-primary/30 group-hover:border-primary/50 transition-colors"
+                          />
+                        ) : (
+                          <div className="w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-md">
+                            {index + 1}
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex-1 min-w-0">
                         {/* Name & Score */}
-                        <div className="flex items-start justify-between mb-2">
-                          <h4 className="text-xl font-bold group-hover:text-primary transition-colors">
+                        <div className="flex items-start justify-between mb-1 md:mb-2 gap-2">
+                          <h4 className="text-base md:text-lg font-bold group-hover:text-primary transition-colors line-clamp-2">
                             {topper.name}
                           </h4>
-                          <div className="text-2xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent ml-2">
+                          <div className="text-xl md:text-2xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent flex-shrink-0">
                             {topper.score}
                           </div>
                         </div>
                         
                         {/* Details */}
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span>{topper.college}</span>
+                        <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+                          <span className="line-clamp-1">{topper.college}</span>
                         </div>
                       </div>
                     </div>
@@ -427,31 +516,41 @@ export default function ResultsPage() {
               </div>
 
               <div className="space-y-4">
-                {results.scienceToppers?.map((topper, index) => (
+                {science.map((topper, index) => (
                   <div
                     key={index}
-                    className="group bg-card rounded-xl border border-border hover:border-accent/50 p-6 transition-all duration-300 hover:shadow-lg hover:translate-x-1"
+                    className="group bg-card rounded-xl border border-border hover:border-accent/50 p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:translate-x-1"
                   >
-                    <div className="flex items-start gap-4">
-                      {/* Rank badge */}
-                      <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-accent to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
-                        {index + 1}
+                    <div className="flex items-start gap-3 md:gap-4">
+                      {/* Image or Rank badge */}
+                      <div className="flex-shrink-0">
+                        {topper.image ? (
+                          <img 
+                            src={topper.image} 
+                            alt={topper.name}
+                            className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-accent/30 group-hover:border-accent/50 transition-colors"
+                          />
+                        ) : (
+                          <div className="w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-md">
+                            {index + 1}
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex-1 min-w-0">
                         {/* Name & Score */}
-                        <div className="flex items-start justify-between mb-2">
-                          <h4 className="text-xl font-bold group-hover:text-accent transition-colors">
+                        <div className="flex items-start justify-between mb-1 md:mb-2 gap-2">
+                          <h4 className="text-base md:text-lg font-bold group-hover:text-accent transition-colors line-clamp-2">
                             {topper.name}
                           </h4>
-                          <div className="text-2xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent ml-2">
+                          <div className="text-xl md:text-2xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent flex-shrink-0">
                             {topper.score}
                           </div>
                         </div>
                         
                         {/* Details */}
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span>{topper.college}</span>
+                        <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+                          <span className="line-clamp-1">{topper.college}</span>
                         </div>
                       </div>
                     </div>
@@ -477,7 +576,7 @@ export default function ResultsPage() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {Object.entries(results.statistics).map(([standard, stats], index) => (
+              {Object.entries(statistics).map(([standard, stats], index) => (
                 <div
                   key={standard}
                   className="group relative bg-card/60 backdrop-blur-sm rounded-3xl border-2 border-border hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"

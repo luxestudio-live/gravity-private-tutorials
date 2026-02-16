@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { db } from "@/lib/firebase"
+import { collection, addDoc } from "firebase/firestore"
 import { MapPin, Phone, Mail, Clock, Send, Facebook, Instagram, Youtube, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -118,6 +120,29 @@ export default function ContactPage() {
     setIsSubmitting(true)
 
     try {
+      // Get current date and time
+      const now = new Date()
+      const submittedAt = now.toLocaleString('en-IN', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+
+      // Save to Firestore
+      await addDoc(collection(db, 'contacts'), {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        status: 'unread',
+        contacted: false,
+        submittedAt,
+        createdAt: now,
+      })
+      console.log('Contact saved to Firestore')
+
       // Submit to Formspree
       const response = await fetch("https://formspree.io/f/xlggbbbk", {
         method: "POST",
