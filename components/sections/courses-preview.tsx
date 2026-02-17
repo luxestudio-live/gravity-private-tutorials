@@ -5,7 +5,7 @@ import Link from "next/link"
 const courses = [
   {
     icon: GraduationCap,
-    title: "5th to 10th Standard",
+    title: "8th to 10th Standard",
     medium: "English Medium",
     subjects: ["Mathematics", "Science", "Languages", "Social Studies"],
     color: "from-primary to-accent",

@@ -28,13 +28,13 @@ const bebasNeue = Bebas_Neue({
 export const metadata: Metadata = {
   title: "Gravity Private Tutorials - Premium Coaching for Excellence",
   description:
-    "Leading coaching institute for 5th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
+    "Leading coaching institute for 8th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
   generator: "v0.app",
   metadataBase: new URL("https://gravitytutorials.theluxestudio.in"),
   openGraph: {
     title: "Gravity Private Tutorials - Premium Coaching for Excellence",
     description:
-      "Leading coaching institute for 5th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
+      "Leading coaching institute for 8th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
     url: "https://gravitytutorials.theluxestudio.in/",
     siteName: "Gravity Private Tutorials",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Gravity Private Tutorials - Premium Coaching for Excellence",
     description:
-      "Leading coaching institute for 5th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
+      "Leading coaching institute for 8th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
     images: ["/gravity-logo.png"],
   },
   icons: {

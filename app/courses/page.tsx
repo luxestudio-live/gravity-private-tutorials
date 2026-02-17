@@ -11,7 +11,7 @@ type CourseCategory = "5-10" | "science" | "commerce"
 
 const courseData = {
   "5-10": {
-    title: "5th to 10th Standard",
+    title: "8th to 10th Standard",
     subtitle: "English Medium",
     icon: GraduationCap,
     color: "from-primary to-accent",

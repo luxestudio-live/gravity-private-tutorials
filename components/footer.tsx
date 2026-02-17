@@ -10,7 +10,7 @@ const footerLinks = {
     { name: "Results", href: "/results" },
   ],
   programs: [
-    { name: "5th to 10th", href: "/courses#5-10" },
+    { name: "8th to 10th", href: "/courses#5-10" },
     { name: "11th-12th Science", href: "/courses#science" },
     { name: "11th-12th Commerce", href: "/courses#commerce" },
     { name: "CET & JEE", href: "/courses#competitive" },
