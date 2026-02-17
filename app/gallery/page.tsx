@@ -1,105 +1,157 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Camera, X } from "lucide-react"
+import { db } from "@/lib/firebase"
+import { collection, getDocs } from "firebase/firestore"
 
-const galleryImages = [
+type GalleryImage = {
+  id: string
+  src: string
+  title: string
+  description: string
+  isDefault?: boolean
+}
+
+const CONTENT_PLACEHOLDER = "/placeholder.svg?height=400&width=400"
+
+const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
+  items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
+
+const defaultGalleryImages: GalleryImage[] = [
   {
-    id: 1,
+    id: "default_1",
     src: "/da2.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 2,
+    id: "default_2",
     src: "/da3.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 3,
+    id: "default_3",
     src: "/da4.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 4,
+    id: "default_4",
     src: "/da7.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 5,
+    id: "default_5",
     src: "/da8.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 6,
+    id: "default_6",
     src: "/da9.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 7,
+    id: "default_7",
     src: "/daa1.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 8,
+    id: "default_8",
     src: "/daa2.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 9,
+    id: "default_9",
     src: "/daa3.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 10,
+    id: "default_10",
     src: "/daa4.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 11,
+    id: "default_11",
     src: "/daa5.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 12,
+    id: "default_12",
     src: "/daa6.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 13,
+    id: "default_13",
     src: "/da1.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 14,
+    id: "default_14",
     src: "/da5.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
   {
-    id: 15,
+    id: "default_15",
     src: "/da6.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
+    isDefault: true,
   },
 ]
 
 export default function GalleryPage() {
-  const [selectedImage, setSelectedImage] = useState<(typeof galleryImages)[0] | null>(null)
+  const [allImages, setAllImages] = useState<GalleryImage[]>(withPlaceholderImages(defaultGalleryImages))
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchGalleryImages()
+  }, [])
+
+  const fetchGalleryImages = async () => {
+    try {
+      setLoading(true)
+      const snap = await getDocs(collection(db, 'gallery'))
+      const newImages = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as GalleryImage[]
+      console.log('Fetched new gallery images from Firestore:', newImages)
+      // New images first, then default images
+      setAllImages(withPlaceholderImages([...newImages, ...defaultGalleryImages]))
+    } catch (error) {
+      console.error('Error fetching gallery images:', error)
+      setAllImages(withPlaceholderImages(defaultGalleryImages))
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <main className="min-h-screen">
@@ -128,7 +180,7 @@ export default function GalleryPage() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              A glimpse into the vibrant life at Decent Academy
+              A glimpse into the vibrant life at Gravity Private Tutorials
             </p>
           </div>
         </div>
@@ -137,8 +189,13 @@ export default function GalleryPage() {
       {/* Gallery Grid */}
       <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {galleryImages.map((image, index) => (
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {allImages.map((image, index) => (
               <div
                 key={image.id}
                 onClick={() => setSelectedImage(image)}
@@ -159,7 +216,8 @@ export default function GalleryPage() {
                 </div>
               </div>
             ))}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 

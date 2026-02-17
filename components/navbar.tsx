@@ -48,13 +48,13 @@ export function Navbar() {
             className="flex items-center gap-3 transition-all duration-300 hover:scale-105 group"
           >
             <img 
-              src="/DecentLogo.png" 
-              alt="Decent Academy" 
+              src="/gravity-logo.png" 
+              alt="Gravity Private Tutorials" 
               className="h-12 w-auto"
             />
             <span className="text-2xl lg:text-3xl font-[family-name:var(--font-bebas)] font-bold tracking-wide">
-              <span className="text-primary">DECENT</span>{" "}
-              <span className="text-primary">ACADEMY</span>
+              <span className="text-primary">GRAVITY</span>{" "}
+              <span className="text-primary">PRIVATE TUTORIALS</span>
             </span>
           </Link>
 

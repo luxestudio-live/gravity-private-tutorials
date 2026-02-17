@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { db } from "@/lib/firebase"
+import { collection, addDoc } from "firebase/firestore"
 import { MapPin, Phone, Mail, Clock, Send, Facebook, Instagram, Youtube, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,13 +24,13 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call // WhatsApp",
-    details: ["+91 99673 97919", "+91 99673 97919 (WhatsApp)", "Mon-Sun: 9 AM - 9 PM"],
+    details: ["+91 9321861630", "+91 9321861630 (WhatsApp)", "Mon-Sun: 9 AM - 9 PM"],
     color: "from-accent to-secondary",
   },
   {
     icon: Mail,
     title: "Email Us",
-    details: ["info@decentacademy.com", "admissions@decentacademy.com", "support@decentacademy.com"],
+    details: ["info@gravitytutorials.com", "admissions@gravitytutorials.com", "support@gravitytutorials.com"],
     color: "from-secondary to-primary",
   },
   {
@@ -41,9 +43,9 @@ const contactInfo = [
 
 const socialMedia = [
   { icon: Facebook, label: "Facebook", href: "#", color: "hover:bg-blue-500" },
-  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/decent_academy78?igsh=emp6Y2lsb2pxOHp6", color: "hover:bg-pink-500" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/gravity_tutorials", color: "hover:bg-pink-500" },
   { icon: Youtube, label: "YouTube", href: "#", color: "hover:bg-red-500" },
-  { icon: MessageSquare, label: "WhatsApp", href: "https://wa.me/919967397919", color: "hover:bg-green-500" },
+  { icon: MessageSquare, label: "WhatsApp", href: "https://wa.me/919321861630", color: "hover:bg-green-500" },
 ]
 
 export default function ContactPage() {
@@ -118,6 +120,29 @@ export default function ContactPage() {
     setIsSubmitting(true)
 
     try {
+      // Get current date and time
+      const now = new Date()
+      const submittedAt = now.toLocaleString('en-IN', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+
+      // Save to Firestore
+      await addDoc(collection(db, 'contacts'), {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        status: 'unread',
+        contacted: false,
+        submittedAt,
+        createdAt: now,
+      })
+      console.log('Contact saved to Firestore')
+
       // Submit to Formspree
       const response = await fetch("https://formspree.io/f/xlggbbbk", {
         method: "POST",
@@ -394,7 +419,7 @@ export default function ContactPage() {
                   </p>
                   <div className="flex flex-col gap-3">
                     <Button size="lg" className="bg-white text-primary hover:bg-white/90 w-full group/btn" asChild>
-                      <a href="tel:+919967397919">
+                      <a href="tel:+919321861630">
                         <Phone className="w-5 h-5 mr-2 group-hover/decent-academy-v1/btn:rotate-12 transition-transform duration-300" />
                         Call Now
                       </a>
@@ -405,7 +430,7 @@ export default function ContactPage() {
                       className="border-2 border-white text-white hover:bg-white/10 w-full bg-transparent"
                       asChild
                     >
-                      <a href="https://wa.me/919967397919" target="_blank" rel="noopener noreferrer">
+                      <a href="https://wa.me/919321861630" target="_blank" rel="noopener noreferrer">
                         <MessageSquare className="w-5 h-5 mr-2" />
                         WhatsApp Us
                       </a>

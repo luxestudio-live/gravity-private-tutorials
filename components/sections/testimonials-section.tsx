@@ -11,7 +11,7 @@ const testimonials = [
     rank: "",
     image: "/placeholder-user.jpg",
     content:
-      "My classes at Decent Academy was an incredibly positive experience, marked by highly knowledgeable teachers who made complex concepts easy to understand and provided ample support through doubt-clearing sessions.",
+      "My classes at Gravity Private Tutorials was an incredibly positive experience, marked by highly knowledgeable teachers who made complex concepts easy to understand and provided ample support through doubt-clearing sessions.",
     rating: 5,
   },
   {

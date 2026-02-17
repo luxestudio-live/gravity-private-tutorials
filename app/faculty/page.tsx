@@ -2,21 +2,30 @@
 
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Award, GraduationCap, Star, Users } from "lucide-react"
+import { db } from "@/lib/firebase"
+import { collection, getDocs } from "firebase/firestore"
+import Image from "next/image"
 
 type FacultyMember = {
+	id?: string;
 	name: string;
 	subject: string;
 	qualification: string;
 	experience: string;
 	specialization: string;
-	achievements: string[];
+	achievements?: string[];
 	image: string;
 	color: string;
 };
 
-const facultyList: FacultyMember[] = [
+const CONTENT_PLACEHOLDER = "/placeholder.svg?height=600&width=600"
+
+const withPlaceholderImages = <T extends { image?: string }>(items: T[]): T[] =>
+	items.map((item) => ({ ...item, image: CONTENT_PLACEHOLDER }))
+
+const defaultFaculty: FacultyMember[] = [
 	{
 		name: "Virendra Kumar Badgujar",
 		subject: "",
@@ -150,6 +159,28 @@ const facultyList: FacultyMember[] = [
 ]
 
 export default function FacultyPage() {
+	const [allFaculty, setAllFaculty] = useState<FacultyMember[]>(withPlaceholderImages(defaultFaculty))
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		const fetchFaculty = async () => {
+			try {
+				setLoading(true)
+				const snap = await getDocs(collection(db, 'faculty'))
+				const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
+				console.log('Public page - Fetched new faculty from Firestore:', newFaculty)
+				setAllFaculty(withPlaceholderImages([...defaultFaculty, ...newFaculty]))
+			} catch (error) {
+				console.error('Error fetching faculty:', error)
+				setAllFaculty(withPlaceholderImages(defaultFaculty))
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		fetchFaculty()
+	}, [])
+
 	return (
 		<main className="min-h-screen">
 			<Navbar />
@@ -166,7 +197,7 @@ export default function FacultyPage() {
 					<div className="max-w-4xl mx-auto text-center space-y-6">
 						<div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
 							<Users className="w-4 h-4" />
-							<span>30+ Expert Educators</span>
+							<span>{allFaculty.length}+ Expert Educators</span>
 						</div>
 						<h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight">
 							Meet Our
@@ -182,22 +213,43 @@ export default function FacultyPage() {
 			{/* Faculty Grid */}
 			<section className="py-16 lg:py-20">
 				<div className="container mx-auto px-4 lg:px-8">
-					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-						{facultyList.map((member, index) => (
-							<div
-								key={index}
-								className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
-							>
-								{/* Image */}
-								<div className="relative h-80 overflow-hidden bg-muted">
-									<img
-										src={member.image || "/placeholder.svg"}
-										alt={member.name}
-										className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ${
-											member.name === "Sujeet Patil" ? "object-center" : "object-top"
-										}`}
-									/>
+					{loading ? (
+						<div className="flex items-center justify-center py-20">
+							<div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+						</div>
+					) : (
+						<>
+							{allFaculty.length === 0 ? (
+								<div className="text-center">
+									<p className="text-muted-foreground">No faculty members found</p>
 								</div>
+							) : (
+								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+									{allFaculty.map((member, index) => (
+									<div
+										key={index}
+										className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+									>
+										{/* Image */}
+										<div className="relative h-80 overflow-hidden bg-muted flex items-center justify-center">
+											{member.image ? (
+												<img
+													src={member.image}
+													alt={member.name}
+													onError={(e) => {
+														console.error(`Failed to load image for ${member.name}:`, member.image)
+														e.currentTarget.src = "/placeholder.svg"
+													}}
+													className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ${
+														member.name === "Sujeet Patil" ? "object-center" : "object-top"
+													}`}
+												/>
+											) : (
+												<div className="w-full h-full bg-muted-foreground/20 flex items-center justify-center">
+													<Users className="w-12 h-12 text-muted-foreground" />
+												</div>
+											)}
+										</div>
 								<div className="relative z-10 p-8 -mt-12">
 									{/* Badge */}
 									<div
@@ -224,8 +276,11 @@ export default function FacultyPage() {
 									</div>
 								</div>
 							</div>
-						))}
-					</div>
+							))}
+							</div>
+							)}
+						</>
+					)}
 				</div>
 			</section>
 			<Footer />

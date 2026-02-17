@@ -2,6 +2,8 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { PartyPopper, BookOpen, Trophy, Music, Users, FlaskConical, Palette, Mic } from "lucide-react"
 
+const CONTENT_PLACEHOLDER = "/placeholder.svg?height=400&width=600"
+
 const activities = [
   {
     icon: FlaskConical,
@@ -155,7 +157,7 @@ export default function ActivitiesPage() {
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden bg-muted">
                   <img
-                    src={activity.image || "/placeholder.svg"}
+                    src={CONTENT_PLACEHOLDER}
                     alt={activity.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />

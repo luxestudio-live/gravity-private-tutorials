@@ -2,8 +2,16 @@
 
 import Link from "next/link"
 import { MessageCircle } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 export function FloatingEnquireButton() {
+  const pathname = usePathname()
+  
+  // Don't show on admin pages
+  if (pathname?.startsWith('/admin')) {
+    return null
+  }
+
   return (
     <Link
       href="/contact"

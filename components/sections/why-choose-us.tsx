@@ -56,7 +56,7 @@ export function WhyChooseUs() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
-            Experience the Decent Academy advantage that sets us apart
+            Experience the Gravity Private Tutorials advantage that sets us apart
           </p>
         </div>
 
