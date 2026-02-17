@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[89896,["/gravity-private-tutorials/_next/static/chunks/3337476739009024.js","/gravity-private-tutorials/_next/static/chunks/796e7f5bb07ad38d.js"],"ClientSegmentRoot"]
+3:I[8374,["/gravity-private-tutorials/_next/static/chunks/d4e852f63a77086e.js","/gravity-private-tutorials/_next/static/chunks/a53a8b569e05977a.js","/gravity-private-tutorials/_next/static/chunks/79e59a98c4677e86.js","/gravity-private-tutorials/_next/static/chunks/d3df9e84261bc131.js","/gravity-private-tutorials/_next/static/chunks/82b52eaec25e9a3e.js"],"default"]
+4:I[42869,["/gravity-private-tutorials/_next/static/chunks/3337476739009024.js","/gravity-private-tutorials/_next/static/chunks/796e7f5bb07ad38d.js"],"default"]
+5:I[63587,["/gravity-private-tutorials/_next/static/chunks/3337476739009024.js","/gravity-private-tutorials/_next/static/chunks/796e7f5bb07ad38d.js"],"default"]
+0:{"buildId":"Qd6KyBI0Ueb14HvlClKa9","rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/gravity-private-tutorials/_next/static/chunks/d3df9e84261bc131.js","async":true}],["$","script","script-1",{"src":"/gravity-private-tutorials/_next/static/chunks/82b52eaec25e9a3e.js","async":true}]],["$","$L2",null,{"Component":"$3","slots":{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]},"serverProvidedParams":{"params":{},"promises":["$@6"]}}]]}],"loading":null,"isPartial":false}
+6:"$0:rsc:props:children:1:props:serverProvidedParams:params"

@@ -1,0 +1,4 @@
+1:"$Sreact.fragment"
+2:I[42869,["/gravity-private-tutorials/_next/static/chunks/d4e852f63a77086e.js","/gravity-private-tutorials/_next/static/chunks/796e7f5bb07ad38d.js","/gravity-private-tutorials/_next/static/chunks/79e59a98c4677e86.js","/gravity-private-tutorials/_next/static/chunks/a53a8b569e05977a.js"],"default"]
+3:I[63587,["/gravity-private-tutorials/_next/static/chunks/d4e852f63a77086e.js","/gravity-private-tutorials/_next/static/chunks/796e7f5bb07ad38d.js","/gravity-private-tutorials/_next/static/chunks/79e59a98c4677e86.js","/gravity-private-tutorials/_next/static/chunks/a53a8b569e05977a.js"],"default"]
+0:{"buildId":"Qd6KyBI0Ueb14HvlClKa9","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
