@@ -2,8 +2,7 @@
 
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true'
 const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'gravity-private-tutorials'
-const hasCustomDomain = process.env.GH_PAGES_CUSTOM_DOMAIN === 'true'
-const useRepoBasePath = isGithubActions && !hasCustomDomain
+const useRepoBasePath = isGithubActions
 
 const nextConfig = {
   typescript: {
