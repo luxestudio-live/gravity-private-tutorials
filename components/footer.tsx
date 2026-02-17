@@ -34,7 +34,7 @@ export function Footer() {
       {/* Large Logo Watermark */}
       <div className="absolute inset-0 flex items-center justify-center py-8 opacity-8">
         <img 
-          src="/DecentLogo.png" 
+          src="/gravity-logo.png" 
           alt="" 
           className="w-[500px] md:w-[700px] h-auto object-contain max-h-[90%]"
         />
@@ -53,9 +53,9 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h3 className="text-3xl font-bold mb-4">
               <span className="text-secondary">
-                DECENT
+                GRAVITY
               </span>
-              <span className="text-accent ml-2">ACADEMY</span>
+              <span className="text-accent ml-2">PRIVATE TUTORIALS</span>
             </h3>
             <p className="text-background/80 leading-relaxed mb-6 max-w-md">
               Empowering students to achieve academic excellence through innovative teaching methods and personalized
@@ -64,7 +64,7 @@ export function Footer() {
             <div className="flex gap-3">
               {[
                 { icon: Facebook, href: "#" },
-                { icon: Instagram, href: "https://www.instagram.com/decent_academy78?igsh=emp6Y2lsb2pxOHp6" },
+                { icon: Instagram, href: "https://www.instagram.com/gravity_tutorials" },
                 { icon: Youtube, href: "#" },
               ].map((social, index) => (
                 <a
@@ -146,14 +146,14 @@ export function Footer() {
               <Phone className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
                 <div className="font-medium mb-1">Call Us</div>
-                <div className="text-background/80 text-sm">+91 99673 97919</div>
+                <div className="text-background/80 text-sm">+91 9321861630</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Mail className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
                 <div className="font-medium mb-1">Email Us</div>
-                <div className="text-background/80 text-sm">info@decentacademy.com</div>
+                <div className="text-background/80 text-sm">info@gravitytutorials.com</div>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-background/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-background/70 text-sm text-center md:text-left">
-            © 2025 Decent Academy. All rights reserved.
+            © 2025 Gravity Private Tutorials. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <Link href="#" className="text-background/80 hover:text-accent transition-colors duration-300">

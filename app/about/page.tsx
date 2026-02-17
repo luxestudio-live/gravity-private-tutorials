@@ -32,7 +32,7 @@ const values = [
 ]
 
 const milestones = [
-  { year: "2006", event: "Academy Founded", description: "Started with a vision to transform education" },
+  { year: "2006", event: "Institute Founded", description: "Started with a vision to transform education" },
   { year: "2015", event: "1000+ Students", description: "Reached milestone of teaching 1000 students" },
   { year: "2025", event: "10000+ Alumni", description: "Growing network of successful students" },
 ]
@@ -61,7 +61,7 @@ export default function AboutPage() {
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight">
               About
-              <span className="block mt-2 text-primary">Decent Academy</span>
+              <span className="block mt-2 text-primary">Gravity Private Tutorials</span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">

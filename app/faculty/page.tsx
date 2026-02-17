@@ -20,6 +20,11 @@ type FacultyMember = {
 	color: string;
 };
 
+const CONTENT_PLACEHOLDER = "/placeholder.svg?height=600&width=600"
+
+const withPlaceholderImages = <T extends { image?: string }>(items: T[]): T[] =>
+	items.map((item) => ({ ...item, image: CONTENT_PLACEHOLDER }))
+
 const defaultFaculty: FacultyMember[] = [
 	{
 		name: "Virendra Kumar Badgujar",
@@ -154,7 +159,7 @@ const defaultFaculty: FacultyMember[] = [
 ]
 
 export default function FacultyPage() {
-	const [allFaculty, setAllFaculty] = useState<FacultyMember[]>(defaultFaculty)
+	const [allFaculty, setAllFaculty] = useState<FacultyMember[]>(withPlaceholderImages(defaultFaculty))
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
@@ -164,10 +169,10 @@ export default function FacultyPage() {
 				const snap = await getDocs(collection(db, 'faculty'))
 				const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
 				console.log('Public page - Fetched new faculty from Firestore:', newFaculty)
-				setAllFaculty([...defaultFaculty, ...newFaculty])
+				setAllFaculty(withPlaceholderImages([...defaultFaculty, ...newFaculty]))
 			} catch (error) {
 				console.error('Error fetching faculty:', error)
-				setAllFaculty(defaultFaculty)
+				setAllFaculty(withPlaceholderImages(defaultFaculty))
 			} finally {
 				setLoading(false)
 			}

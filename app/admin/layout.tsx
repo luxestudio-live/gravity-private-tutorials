@@ -70,8 +70,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
         <h1 className="text-sm font-bold">
-          <span className="text-secondary">DECENT</span>
-          <span className="text-accent ml-1">ACADEMY</span>
+          <span className="text-secondary">GRAVITY</span>
+          <span className="text-accent ml-1">PRIVATE TUTORIALS</span>
         </h1>
         <div className="w-10" /> {/* Spacer */}
       </header>
@@ -92,8 +92,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       >
         <div className="mb-8 mt-16 lg:mt-0">
           <h1 className="text-2xl font-bold">
-            <span className="text-secondary">DECENT</span>
-            <span className="text-accent ml-2">ACADEMY</span>
+            <span className="text-secondary">GRAVITY</span>
+            <span className="text-accent ml-2">PRIVATE TUTORIALS</span>
           </h1>
           <p className="text-xs text-muted-foreground mt-2">Admin Panel</p>
         </div>

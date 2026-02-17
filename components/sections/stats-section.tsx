@@ -35,7 +35,7 @@ export function StatsSection() {
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-balance">
             Why Students Choose
             <span className="block mt-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Decent Academy
+              Gravity Private Tutorials
             </span>
           </h2>
           <p className="text-xl text-muted-foreground text-pretty leading-relaxed">

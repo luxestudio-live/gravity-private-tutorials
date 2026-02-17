@@ -106,7 +106,7 @@ export default function AdminDashboard() {
     <div className="py-4 md:py-6">
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-4xl font-bold mb-2">Dashboard</h1>
-        <p className="text-muted-foreground text-sm md:text-base">Welcome to the admin panel. Manage your academy content below.</p>
+        <p className="text-muted-foreground text-sm md:text-base">Welcome to the admin panel. Manage your tutorials content below.</p>
       </div>
 
       {/* Stats Grid */}

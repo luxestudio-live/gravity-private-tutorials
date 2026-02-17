@@ -16,35 +16,40 @@ type GalleryImage = {
   isDefault?: boolean
 }
 
+const CONTENT_PLACEHOLDER = '/placeholder.svg?height=400&width=400'
+
+const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
+  items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
+
 const defaultGalleryImages: GalleryImage[] = [
-  { id: 'default_1', src: '/da2.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_2', src: '/da3.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_3', src: '/da4.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_4', src: '/da7.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_5', src: '/da8.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_6', src: '/da9.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_7', src: '/daa1.png', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_8', src: '/daa2.png', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_9', src: '/daa3.png', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_10', src: '/daa4.png', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_11', src: '/daa5.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_12', src: '/daa6.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_13', src: '/da1.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_14', src: '/da5.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
-  { id: 'default_15', src: '/da6.jpeg', title: 'Decent Academy', description: 'Moments from Decent Academy', isDefault: true },
+  { id: 'default_1', src: '/da2.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_2', src: '/da3.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_3', src: '/da4.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_4', src: '/da7.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_5', src: '/da8.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_6', src: '/da9.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_7', src: '/daa1.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_8', src: '/daa2.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_9', src: '/daa3.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_10', src: '/daa4.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_11', src: '/daa5.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_12', src: '/daa6.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_13', src: '/da1.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_14', src: '/da5.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
+  { id: 'default_15', src: '/da6.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
 ]
 
 export default function GalleryManagement() {
   const { user } = useAuth()
-  const [allImages, setAllImages] = useState<GalleryImage[]>(defaultGalleryImages)
+  const [allImages, setAllImages] = useState<GalleryImage[]>(withPlaceholderImages(defaultGalleryImages))
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
   const [formData, setFormData] = useState({
     src: '',
-    title: 'Decent Academy',
-    description: 'Moments from Decent Academy',
+    title: 'Gravity Private Tutorials',
+    description: 'Moments from Gravity Private Tutorials',
   })
 
   useEffect(() => {
@@ -63,10 +68,10 @@ export default function GalleryManagement() {
       const snap = await getDocs(collection(db, 'gallery'))
       const newImages = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as GalleryImage[]
       console.log('Fetched new gallery images from Firestore:', newImages)
-      setAllImages([...newImages, ...defaultGalleryImages])
+      setAllImages(withPlaceholderImages([...newImages, ...defaultGalleryImages]))
     } catch (error) {
       console.error('Error fetching gallery images:', error)
-      setAllImages(defaultGalleryImages)
+      setAllImages(withPlaceholderImages(defaultGalleryImages))
     } finally {
       setLoading(false)
     }
@@ -142,8 +147,8 @@ export default function GalleryManagement() {
 
       setFormData({
         src: '',
-        title: 'Decent Academy',
-        description: 'Moments from Decent Academy',
+        title: 'Gravity Private Tutorials',
+        description: 'Moments from Gravity Private Tutorials',
       })
       setShowForm(false)
       await fetchGalleryImages()
@@ -206,8 +211,8 @@ export default function GalleryManagement() {
               setEditingId(null)
               setFormData({
                 src: '',
-                title: 'Decent Academy',
-                description: 'Moments from Decent Academy',
+                title: 'Gravity Private Tutorials',
+                description: 'Moments from Gravity Private Tutorials',
               })
             }
             setShowForm(!showForm)

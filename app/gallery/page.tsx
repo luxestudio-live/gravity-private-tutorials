@@ -15,116 +15,121 @@ type GalleryImage = {
   isDefault?: boolean
 }
 
+const CONTENT_PLACEHOLDER = "/placeholder.svg?height=400&width=400"
+
+const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
+  items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
+
 const defaultGalleryImages: GalleryImage[] = [
   {
     id: "default_1",
     src: "/da2.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_2",
     src: "/da3.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_3",
     src: "/da4.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_4",
     src: "/da7.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_5",
     src: "/da8.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_6",
     src: "/da9.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_7",
     src: "/daa1.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_8",
     src: "/daa2.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_9",
     src: "/daa3.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_10",
     src: "/daa4.png",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_11",
     src: "/daa5.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_12",
     src: "/daa6.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_13",
     src: "/da1.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_14",
     src: "/da5.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
   {
     id: "default_15",
     src: "/da6.jpeg",
-    title: "Decent Academy",
-    description: "Moments from Decent Academy",
+    title: "Gravity Private Tutorials",
+    description: "Moments from Gravity Private Tutorials",
     isDefault: true,
   },
 ]
 
 export default function GalleryPage() {
-  const [allImages, setAllImages] = useState<GalleryImage[]>(defaultGalleryImages)
+  const [allImages, setAllImages] = useState<GalleryImage[]>(withPlaceholderImages(defaultGalleryImages))
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -139,10 +144,10 @@ export default function GalleryPage() {
       const newImages = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as GalleryImage[]
       console.log('Fetched new gallery images from Firestore:', newImages)
       // New images first, then default images
-      setAllImages([...newImages, ...defaultGalleryImages])
+      setAllImages(withPlaceholderImages([...newImages, ...defaultGalleryImages]))
     } catch (error) {
       console.error('Error fetching gallery images:', error)
-      setAllImages(defaultGalleryImages)
+      setAllImages(withPlaceholderImages(defaultGalleryImages))
     } finally {
       setLoading(false)
     }
@@ -175,7 +180,7 @@ export default function GalleryPage() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              A glimpse into the vibrant life at Decent Academy
+              A glimpse into the vibrant life at Gravity Private Tutorials
             </p>
           </div>
         </div>

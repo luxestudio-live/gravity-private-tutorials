@@ -13,7 +13,7 @@ export function HeroSection() {
         {/* Logo Background */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <img 
-            src="/DecentLogo.png" 
+            src="/gravity-logo.png" 
             alt="" 
             className="w-[400px] md:w-[600px] h-auto object-contain"
           />

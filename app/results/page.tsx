@@ -7,6 +7,8 @@ import { Trophy, Medal, Star, Award, Sparkles, TrendingUp } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 
+const CONTENT_PLACEHOLDER = "/placeholder.svg?height=400&width=400"
+
 type Highlight = { label: string; value: string; category: string }
 type FeaturedTopper = { name: string; standard: string; score: string; rank: string; category: string; subjects?: string[]; image?: string }
 type SimpleTopper = { name: string; score: string; rank?: string; standard?: string; college?: string; image?: string }
@@ -317,7 +319,7 @@ export default function ResultsPage() {
                   {topper.image && (
                     <div className="relative w-full h-40 md:h-48 overflow-hidden bg-muted">
                       <img 
-                        src={topper.image} 
+                        src={CONTENT_PLACEHOLDER}
                         alt={topper.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
@@ -400,7 +402,7 @@ export default function ResultsPage() {
                 <div className="relative w-full h-24 md:h-32 bg-muted overflow-hidden">
                   {topper.image ? (
                     <img 
-                      src={topper.image} 
+                      src={CONTENT_PLACEHOLDER}
                       alt={topper.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -467,7 +469,7 @@ export default function ResultsPage() {
                       <div className="flex-shrink-0">
                         {topper.image ? (
                           <img 
-                            src={topper.image} 
+                            src={CONTENT_PLACEHOLDER}
                             alt={topper.name}
                             className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-primary/30 group-hover:border-primary/50 transition-colors"
                           />
@@ -526,7 +528,7 @@ export default function ResultsPage() {
                       <div className="flex-shrink-0">
                         {topper.image ? (
                           <img 
-                            src={topper.image} 
+                            src={CONTENT_PLACEHOLDER}
                             alt={topper.name}
                             className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-accent/30 group-hover:border-accent/50 transition-colors"
                           />
