@@ -72,12 +72,12 @@ export function Navbar() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
-            <Link href="/contact">
-              <Button className="ml-4 relative overflow-hidden group" size="lg">
+            <Button asChild className="ml-4 relative overflow-hidden group" size="lg">
+              <Link href="/contact">
                 <span className="relative z-10">Enroll Now</span>
                 <span className="absolute inset-0 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -104,11 +104,11 @@ export function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <Link href="/contact" onClick={() => setIsOpen(false)}>
-                <Button className="mt-4 mx-4 w-[calc(100%-2rem)]" size="lg">
+              <Button asChild className="mt-4 mx-4 w-[calc(100%-2rem)]" size="lg">
+                <Link href="/contact" onClick={() => setIsOpen(false)}>
                   Enroll Now
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         )}
