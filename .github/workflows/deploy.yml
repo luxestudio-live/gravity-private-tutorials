@@ -37,7 +37,7 @@ jobs:
 
       - name: Build Next.js static site
         env:
-          GH_PAGES_CUSTOM_DOMAIN: ${{ vars.GH_PAGES_CUSTOM_DOMAIN || 'false' }}
+          CUSTOM_DOMAIN: 'true'
         run: pnpm run build
 
       - name: Upload Pages artifact

@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   description:
     "Leading coaching institute for 5th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
   generator: "v0.app",
-  metadataBase: new URL("https://luxestudio-live.github.io/gravity-private-tutorials"),
+  metadataBase: new URL("https://gravitytutorials.theluxestudio.in"),
   openGraph: {
     title: "Gravity Private Tutorials - Premium Coaching for Excellence",
     description:
       "Leading coaching institute for 5th-10th and 11th-12th students. Expert faculty, proven results, comprehensive courses.",
-    url: "https://luxestudio-live.github.io/gravity-private-tutorials",
+    url: "https://gravitytutorials.theluxestudio.in/",
     siteName: "Gravity Private Tutorials",
     images: [
       {
