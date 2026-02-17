@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 
+const isGithubActions = process.env.GITHUB_ACTIONS === 'true'
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'gravity-private-tutorials'
+const hasCustomDomain = process.env.GH_PAGES_CUSTOM_DOMAIN === 'true'
+const useRepoBasePath = isGithubActions && !hasCustomDomain
+
 const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -7,7 +12,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Keeping 'export' for static site, but we'll use Client-side Firebase for admin
+  basePath: useRepoBasePath ? `/${repositoryName}` : '',
+  assetPrefix: useRepoBasePath ? `/${repositoryName}/` : undefined,
+  trailingSlash: true,
   output: 'export',
 }
 

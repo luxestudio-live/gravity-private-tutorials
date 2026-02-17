@@ -15,9 +15,8 @@ const contactInfo = [
     icon: MapPin,
     title: "Visit Us",
     details: [
-      "Shop No 1, Ground Floor, Sai Smruti Building",
-      "Near Nath Pai School, Nardas Nagar, T. P. Road",
-      "Bhandup West, Mumbai - 400078",
+      "Gravity Private Tutorials",
+      "Complex 1, test Road, Mumbai -400001",
     ],
     color: "from-primary to-accent",
   },

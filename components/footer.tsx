@@ -138,7 +138,7 @@ export function Footer() {
               <div>
                 <div className="font-medium mb-1">Visit Us</div>
                 <div className="text-background/80 text-sm leading-relaxed">
-                  Shop No 1, Ground Floor, Sai Smruti Building, Near Nath Pai School, Nardas Nagar, T. P. Road, Bhandup West, Mumbai - 400078
+                  Gravity Private Tutorials, Complex 1, test Road, Mumbai -400001
                 </div>
               </div>
             </div>
