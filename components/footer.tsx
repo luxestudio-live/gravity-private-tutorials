@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react"
+import { withBasePath } from "@/lib/utils"
 
 const footerLinks = {
   quickLinks: [
@@ -34,9 +35,11 @@ export function Footer() {
       {/* Large Logo Watermark */}
       <div className="absolute inset-0 flex items-center justify-center py-8 opacity-8">
         <img 
-          src="/gravity-logo.png" 
+          src={withBasePath("/gravity-logo.png")}
           alt="" 
           className="w-[500px] md:w-[700px] h-auto object-contain max-h-[90%]"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       

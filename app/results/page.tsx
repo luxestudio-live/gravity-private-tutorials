@@ -6,8 +6,9 @@ import { Footer } from "@/components/footer"
 import { Trophy, Medal, Star, Award, Sparkles, TrendingUp } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
+import { withBasePath } from "@/lib/utils"
 
-const CONTENT_PLACEHOLDER = "/placeholder.svg?height=400&width=400"
+const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=400&width=400")
 
 type Highlight = { label: string; value: string; category: string }
 type FeaturedTopper = { name: string; standard: string; score: string; rank: string; category: string; subjects?: string[]; image?: string }
@@ -322,6 +323,8 @@ export default function ResultsPage() {
                         src={CONTENT_PLACEHOLDER}
                         alt={topper.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card/80" />
                     </div>
@@ -405,6 +408,8 @@ export default function ResultsPage() {
                       src={CONTENT_PLACEHOLDER}
                       alt={topper.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-secondary/30 to-accent/30 flex items-center justify-center">
@@ -472,6 +477,8 @@ export default function ResultsPage() {
                             src={CONTENT_PLACEHOLDER}
                             alt={topper.name}
                             className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-primary/30 group-hover:border-primary/50 transition-colors"
+                            loading="lazy"
+                            decoding="async"
                           />
                         ) : (
                           <div className="w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-md">
@@ -531,6 +538,8 @@ export default function ResultsPage() {
                             src={CONTENT_PLACEHOLDER}
                             alt={topper.name}
                             className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-accent/30 group-hover:border-accent/50 transition-colors"
+                            loading="lazy"
+                            decoding="async"
                           />
                         ) : (
                           <div className="w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-md">

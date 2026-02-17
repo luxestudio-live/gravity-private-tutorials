@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { Trash2, Edit2, Plus, Upload } from 'lucide-react'
+import { withBasePath } from '@/lib/utils'
 
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 const CLOUDINARY_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY
@@ -21,7 +22,7 @@ type FacultyMember = {
   isDefault?: boolean
 }
 
-const CONTENT_PLACEHOLDER = '/placeholder.svg?height=600&width=600'
+const CONTENT_PLACEHOLDER = withBasePath('/placeholder.svg?height=600&width=600')
 
 const withPlaceholderImages = <T extends { image?: string }>(items: T[]): T[] =>
   items.map((item) => ({ ...item, image: CONTENT_PLACEHOLDER }))
@@ -393,7 +394,7 @@ export default function FacultyManagement() {
                   className="flex-1 min-w-0 text-xs md:text-sm"
                 />
                 {formData.image && (
-                  <img src={formData.image} alt="preview" className="w-16 md:w-20 h-16 md:h-20 rounded object-cover" />
+                  <img src={formData.image} alt="preview" className="w-16 md:w-20 h-16 md:h-20 rounded object-cover" loading="lazy" decoding="async" />
                 )}
               </div>
               {formData.image && <p className="text-xs md:text-sm text-muted-foreground mt-2">Image uploaded: {formData.image.slice(0, 50)}...</p>}
@@ -548,7 +549,7 @@ export default function FacultyManagement() {
               .filter((f) => f.isDefault)
               .map((member) => (
                 <div key={member.id} className="border border-border rounded-lg p-3 md:p-4 bg-muted/30">
-                  {member.image && <img src={member.image} alt={member.name} className="w-full h-32 md:h-48 object-cover rounded mb-2 md:mb-4" />}
+                  {member.image && <img src={member.image} alt={member.name} className="w-full h-32 md:h-48 object-cover rounded mb-2 md:mb-4" loading="lazy" decoding="async" />}
                   <h3 className="font-bold text-base md:text-lg mb-1">{member.name}</h3>
                   <p className="text-xs md:text-sm text-primary font-medium">{member.subject}</p>
                   <p className="text-xs text-muted-foreground">{member.qualification}</p>
@@ -567,7 +568,7 @@ export default function FacultyManagement() {
                 .filter((f) => !f.isDefault)
                 .map((member) => (
                   <div key={member.id} className="border border-border rounded-lg p-4 bg-muted/30 relative">
-                    {member.image && <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded mb-4" />}
+                    {member.image && <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded mb-4" loading="lazy" decoding="async" />}
                     <h3 className="font-bold text-lg mb-1">{member.name}</h3>
                     <p className="text-sm text-primary font-medium">{member.subject}</p>
                     <p className="text-xs text-muted-foreground">{member.qualification}</p>

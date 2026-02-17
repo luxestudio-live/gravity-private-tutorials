@@ -7,6 +7,7 @@ import { Award, GraduationCap, Star, Users } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
 import Image from "next/image"
+import { withBasePath } from "@/lib/utils"
 
 type FacultyMember = {
 	id?: string;
@@ -20,7 +21,7 @@ type FacultyMember = {
 	color: string;
 };
 
-const CONTENT_PLACEHOLDER = "/placeholder.svg?height=600&width=600"
+const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=600&width=600")
 
 const withPlaceholderImages = <T extends { image?: string }>(items: T[]): T[] =>
 	items.map((item) => ({ ...item, image: CONTENT_PLACEHOLDER }))
@@ -238,11 +239,13 @@ export default function FacultyPage() {
 													alt={member.name}
 													onError={(e) => {
 														console.error(`Failed to load image for ${member.name}:`, member.image)
-														e.currentTarget.src = "/placeholder.svg"
+														e.currentTarget.src = withBasePath("/placeholder.svg")
 													}}
 													className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ${
 														member.name === "Sujeet Patil" ? "object-center" : "object-top"
 													}`}
+													loading="lazy"
+													decoding="async"
 												/>
 											) : (
 												<div className="w-full h-full bg-muted-foreground/20 flex items-center justify-center">

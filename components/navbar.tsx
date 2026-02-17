@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { withBasePath } from "@/lib/utils"
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -48,9 +49,10 @@ export function Navbar() {
             className="flex items-center gap-3 transition-all duration-300 hover:scale-105 group"
           >
             <img 
-              src="/gravity-logo.png" 
+              src={withBasePath("/gravity-logo.png")}
               alt="Gravity Private Tutorials" 
               className="h-12 w-auto"
+              decoding="async"
             />
             <span className="text-2xl lg:text-3xl font-[family-name:var(--font-bebas)] font-bold tracking-wide">
               <span className="text-primary">GRAVITY</span>{" "}

@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer"
 import { Camera, X } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
+import { withBasePath } from "@/lib/utils"
 
 type GalleryImage = {
   id: string
@@ -15,7 +16,7 @@ type GalleryImage = {
   isDefault?: boolean
 }
 
-const CONTENT_PLACEHOLDER = "/placeholder.svg?height=400&width=400"
+const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=400&width=400")
 
 const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
   items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
@@ -203,9 +204,11 @@ export default function GalleryPage() {
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <img
-                  src={image.src || "/placeholder.svg?height=400&width=400"}
+                  src={image.src || withBasePath("/placeholder.svg?height=400&width=400")}
                   alt={image.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                  decoding="async"
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -235,9 +238,10 @@ export default function GalleryPage() {
           </button>
           <div className="max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
             <img
-              src={selectedImage.src || "/placeholder.svg?height=800&width=1200"}
+              src={selectedImage.src || withBasePath("/placeholder.svg?height=800&width=1200")}
               alt={selectedImage.title}
               className="w-full h-auto rounded-2xl shadow-2xl"
+              decoding="async"
             />
             <div className="mt-6 text-center text-background">
               <h3 className="text-3xl font-bold mb-2">{selectedImage.title}</h3>

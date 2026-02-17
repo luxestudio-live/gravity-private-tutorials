@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { Trash2, Edit2, Plus } from 'lucide-react'
+import { withBasePath } from '@/lib/utils'
 
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
@@ -16,7 +17,7 @@ type GalleryImage = {
   isDefault?: boolean
 }
 
-const CONTENT_PLACEHOLDER = '/placeholder.svg?height=400&width=400'
+const CONTENT_PLACEHOLDER = withBasePath('/placeholder.svg?height=400&width=400')
 
 const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
   items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
@@ -242,7 +243,7 @@ export default function GalleryManagement() {
                   className="block text-xs md:text-sm"
                 />
                 {formData.src && (
-                  <img src={formData.src} alt="preview" className="w-24 md:w-32 h-24 md:h-32 rounded object-cover" />
+                  <img src={formData.src} alt="preview" className="w-24 md:w-32 h-24 md:h-32 rounded object-cover" loading="lazy" decoding="async" />
                 )}
               </div>
               {formData.src && <p className="text-xs md:text-sm text-muted-foreground mt-2">Image uploaded: {formData.src.slice(0, 50)}...</p>}
@@ -320,7 +321,7 @@ export default function GalleryManagement() {
                 .filter((i) => !i.isDefault)
                 .map((image) => (
                   <div key={image.id} className="border border-border rounded-lg overflow-hidden bg-muted/30 relative flex flex-col">
-                    <img src={image.src} alt={image.title} className="w-full h-32 md:h-48 object-cover" />
+                    <img src={image.src} alt={image.title} className="w-full h-32 md:h-48 object-cover" loading="lazy" decoding="async" />
                     <div className="p-2 md:p-4 flex-1 flex flex-col">
                       <h3 className="font-bold text-sm md:text-lg mb-1">{image.title}</h3>
                       <p className="text-xs text-muted-foreground flex-1 line-clamp-2">{image.description}</p>
@@ -359,7 +360,7 @@ export default function GalleryManagement() {
               .filter((i) => i.isDefault)
               .map((image) => (
                 <div key={image.id} className="border border-border rounded-lg overflow-hidden bg-muted/30">
-                  <img src={image.src} alt={image.title} className="w-full h-32 md:h-48 object-cover" />
+                  <img src={image.src} alt={image.title} className="w-full h-32 md:h-48 object-cover" loading="lazy" decoding="async" />
                   <div className="p-2 md:p-4">
                     <h3 className="font-bold text-sm md:text-lg mb-1">{image.title}</h3>
                     <p className="text-xs text-muted-foreground line-clamp-2">{image.description}</p>

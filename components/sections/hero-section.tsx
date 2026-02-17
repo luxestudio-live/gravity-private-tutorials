@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
+import { withBasePath } from "@/lib/utils"
 
 export function HeroSection() {
   return (
@@ -13,9 +14,11 @@ export function HeroSection() {
         {/* Logo Background */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <img 
-            src="/gravity-logo.png" 
+            src={withBasePath("/gravity-logo.png")}
             alt="" 
             className="w-[400px] md:w-[600px] h-auto object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
