@@ -3,111 +3,14 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { GraduationCap, Calculator, Beaker, BookOpen, CheckCircle2, Clock, Users, ArrowRight } from "lucide-react"
+import { GraduationCap, Beaker, BookOpen, CheckCircle2, Clock, Users, ArrowRight, Target } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-type CourseCategory = "5-10" | "science" | "commerce"
-
-const courseData = {
-  "5-10": {
-    title: "8th to 10th Standard",
-    subtitle: "English Medium",
-    icon: GraduationCap,
-    color: "from-primary to-accent",
-    description:
-      "Comprehensive foundational education building strong concepts and academic excellence for board examinations",
-    standards: [
-      {
-        name: "5th & 6th Standard",
-        subjects: ["Mathematics", "Science", "English", "Marathi", "Social Studies"],
-        features: ["Interactive Learning", "Activity Based Teaching", "Regular Assessments", "Parent Workshops"],
-        duration: "Full Academic Year",
-        batchSize: "25-30 Students",
-      },
-      {
-        name: "7th & 8th Standard",
-        subjects: ["Mathematics", "Science", "English", "Marathi", "History", "Geography"],
-        features: ["Concept Building", "Problem Solving", "Mock Tests", "Individual Attention"],
-        duration: "Full Academic Year",
-        batchSize: "35-40 Students",
-      },
-      {
-        name: "9th & 10th Standard",
-        subjects: ["Mathematics", "Science (Physics, Chemistry, Biology)", "English", "Marathi", "Social Sciences"],
-        features: ["Board Exam Focus", "Previous Year Papers", "Intensive Revision", "Doubt Clearing Sessions"],
-        duration: "Full Academic Year",
-        batchSize: "35-40 Students",
-      },
-    ],
-  },
-  science: {
-    title: "11th & 12th Science",
-    subtitle: "JEE, NEET & CET Preparation",
-    icon: Beaker,
-    color: "from-accent to-secondary",
-    description:
-      "Advanced science education with specialized coaching for competitive examinations and board excellence",
-    standards: [
-      {
-        name: "11th Science - PCM",
-        subjects: ["Physics", "Chemistry", "Mathematics"],
-        features: ["JEE Foundation", "CET Preparation", "Board Syllabus", "Weekly Tests"],
-        duration: "Full Academic Year",
-        batchSize: "30-35 Students",
-      },
-      {
-        name: "11th Science - PCB",
-        subjects: ["Physics", "Chemistry", "Biology"],
-        features: ["NEET Foundation", "CET Preparation", "Board Syllabus", "Practical Sessions"],
-        duration: "Full Academic Year",
-        batchSize: "30-35 Students",
-      },
-      {
-        name: "12th Science - PCM",
-        subjects: ["Physics", "Chemistry", "Mathematics", "JEE/decent-academy-v1/CET"],
-        features: ["Intensive JEE Training", "CET Mock Tests", "Board Excellence", "All India Test Series"],
-        duration: "Full Academic Year + Crash Courses",
-        batchSize: "30-35 Students",
-      },
-      {
-        name: "12th Science - PCB",
-        subjects: ["Physics", "Chemistry", "Biology", "NEET/decent-academy-v1/CET"],
-        features: ["NEET Preparation", "CET Coaching", "Board Excellence", "Medical Entrance Tests"],
-        duration: "Full Academic Year + Crash Courses",
-        batchSize: "30-35 Students",
-      },
-    ],
-  },
-  commerce: {
-    title: "11th & 12th Commerce",
-    subtitle: "Board & Competitive Exams",
-    icon: Calculator,
-    color: "from-secondary to-primary",
-    description: "Complete commerce education focusing on conceptual clarity and preparation for professional courses",
-    standards: [
-      {
-        name: "11th Commerce",
-        subjects: ["Accountancy", "Economics", "Business Studies", "Mathematics/decent-academy-v1/Statistics"],
-        features: ["Practical Approach", "Case Studies", "Project Guidance", "Regular Practice"],
-        duration: "Full Academic Year",
-        batchSize: "30-35 Students",
-      },
-      {
-        name: "12th Commerce",
-        subjects: ["Accountancy", "Economics", "Business Studies", "Mathematics/decent-academy-v1/Statistics"],
-        features: ["Board Exam Focus", "Entrance Exam Prep", "CA Foundation Support", "Career Counseling"],
-        duration: "Full Academic Year",
-        batchSize: "30-35 Students",
-      },
-    ],
-  },
-}
+type GradeLevel = "8-10" | "11-12"
 
 export default function CoursesPage() {
-  const [activeCategory, setActiveCategory] = useState<CourseCategory>("5-10")
-  const activeCourse = courseData[activeCategory]
-  const Icon = activeCourse.icon
+  const [activeGrade, setActiveGrade] = useState<GradeLevel>("8-10")
 
   return (
     <main className="min-h-screen">
@@ -131,136 +34,455 @@ export default function CoursesPage() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              Comprehensive programs designed for academic excellence and competitive success
+              Comprehensive programs designed for academic excellence across CBSE, ICSE, and HSC boards
             </p>
           </div>
         </div>
       </section>
 
-      {/* Course Toggle */}
+      {/* Grade Toggle */}
       <section className="py-8 bg-background/95 backdrop-blur-lg border-y border-border/50">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
-            {(Object.keys(courseData) as CourseCategory[]).map((category) => {
-              const course = courseData[category]
-              const CourseIcon = course.icon
-              return (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`group relative px-6 py-4 rounded-xl font-medium transition-all duration-300 w-full sm:w-auto ${
-                    activeCategory === category
-                      ? "bg-gradient-to-r from-primary to-accent text-white shadow-xl scale-105"
-                      : "bg-card border border-border/50 hover:border-primary/50 hover:shadow-lg hover:-translate-y-1"
-                  }`}
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    <CourseIcon className="w-5 h-5" />
-                    <span>{course.title}</span>
-                  </span>
-                </button>
-              )
-            })}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
+            <button
+              onClick={() => setActiveGrade("8-10")}
+              className={`group relative px-8 py-4 rounded-xl font-medium transition-all duration-300 w-full sm:w-auto ${
+                activeGrade === "8-10"
+                  ? "bg-gradient-to-r from-primary to-accent text-white shadow-xl scale-105"
+                  : "bg-card border border-border/50 hover:border-primary/50 hover:shadow-lg hover:-translate-y-1"
+              }`}
+            >
+              <span className="flex items-center justify-center gap-2">
+                <GraduationCap className="w-5 h-5" />
+                <span>8th to 10th</span>
+              </span>
+            </button>
+            <button
+              onClick={() => setActiveGrade("11-12")}
+              className={`group relative px-8 py-4 rounded-xl font-medium transition-all duration-300 w-full sm:w-auto ${
+                activeGrade === "11-12"
+                  ? "bg-gradient-to-r from-primary to-accent text-white shadow-xl scale-105"
+                  : "bg-card border border-border/50 hover:border-primary/50 hover:shadow-lg hover:-translate-y-1"
+              }`}
+            >
+              <span className="flex items-center justify-center gap-2">
+                <Beaker className="w-5 h-5" />
+                <span>11th & 12th Science</span>
+              </span>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Course Details */}
-      <section className="py-16 lg:py-20">
-        <div className="container mx-auto px-4 lg:px-8">
-          {/* Course Header */}
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <div
-              className={`inline-flex w-20 h-20 bg-gradient-to-br ${activeCourse.color} rounded-2xl items-center justify-center mb-6 animate-scale-in`}
-            >
-              <Icon className="w-10 h-10 text-white" />
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">{activeCourse.title}</h2>
-            <p className="text-xl text-primary font-medium mb-6">{activeCourse.subtitle}</p>
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              {activeCourse.description}
-            </p>
-          </div>
+      {/* Grade Content */}
+      {activeGrade === "8-10" ? (
+        <>
+          {/* CBSE Board Section */}
+          <section className="py-16 lg:py-20">
+            <div className="container mx-auto px-4 lg:px-8">
+              <div className="max-w-6xl mx-auto">
+                {/* Board Header */}
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full mb-4">
+                    <Target className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4">CBSE Board</h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Comprehensive CBSE curriculum with focus on conceptual understanding and board exam excellence
+                  </p>
+                </div>
 
-          {/* Course Cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {activeCourse.standards.map((standard, index) => (
-              <div
-                key={index}
-                className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 animate-scale-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Gradient Overlay */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${activeCourse.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                />
-
-                <div className="relative z-10 p-8">
-                  {/* Standard Name */}
-                  <h3 className="text-2xl font-bold mb-6 group-hover:text-primary transition-colors duration-300">
-                    {standard.name}
-                  </h3>
-
-                  {/* Subjects */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase mb-3 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4" />
-                      Subjects Covered
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {standard.subjects.map((subject, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-medium border border-primary/20"
-                        >
-                          {subject}
-                        </span>
-                      ))}
+                {/* Class Cards */}
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* Class 8 */}
+                  <div className="bg-card rounded-2xl border-2 border-primary/20 hover:border-primary/50 p-6 transition-all duration-300 hover:shadow-xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-3">
+                        <span className="text-2xl font-bold text-primary">8</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">Class 8</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Annual Course</p>
                     </div>
+                    
+                    <div className="bg-accent/10 rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-accent text-center">Foundation & Problem Solving</p>
+                    </div>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-2">
+                        <Users className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Small batch sizes</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Complete syllabus coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Regular assessments</span>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
                   </div>
 
-                  {/* Features */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase mb-3">Key Features</h4>
-                    <div className="space-y-2">
-                      {standard.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-foreground/80">{feature}</span>
-                        </div>
-                      ))}
+                  {/* Class 9 */}
+                  <div className="bg-card rounded-2xl border-2 border-primary/20 hover:border-primary/50 p-6 transition-all duration-300 hover:shadow-xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-3">
+                        <span className="text-2xl font-bold text-primary">9</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">Class 9</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Annual Course</p>
                     </div>
+                    
+                    <div className="bg-accent/10 rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-accent text-center">Advanced Concepts</p>
+                    </div>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-2">
+                        <Users className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Small batch sizes</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Complete syllabus coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Regular assessments</span>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
                   </div>
 
-                  {/* Duration & Batch */}
-                  <div className="flex items-center gap-6 pt-6 border-t border-border/50">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="w-4 h-4 text-primary" />
-                      <span>{standard.duration}</span>
+                  {/* Class 10 */}
+                  <div className="bg-card rounded-2xl border-2 border-primary/20 hover:border-primary/50 p-6 transition-all duration-300 hover:shadow-xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-3">
+                        <span className="text-2xl font-bold text-primary">10</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">Class 10</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Annual Course</p>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Users className="w-4 h-4 text-primary" />
-                      <span>{standard.batchSize}</span>
+                    
+                    <div className="bg-accent/10 rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-accent text-center">Board Exam Excellence</p>
                     </div>
-                  </div>
 
-                  {/* Enroll Button */}
-                  <Button className="w-full mt-6 group/btn" asChild>
-                    <Link href="/contact">
-                      <span className="flex items-center justify-center gap-2">
-                        Enroll Now
-                        <ArrowRight className="w-4 h-4 group-hover/decent-academy-v1/btn:translate-x-1 transition-transform duration-300" />
-                      </span>
-                    </Link>
-                  </Button>
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-2">
+                        <Users className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Small batch sizes</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Complete syllabus coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Regular assessments</span>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* Additional Features */}
+          {/* ICSE Board Section */}
+          <section className="py-16 lg:py-20 bg-muted/30">
+            <div className="container mx-auto px-4 lg:px-8">
+              <div className="max-w-6xl mx-auto">
+                {/* Board Header */}
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent to-secondary rounded-full mb-4">
+                    <Target className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4">ICSE Board</h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Comprehensive coverage of ICSE mathematics syllabus with emphasis on application, reasoning, and analytical thinking
+                  </p>
+                </div>
+
+                {/* Class Cards */}
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* Class 8 */}
+                  <div className="bg-card rounded-2xl border-2 border-accent/20 hover:border-accent/50 p-6 transition-all duration-300 hover:shadow-xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 rounded-full mb-3">
+                        <span className="text-2xl font-bold text-accent">8</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">Class 8</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Annual Course</p>
+                    </div>
+                    
+                    <div className="bg-primary/10 rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-primary text-center">Advanced Concepts</p>
+                    </div>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-2">
+                        <Users className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Small batch sizes</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Complete syllabus coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Regular assessments</span>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
+                  </div>
+
+                  {/* Class 9 */}
+                  <div className="bg-card rounded-2xl border-2 border-accent/20 hover:border-accent/50 p-6 transition-all duration-300 hover:shadow-xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 rounded-full mb-3">
+                        <span className="text-2xl font-bold text-accent">9</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">Class 9</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Annual Course</p>
+                    </div>
+                    
+                    <div className="bg-primary/10 rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-primary text-center">Critical Thinking Development</p>
+                    </div>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-2">
+                        <Users className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Small batch sizes</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Complete syllabus coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Regular assessments</span>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
+                  </div>
+
+                  {/* Class 10 */}
+                  <div className="bg-card rounded-2xl border-2 border-accent/20 hover:border-accent/50 p-6 transition-all duration-300 hover:shadow-xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 rounded-full mb-3">
+                        <span className="text-2xl font-bold text-accent">10</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">Class 10</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Annual Course</p>
+                    </div>
+                    
+                    <div className="bg-primary/10 rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-primary text-center">ICSE Excellence Program</p>
+                    </div>
+
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-2">
+                        <Users className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Small batch sizes</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <BookOpen className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Complete syllabus coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                        <span className="text-sm">Regular assessments</span>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        <>
+          {/* HSC Board Section - 11th & 12th Science */}
+          <section className="py-16 lg:py-20">
+            <div className="container mx-auto px-4 lg:px-8">
+              <div className="max-w-6xl mx-auto">
+                {/* Board Header */}
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full mb-4">
+                    <Beaker className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4">HSC Science</h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Advanced science education with specialized coaching for JEE, NEET, and CET preparation along with board excellence
+                  </p>
+                </div>
+
+                {/* Class 11 & 12 Cards */}
+                <div className="grid md:grid-cols-2 gap-8">
+                  {/* Class 11 Science */}
+                  <div className="bg-card rounded-3xl border-2 border-primary/20 hover:border-primary/50 p-8 transition-all duration-300 hover:shadow-2xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full mb-4">
+                        <span className="text-3xl font-bold text-white">11</span>
+                      </div>
+                      <h3 className="text-3xl font-bold">Class 11 Science</h3>
+                      <p className="text-md text-primary font-medium mt-2">Foundation Year</p>
+                    </div>
+
+                    {/* Streams */}
+                    <div className="space-y-4 mb-6">
+                      <div className="bg-primary/5 rounded-xl p-4 border border-primary/20">
+                        <h4 className="font-bold text-lg mb-3">PCM Stream</h4>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">Physics</span>
+                          <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">Chemistry</span>
+                          <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">Mathematics</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">JEE & CET Foundation</p>
+                      </div>
+
+                      <div className="bg-accent/5 rounded-xl p-4 border border-accent/20">
+                        <h4 className="font-bold text-lg mb-3">PCB Stream</h4>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-lg text-sm font-medium">Physics</span>
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-lg text-sm font-medium">Chemistry</span>
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-lg text-sm font-medium">Biology</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">NEET & CET Foundation</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 mb-6">
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Board Syllabus Coverage</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Competitive Exam Preparation</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Weekly Tests & Assessments</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Practical Sessions</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-6 pb-6 border-b border-border/50">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Clock className="w-4 h-4 text-primary" />
+                        <span>Full Academic Year</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Users className="w-4 h-4 text-primary" />
+                        <span>30-35 Students</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full mt-6" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
+                  </div>
+
+                  {/* Class 12 Science */}
+                  <div className="bg-card rounded-3xl border-2 border-primary/20 hover:border-primary/50 p-8 transition-all duration-300 hover:shadow-2xl">
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full mb-4">
+                        <span className="text-3xl font-bold text-white">12</span>
+                      </div>
+                      <h3 className="text-3xl font-bold">Class 12 Science</h3>
+                      <p className="text-md text-primary font-medium mt-2">Board & Competitive Exams</p>
+                    </div>
+
+                    {/* Streams */}
+                    <div className="space-y-4 mb-6">
+                      <div className="bg-primary/5 rounded-xl p-4 border border-primary/20">
+                        <h4 className="font-bold text-lg mb-3">PCM Stream</h4>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">Physics</span>
+                          <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">Chemistry</span>
+                          <span className="px-3 py-1 bg-primary/10 text-primary rounded-lg text-sm font-medium">Mathematics</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">Intensive JEE & CET Training</p>
+                      </div>
+
+                      <div className="bg-accent/5 rounded-xl p-4 border border-accent/20">
+                        <h4 className="font-bold text-lg mb-3">PCB Stream</h4>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-lg text-sm font-medium">Physics</span>
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-lg text-sm font-medium">Chemistry</span>
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-lg text-sm font-medium">Biology</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">NEET & CET Preparation</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 mb-6">
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Board Excellence Program</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">All India Test Series</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">CET Mock Tests</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <span className="text-sm">Crash Courses Available</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-6 pb-6 border-b border-border/50">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Clock className="w-4 h-4 text-primary" />
+                        <span>Full Year + Crash Courses</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Users className="w-4 h-4 text-primary" />
+                        <span>30-35 Students</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full mt-6" asChild>
+                      <Link href="/contact">Enroll Now</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
       <section className="py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">

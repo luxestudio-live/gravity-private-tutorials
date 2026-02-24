@@ -10,10 +10,10 @@ const footerLinks = {
     { name: "Results", href: "/results" },
   ],
   programs: [
-    { name: "8th to 10th", href: "/courses#5-10" },
-    { name: "11th-12th Science", href: "/courses#science" },
-    { name: "11th-12th Commerce", href: "/courses#commerce" },
-    { name: "CET & JEE", href: "/courses#competitive" },
+    { name: "8th to 10th", href: "/courses#8-10" },
+    { name: "11th-12th Science", href: "/courses#11-12" },
+    { name: "JEE & NEET", href: "/courses#11-12" },
+    { name: "CET Preparation", href: "/courses#11-12" },
   ],
   resources: [
     { name: "Gallery", href: "/gallery" },

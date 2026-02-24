@@ -6,23 +6,16 @@ const courses = [
   {
     icon: GraduationCap,
     title: "8th to 10th Standard",
-    medium: "English Medium",
+    medium: "CBSE & ICSE Boards",
     subjects: ["Mathematics", "Science", "Languages", "Social Studies"],
     color: "from-primary to-accent",
   },
   {
     icon: Beaker,
     title: "11th & 12th Science",
-    medium: "JEE, NEET & CET Preparation",
+    medium: "HSC Board - JEE, NEET & CET",
     subjects: ["Physics", "Chemistry", "Mathematics", "Biology"],
     color: "from-accent to-secondary",
-  },
-  {
-    icon: Calculator,
-    title: "11th & 12th Commerce",
-    medium: "Board & Competitive Exams",
-    subjects: ["Accounts", "Economics", "O.C.M", "Maths"],
-    color: "from-secondary to-primary",
   },
 ]
 
