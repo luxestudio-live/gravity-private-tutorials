@@ -44,58 +44,54 @@ type Topper = {
 // Fallback data to use if Firestore is empty
 const fallbackResultsByYear: Record<string, ResultsContent> = {
   "2024-2025": {
-    highlights: [
-      { label: "CBSE 10th Toppers", value: "10", category: "CBSE Board" },
-      { label: "ICSE 10th Toppers", value: "10", category: "ICSE Board" },
-      { label: "HSC 12th Toppers", value: "10", category: "HSC Board" },
-      { label: "Success Rate", value: "100%", category: "Pass Percentage" },
-    ],
     featuredToppers: [
-      { name: "Hrithik Pandey", standard: "NEET-2023", score: "681/720", rank: "AIR - 1499", category: "Medical", subjects: ["Medical Entrance"] },
+      { name: "Hrithik Pandey", standard: "NEET-2023", score: "681/720", rank: "AIR - 1499", category: "Medical", subjects: ["Medical Entrance"], image: "https://via.placeholder.com/200" },
       { name: "Ritesh Vishwakarma", standard: "NEET-2022", score: "645/720", rank: "AIR - 5333", category: "Medical", subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"] },
-      { name: "Rudra Vengurlekar", standard: "JEE-ADV 2021", score: "98.33%", rank: "AIR - 8025", category: "Engineering", subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."] },
+      { name: "Rudra Vengurlekar", standard: "JEE-ADV 2021", score: "98.33%", rank: "AIR - 8025", category: "Engineering", subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."], image: "https://via.placeholder.com/200" },
       { name: "Riddhi Bhor", standard: "MHT-CET 2023", score: "99.46%", rank: "VIT Pune-Chem Eng", category: "Engineering", subjects: ["Vishwakarma Institute of Technology"] },
+      { name: "Priya Sharma", standard: "NEET-2023", score: "640/720", rank: "AIR - 6200", category: "Medical", subjects: ["MBBS Admission"], image: "https://via.placeholder.com/200" },
+      { name: "Aditya Kulkarni", standard: "JEE-MAIN 2023", score: "98.8%", rank: "AIR - 9500", category: "Engineering", subjects: ["Computer Engineering"] },
+      { name: "Sneha Deshmukh", standard: "NEET-2022", score: "635/720", rank: "AIR - 7100", category: "Medical", subjects: ["BDS Admission"], image: "https://via.placeholder.com/200" },
+      { name: "Rohan Patil", standard: "MHT-CET 2023", score: "99.2%", rank: "State Rank - 450", category: "Engineering", subjects: ["Mechanical Engineering"] },
+      { name: "Ananya Joshi", standard: "NEET-2023", score: "630/720", rank: "AIR - 8500", category: "Medical", subjects: ["MBBS Admission"], image: "https://via.placeholder.com/200" },
+      { name: "Karan Mehta", standard: "JEE-ADV 2022", score: "97.5%", rank: "AIR - 12000", category: "Engineering", subjects: ["IIT Admission"] },
     ],
     cbse10thToppers: [
-      { name: "Sanskruti M.", score: "96.20%", rank: "1st", school: "PBAG School" },
+      { name: "Sanskruti M.", score: "96.20%", rank: "1st", school: "PBAG School", image: "https://via.placeholder.com/150" },
       { name: "Vaibhavi K.", score: "95.00%", rank: "1st", school: "Adarsh Vidyalaya" },
-      { name: "Vedant G.", score: "94.50%", rank: "3rd", school: "PBAG School" },
+      { name: "Vedant G.", score: "94.50%", rank: "3rd", school: "PBAG School", image: "https://via.placeholder.com/150" },
       { name: "Kunal R.", score: "93.50%", rank: "2nd", school: "Adarsh Vidyalaya" },
-      { name: "Aaiya D.", score: "93.00%", school: "PBAG School" },
+      { name: "Aaiya D.", score: "93.00%", school: "PBAG School", image: "https://via.placeholder.com/150" },
       { name: "Aayesha P.", score: "92.20%", school: "PBAG School" },
-      { name: "Rehan S.", score: "92.00%", rank: "1st", school: "HK Veevan" },
+      { name: "Rehan S.", score: "92.00%", rank: "1st", school: "HK Veevan", image: "https://via.placeholder.com/150" },
       { name: "Samarth P.", score: "91.50%", rank: "2nd", school: "HK Veevan" },
-      { name: "Rohana R.", score: "91.60%", school: "PBAG School" },
+      { name: "Rohana R.", score: "91.60%", school: "PBAG School", image: "https://via.placeholder.com/150" },
       { name: "Tanvi R.", score: "91.00%", school: "Oxford School" },
     ],
     icse10thToppers: [
-      { name: "Aarchi S.", score: "95.00%", school: "St. Mary's School" },
+      { name: "Aarchi S.", score: "95.00%", school: "St. Mary's School", image: "https://via.placeholder.com/150" },
       { name: "Yashshree S.", score: "94.00%", school: "Ryan International" },
-      { name: "Sai M.", score: "93.50%", school: "Cathedral School" },
+      { name: "Sai M.", score: "93.50%", school: "Cathedral School", image: "https://via.placeholder.com/150" },
       { name: "Siddhi M.", score: "92.80%", school: "St. Xavier's" },
-      { name: "Varad D.", score: "92.00%", school: "Campion School" },
+      { name: "Varad D.", score: "92.00%", school: "Campion School", image: "https://via.placeholder.com/150" },
       { name: "Priya K.", score: "91.50%", school: "Bombay Scottish" },
-      { name: "Arjun T.", score: "91.00%", school: "JB Petit School" },
+      { name: "Arjun T.", score: "91.00%", school: "JB Petit School", image: "https://via.placeholder.com/150" },
       { name: "Neha P.", score: "90.50%", school: "Cathedral School" },
-      { name: "Rohan M.", score: "90.20%", school: "St. Mary's School" },
+      { name: "Rohan M.", score: "90.20%", school: "St. Mary's School", image: "https://via.placeholder.com/150" },
       { name: "Sneha D.", score: "90.00%", school: "Ryan International" },
     ],
     hsc12thToppers: [
-      { name: "Mahesh K.", score: "94.67%", school: "Ratna Junior College" },
+      { name: "Mahesh K.", score: "94.67%", school: "Ratna Junior College", image: "https://via.placeholder.com/150" },
       { name: "Aishwarya K.", score: "94.67%", school: "Mithibai College" },
-      { name: "Sanjay U.", score: "92.83%", school: "Mahila Samiti College" },
+      { name: "Sanjay U.", score: "92.83%", school: "Mahila Samiti College", image: "https://via.placeholder.com/150" },
       { name: "Piyush M.", score: "91.50%", school: "Royal College" },
-      { name: "Meghana P.", score: "91.17%", school: "SKN College" },
+      { name: "Meghana P.", score: "91.17%", school: "SKN College", image: "https://via.placeholder.com/150" },
       { name: "Rahul S.", score: "90.83%", school: "Jai Hind College" },
-      { name: "Priyanka D.", score: "90.50%", school: "HR College" },
+      { name: "Priyanka D.", score: "90.50%", school: "HR College", image: "https://via.placeholder.com/150" },
       { name: "Amit K.", score: "90.17%", school: "Ramnarain Ruia" },
-      { name: "Divya M.", score: "90.00%", school: "KC College" },
+      { name: "Divya M.", score: "90.00%", school: "KC College", image: "https://via.placeholder.com/150" },
       { name: "Vikram P.", score: "89.83%", school: "Wilson College" },
     ],
-    statistics: {
-      "10th": { total: 102, above90: 16, above85: 35, above80: 51, passRate: 100 },
-      "12th": { total: 85, above90: 15, above75: 68, passRate: 98.8 },
-    },
   },
 }
 
@@ -212,9 +208,6 @@ export default function ResultsPage() {
     fetchYearData()
   }, [selectedYear])
 
-  const highlights = results?.highlights || []
-  const statistics = results?.statistics || {}
-
   return (
     <main className="min-h-screen">
       <Navbar />
@@ -231,7 +224,7 @@ export default function ResultsPage() {
       )}
 
       {/* Hero Section with modern gradient */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-primary/5 to-secondary/5">
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-background via-primary/5 to-secondary/5">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(var(--primary-rgb),0.1),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(var(--accent-rgb),0.1),transparent_50%)]" />
@@ -248,46 +241,12 @@ export default function ResultsPage() {
               <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
                 Outstanding
               </span>
-              <span className="block mt-4 text-foreground">Results {selectedYear}</span>
+              <span className="block mt-4 text-foreground">Results</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Celebrating success stories that inspire excellence
             </p>
-
-            {/* Academic Year Selector */}
-            {years.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-3 pt-6">
-                {years.map((year) => (
-                  <button
-                    key={year}
-                    onClick={() => setSelectedYear(year)}
-                    className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
-                      selectedYear === year
-                        ? "bg-primary text-white border-primary"
-                        : "bg-card/60 text-foreground border-border hover:border-primary/50"
-                    }`}
-                  >
-                    {year}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8">
-              {highlights.map((highlight, index) => (
-                <div
-                  key={index}
-                  className="group p-6 bg-card/60 backdrop-blur-md rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                >
-                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
-                    {highlight.value}
-                  </div>
-                  <div className="text-sm font-medium text-muted-foreground">{highlight.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -308,7 +267,7 @@ export default function ResultsPage() {
             <p className="text-xl text-muted-foreground">Excellence in NEET, JEE & CET</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {featured.map((topper, index) => (
               <div
                 key={index}
@@ -325,7 +284,7 @@ export default function ResultsPage() {
                   {topper.image && (
                     <div className="relative w-full h-40 md:h-48 overflow-hidden bg-muted">
                       <img 
-                        src={CONTENT_PLACEHOLDER}
+                        src={topper.image}
                         alt={topper.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         loading="lazy"
@@ -566,123 +525,6 @@ export default function ResultsPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Statistics Section - Modern Design */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-5xl lg:text-6xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  Performance Overview
-                </span>
-              </h2>
-              <p className="text-xl text-muted-foreground">Excellence across all standards</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {Object.entries(statistics).map(([standard, stats], index) => (
-                <div
-                  key={standard}
-                  className="group relative bg-card/60 backdrop-blur-sm rounded-3xl border-2 border-border hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {/* Gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Top accent bar */}
-                  <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
-                  
-                  <div className="relative z-10 p-10">
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                      <h3 className="text-3xl font-bold mb-2 group-hover:text-primary transition-colors">
-                        {standard === "10th" ? "10th Standard" : "11th & 12th"}
-                      </h3>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold">
-                        <Trophy className="w-4 h-4" />
-                        <span>{stats.total} Students</span>
-                      </div>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center">
-                            <Star className="w-5 h-5 text-white" />
-                          </div>
-                          <span className="text-foreground font-medium">Above 90%</span>
-                        </div>
-                        <span className="text-3xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent">
-                          {stats.above90}
-                        </span>
-                      </div>
-
-                      {stats.above85 && (
-                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center">
-                              <Medal className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-foreground font-medium">Above 85%</span>
-                          </div>
-                          <span className="text-3xl font-bold bg-gradient-to-br from-secondary to-primary bg-clip-text text-transparent">
-                            {stats.above85}
-                          </span>
-                        </div>
-                      )}
-
-                      {stats.above80 && (
-                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                              <Award className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-foreground font-medium">Above 80%</span>
-                          </div>
-                          <span className="text-3xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
-                            {stats.above80}
-                          </span>
-                        </div>
-                      )}
-
-                      {stats.above75 && (
-                        <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center">
-                              <Star className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-foreground font-medium">Above 75%</span>
-                          </div>
-                          <span className="text-3xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent">
-                            {stats.above75}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Pass Rate - Highlighted */}
-                      <div className="mt-6 p-6 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border-2 border-primary/30">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
-                              <Sparkles className="w-6 h-6 text-white" />
-                            </div>
-                            <span className="text-lg font-bold text-foreground">Pass Rate</span>
-                          </div>
-                          <span className="text-4xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent">
-                            {stats.passRate}%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
