@@ -13,8 +13,10 @@ type Topper = {
   id: string
   academicYear: string
   category: string
+  board?: string
   name: string
   score: string
+  percentage?: string
   rank: string
   school?: string
   college?: string
@@ -29,49 +31,45 @@ type ResultsPageMeta = {
     '12th'?: { total?: string | number; above90?: string | number; above85?: string | number; above80?: string | number; above75?: string | number; passRate?: string | number }
   }
   featuredToppers?: any[]
-  sscToppers?: any[]
-  scienceToppers?: any[]
+  cbse10thToppers?: any[]
+  icse10thToppers?: any[]
+  hsc12thToppers?: any[]
 }
 
 // Seed data to push the public Results page content for 2024-2025
 const sampleResults2024_2025 = {
   highlights: [
-    { label: 'Students Above 90%', value: '16', category: 'SSC Toppers' },
-    { label: 'Students Above 85%', value: '35', category: 'SSC Results' },
-    { label: 'Students Above 80%', value: '51', category: 'Overall Excellence' },
+    { label: 'CBSE 10th Toppers', value: '10', category: 'CBSE Board' },
+    { label: 'ICSE 10th Toppers', value: '10', category: 'ICSE Board' },
+    { label: 'HSC 12th Toppers', value: '10', category: 'HSC Board' },
     { label: 'Success Rate', value: '100%', category: 'Pass Percentage' },
   ],
   featuredToppers: [
     { name: 'Hrithik Pandey', standard: 'NEET-2023', score: '681/720', rank: 'AIR - 1499', category: 'Medical', subjects: ['Medical Entrance'] },
     { name: 'Ritesh Vishwakarma', standard: 'NEET-2022', score: '645/720', rank: 'AIR - 5333', category: 'Medical', subjects: ['Grant Medical College - Sir J.J. Hospital Mumbai'] },
-    { name: 'Rudra Vengurlekar', standard: 'JEE-ADV 2021', score: '98.33%', rank: 'AIR - 8025 • Gold Medal', category: 'Engineering', subjects: ['ITI GANDHINAGAR CHEMICAL ENGG.'] },
+    { name: 'Rudra Vengurlekar', standard: 'JEE-ADV 2021', score: '98.33%', rank: 'AIR - 8025', category: 'Engineering', subjects: ['ITI GANDHINAGAR CHEMICAL ENGG.'] },
     { name: 'Riddhi Bhor', standard: 'MHT-CET 2023', score: '99.46%', rank: 'VIT Pune-Chem Eng', category: 'Engineering', subjects: ['Vishwakarma Institute of Technology'] },
   ],
-  sscToppers: [
-    { name: 'Sanskruti M.', score: '96.20%', rank: '1st', standard: 'PBAG' },
-    { name: 'Vaibhavi K.', score: '95.00%', rank: '1st', standard: 'ADARSH' },
-    { name: 'Vedant G.', score: '94.50%', rank: '3rd', standard: 'PBAG' },
-    { name: 'Kunal R.', score: '93.50%', rank: '2nd', standard: 'ADARSH' },
-    { name: 'Aaiya D.', score: '93.00%', standard: 'PBAG' },
-    { name: 'Aayesha P.', score: '92.20%', standard: 'PBAG' },
-    { name: 'Rehan S.', score: '92.00%', rank: '1st', standard: 'HKVEEVAN' },
-    { name: 'Samarth P.', score: '91.50%', rank: '2nd', standard: 'HKVEEVAN' },
-    { name: 'Rohana R.', score: '91.60%', standard: 'PBAG' },
-    { name: 'Tanvi R.', score: '91.00%', standard: 'OXFORD' },
-    { name: 'Parth R.', score: '90.00%', standard: 'PBAG' },
-    { name: 'Aarchi S.', score: '90.00%', standard: 'PBAG' },
-    { name: 'Yashshree S.', score: '90.00%', standard: 'PBAG' },
-    { name: 'Sai M.', score: '90.00%', standard: 'OXFORD' },
-    { name: 'Siddhi M.', score: '90.00%', standard: 'ADARSH' },
-    { name: 'Varad D.', score: '90.00%', standard: 'ADARSH' },
+  cbse10thToppers: [
+    { name: 'Sanskruti M.', score: '96.20%', rank: '1st', school: 'PBAG School' },
+    { name: 'Vaibhavi K.', score: '95.00%', rank: '1st', school: 'Adarsh Vidyalaya' },
+    { name: 'Vedant G.', score: '94.50%', rank: '3rd', school: 'PBAG School' },
+    { name: 'Kunal R.', score: '93.50%', rank: '2nd', school: 'Adarsh Vidyalaya' },
+    { name: 'Aaiya D.', score: '93.00%', school: 'PBAG School' },
   ],
-
-  scienceToppers: [
-    { name: 'Mahesh K.', score: '94.67%', college: 'RATNAI COLLEGE' },
-    { name: 'Aishwarya K.', score: '94.67%', college: 'MITHIBAI COLLEGE' },
-    { name: 'Sanjay U.', score: '92.83%', college: 'MAHILA SAMITI COLLEGE' },
-    { name: 'Piyush M.', score: '91.50%', college: 'ROYAL COLLEGE' },
-    { name: 'Meghana P.', score: '91.17%', college: 'SKN COLLEGE' },
+  icse10thToppers: [
+    { name: 'Aarchi S.', score: '95.00%', school: "St. Mary's School" },
+    { name: 'Yashshree S.', score: '94.00%', school: 'Ryan International' },
+    { name: 'Sai M.', score: '93.50%', school: 'Cathedral School' },
+    { name: 'Siddhi M.', score: '92.80%', school: "St. Xavier's" },
+    { name: 'Varad D.', score: '92.00%', school: 'Campion School' },
+  ],
+  hsc12thToppers: [
+    { name: 'Mahesh K.', score: '94.67%', school: 'Ratna Junior College' },
+    { name: 'Aishwarya K.', score: '94.67%', school: 'Mithibai College' },
+    { name: 'Sanjay U.', score: '92.83%', school: 'Mahila Samiti College' },
+    { name: 'Piyush M.', score: '91.50%', school: 'Royal College' },
+    { name: 'Meghana P.', score: '91.17%', school: 'SKN College' },
   ],
   statistics: {
     '10th': { total: 102, above90: 16, above85: 35, above80: 51, passRate: 100 },
@@ -106,7 +104,7 @@ export default function ResultsManagement() {
   const [stats10, setStats10] = useState({ total: '', above90: '', above85: '', above80: '', passRate: '' })
   const [stats12, setStats12] = useState({ total: '', above90: '', above75: '', passRate: '' })
 
-  const categories = ['Featured', 'SSC', 'Science']
+  const categories = ['Featured', 'CBSE-10th', 'ICSE-10th', 'HSC-12th']
 
   // Check authentication
   useEffect(() => {
@@ -229,8 +227,9 @@ export default function ResultsManagement() {
         await setDoc(doc(db, 'resultsPages', trimmed), {
           highlights: [],
           featuredToppers: [],
-          sscToppers: [],
-          scienceToppers: [],
+          cbse10thToppers: [],
+          icse10thToppers: [],
+          hsc12thToppers: [],
           statistics: {},
         })
       } catch (error) {

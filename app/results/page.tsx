@@ -12,7 +12,7 @@ const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=400&width=400"
 
 type Highlight = { label: string; value: string; category: string }
 type FeaturedTopper = { name: string; standard: string; score: string; rank: string; category: string; subjects?: string[]; image?: string }
-type SimpleTopper = { name: string; score: string; rank?: string; standard?: string; college?: string; image?: string }
+type BoardTopper = { name: string; score: string; percentage?: string; rank?: string; school?: string; image?: string }
 type ResultStatistics = {
   ["10th"]?: { total: number; above90?: number; above85?: number; above80?: number; above75?: number; passRate: number }
   ["12th"]?: { total: number; above90?: number; above85?: number; above80?: number; above75?: number; passRate: number }
@@ -20,8 +20,9 @@ type ResultStatistics = {
 type ResultsContent = {
   highlights?: Highlight[]
   featuredToppers?: FeaturedTopper[]
-  sscToppers?: SimpleTopper[]
-  scienceToppers?: SimpleTopper[]
+  cbse10thToppers?: BoardTopper[]
+  icse10thToppers?: BoardTopper[]
+  hsc12thToppers?: BoardTopper[]
   statistics?: ResultStatistics
 }
 
@@ -29,8 +30,10 @@ type Topper = {
   id: string
   academicYear: string
   category: string
+  board?: string
   name: string
   score: string
+  percentage?: string
   rank?: string
   standard?: string
   school?: string
@@ -42,41 +45,52 @@ type Topper = {
 const fallbackResultsByYear: Record<string, ResultsContent> = {
   "2024-2025": {
     highlights: [
-      { label: "Students Above 90%", value: "16", category: "SSC Toppers" },
-      { label: "Students Above 85%", value: "35", category: "SSC Results" },
-      { label: "Students Above 80%", value: "51", category: "Overall Excellence" },
+      { label: "CBSE 10th Toppers", value: "10", category: "CBSE Board" },
+      { label: "ICSE 10th Toppers", value: "10", category: "ICSE Board" },
+      { label: "HSC 12th Toppers", value: "10", category: "HSC Board" },
       { label: "Success Rate", value: "100%", category: "Pass Percentage" },
     ],
     featuredToppers: [
       { name: "Hrithik Pandey", standard: "NEET-2023", score: "681/720", rank: "AIR - 1499", category: "Medical", subjects: ["Medical Entrance"] },
       { name: "Ritesh Vishwakarma", standard: "NEET-2022", score: "645/720", rank: "AIR - 5333", category: "Medical", subjects: ["Grant Medical College - Sir J.J. Hospital Mumbai"] },
-      { name: "Rudra Vengurlekar", standard: "JEE-ADV 2021", score: "98.33%", rank: "AIR - 8025 • Gold Medal", category: "Engineering", subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."] },
+      { name: "Rudra Vengurlekar", standard: "JEE-ADV 2021", score: "98.33%", rank: "AIR - 8025", category: "Engineering", subjects: ["ITI GANDHINAGAR CHEMICAL ENGG."] },
       { name: "Riddhi Bhor", standard: "MHT-CET 2023", score: "99.46%", rank: "VIT Pune-Chem Eng", category: "Engineering", subjects: ["Vishwakarma Institute of Technology"] },
     ],
-    sscToppers: [
-      { name: "Sanskruti M.", score: "96.20%", rank: "1st", standard: "PBAG" },
-      { name: "Vaibhavi K.", score: "95.00%", rank: "1st", standard: "ADARSH" },
-      { name: "Vedant G.", score: "94.50%", rank: "3rd", standard: "PBAG" },
-      { name: "Kunal R.", score: "93.50%", rank: "2nd", standard: "ADARSH" },
-      { name: "Aaiya D.", score: "93.00%", standard: "PBAG" },
-      { name: "Aayesha P.", score: "92.20%", standard: "PBAG" },
-      { name: "Rehan S.", score: "92.00%", rank: "1st", standard: "HKVEEVAN" },
-      { name: "Samarth P.", score: "91.50%", rank: "2nd", standard: "HKVEEVAN" },
-      { name: "Rohana R.", score: "91.60%", standard: "PBAG" },
-      { name: "Tanvi R.", score: "91.00%", standard: "OXFORD" },
-      { name: "Parth R.", score: "90.00%", standard: "PBAG" },
-      { name: "Aarchi S.", score: "90.00%", standard: "PBAG" },
-      { name: "Yashshree S.", score: "90.00%", standard: "PBAG" },
-      { name: "Sai M.", score: "90.00%", standard: "OXFORD" },
-      { name: "Siddhi M.", score: "90.00%", standard: "ADARSH" },
-      { name: "Varad D.", score: "90.00%", standard: "ADARSH" },
+    cbse10thToppers: [
+      { name: "Sanskruti M.", score: "96.20%", rank: "1st", school: "PBAG School" },
+      { name: "Vaibhavi K.", score: "95.00%", rank: "1st", school: "Adarsh Vidyalaya" },
+      { name: "Vedant G.", score: "94.50%", rank: "3rd", school: "PBAG School" },
+      { name: "Kunal R.", score: "93.50%", rank: "2nd", school: "Adarsh Vidyalaya" },
+      { name: "Aaiya D.", score: "93.00%", school: "PBAG School" },
+      { name: "Aayesha P.", score: "92.20%", school: "PBAG School" },
+      { name: "Rehan S.", score: "92.00%", rank: "1st", school: "HK Veevan" },
+      { name: "Samarth P.", score: "91.50%", rank: "2nd", school: "HK Veevan" },
+      { name: "Rohana R.", score: "91.60%", school: "PBAG School" },
+      { name: "Tanvi R.", score: "91.00%", school: "Oxford School" },
     ],
-    scienceToppers: [
-      { name: "Mahesh K.", score: "94.67%", college: "RATNAI COLLEGE" },
-      { name: "Aishwarya K.", score: "94.67%", college: "MITHIBAI COLLEGE" },
-      { name: "Sanjay U.", score: "92.83%", college: "MAHILA SAMITI COLLEGE" },
-      { name: "Piyush M.", score: "91.50%", college: "ROYAL COLLEGE" },
-      { name: "Meghana P.", score: "91.17%", college: "SKN COLLEGE" },
+    icse10thToppers: [
+      { name: "Aarchi S.", score: "95.00%", school: "St. Mary's School" },
+      { name: "Yashshree S.", score: "94.00%", school: "Ryan International" },
+      { name: "Sai M.", score: "93.50%", school: "Cathedral School" },
+      { name: "Siddhi M.", score: "92.80%", school: "St. Xavier's" },
+      { name: "Varad D.", score: "92.00%", school: "Campion School" },
+      { name: "Priya K.", score: "91.50%", school: "Bombay Scottish" },
+      { name: "Arjun T.", score: "91.00%", school: "JB Petit School" },
+      { name: "Neha P.", score: "90.50%", school: "Cathedral School" },
+      { name: "Rohan M.", score: "90.20%", school: "St. Mary's School" },
+      { name: "Sneha D.", score: "90.00%", school: "Ryan International" },
+    ],
+    hsc12thToppers: [
+      { name: "Mahesh K.", score: "94.67%", school: "Ratna Junior College" },
+      { name: "Aishwarya K.", score: "94.67%", school: "Mithibai College" },
+      { name: "Sanjay U.", score: "92.83%", school: "Mahila Samiti College" },
+      { name: "Piyush M.", score: "91.50%", school: "Royal College" },
+      { name: "Meghana P.", score: "91.17%", school: "SKN College" },
+      { name: "Rahul S.", score: "90.83%", school: "Jai Hind College" },
+      { name: "Priyanka D.", score: "90.50%", school: "HR College" },
+      { name: "Amit K.", score: "90.17%", school: "Ramnarain Ruia" },
+      { name: "Divya M.", score: "90.00%", school: "KC College" },
+      { name: "Vikram P.", score: "89.83%", school: "Wilson College" },
     ],
     statistics: {
       "10th": { total: 102, above90: 16, above85: 35, above80: 51, passRate: 100 },
@@ -92,8 +106,9 @@ export default function ResultsPage() {
   const [selectedYear, setSelectedYear] = useState<string>("2024-2025")
   const [results, setResults] = useState<ResultsContent | null>(getFallbackForYear("2024-2025"))
   const [featured, setFeatured] = useState<FeaturedTopper[]>(getFallbackForYear("2024-2025")?.featuredToppers || [])
-  const [ssc, setSsc] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.sscToppers || [])
-  const [science, setScience] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.scienceToppers || [])
+  const [cbse10th, setCbse10th] = useState<BoardTopper[]>(getFallbackForYear("2024-2025")?.cbse10thToppers || [])
+  const [icse10th, setIcse10th] = useState<BoardTopper[]>(getFallbackForYear("2024-2025")?.icse10thToppers || [])
+  const [hsc12th, setHsc12th] = useState<BoardTopper[]>(getFallbackForYear("2024-2025")?.hsc12thToppers || [])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -162,24 +177,28 @@ export default function ResultsPage() {
 
           if (list.length > 0) {
             setFeatured(list.filter((t) => t.category === "Featured"))
-            setSsc(list.filter((t) => t.category === "SSC"))
-            setScience(list.filter((t) => t.category === "Science"))
+            setCbse10th(list.filter((t) => t.category === "CBSE-10th" || (t.category === "10th" && t.board === "CBSE")).slice(0, 10))
+            setIcse10th(list.filter((t) => t.category === "ICSE-10th" || (t.category === "10th" && t.board === "ICSE")).slice(0, 10))
+            setHsc12th(list.filter((t) => t.category === "HSC-12th" || (t.category === "12th" && t.board === "HSC")).slice(0, 10))
           } else if (yearResults) {
             // fallback to stored page data if no toppers
             setFeatured(yearResults.featuredToppers || [])
-            setSsc(yearResults.sscToppers || [])
-            setScience(yearResults.scienceToppers || [])
+            setCbse10th(yearResults.cbse10thToppers || [])
+            setIcse10th(yearResults.icse10thToppers || [])
+            setHsc12th(yearResults.hsc12thToppers || [])
           } else {
             setFeatured([])
-            setSsc([])
-            setScience([])
+            setCbse10th([])
+            setIcse10th([])
+            setHsc12th([])
           }
         } catch (err) {
           console.error("Error fetching toppers", err)
           if (yearResults) {
             setFeatured(yearResults.featuredToppers || [])
-            setSsc(yearResults.sscToppers || [])
-            setScience(yearResults.scienceToppers || [])
+            setCbse10th(yearResults.cbse10thToppers || [])
+            setIcse10th(yearResults.icse10thToppers || [])
+            setHsc12th(yearResults.hsc12thToppers || [])
           }
         }
       } catch (err) {
@@ -362,44 +381,42 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      {/* SSC Toppers - Modern Grid */}
+      {/* CBSE 10th Toppers */}
       <section className="py-20 lg:py-32 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-semibold mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
               <Medal className="w-4 h-4" />
-              <span>SSC Excellence</span>
+              <span>CBSE Board</span>
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                SSC Toppers
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                CBSE 10th Toppers
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground">Outstanding performances in 10th Board Exams</p>
+            <p className="text-xl text-muted-foreground">Excellence in CBSE Board Examinations</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {ssc.map((topper, index) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            {cbse10th.map((topper, index) => (
               <div
                 key={index}
-                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-secondary/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-primary/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Top accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
                 
-                {/* Image or Avatar */}
-                <div className="relative w-full h-24 md:h-32 bg-muted overflow-hidden">
+                <div className="relative w-full h-32 bg-muted overflow-hidden">
                   {topper.image ? (
                     <img 
-                      src={CONTENT_PLACEHOLDER}
+                      src={topper.image}
                       alt={topper.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                       decoding="async"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-secondary/30 to-accent/30 flex items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent">
+                    <div className="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
+                      <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
                         #{index + 1}
                       </div>
                     </div>
@@ -407,22 +424,19 @@ export default function ResultsPage() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/60" />
                 </div>
 
-                <div className="p-4 md:p-6">
-                  {/* Score */}
-                  <div className="text-center mb-3 md:mb-4">
-                    <div className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent mb-1">
+                <div className="p-5">
+                  <div className="text-center mb-3">
+                    <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent mb-1">
                       {topper.score}
                     </div>
-                    <div className="text-xs md:text-sm text-muted-foreground font-medium">{topper.rank || "Top Performer"}</div>
+                    {topper.rank && <div className="text-xs text-muted-foreground font-medium">{topper.rank}</div>}
                   </div>
 
-                  {/* Name */}
-                  <h4 className="text-base md:text-lg font-bold mb-1 text-center group-hover:text-secondary transition-colors line-clamp-2">
+                  <h4 className="text-base font-bold mb-1 text-center group-hover:text-primary transition-colors line-clamp-2">
                     {topper.name}
                   </h4>
                   
-                  {/* Standard */}
-                  <p className="text-center text-muted-foreground text-xs md:text-sm">{topper.standard}</p>
+                  {topper.school && <p className="text-center text-muted-foreground text-xs line-clamp-2">{topper.school}</p>}
                 </div>
               </div>
             ))}
@@ -430,70 +444,128 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      {/* HSC Science Toppers */}
+      {/* ICSE 10th Toppers */}
       <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            {/* Science Toppers */}
-            <div>
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent text-sm font-semibold mb-6">
-                  <Sparkles className="w-4 h-4" />
-                  <span>Science Stream</span>
-                </div>
-                <h2 className="text-4xl lg:text-5xl font-bold mb-3">
-                  <span className="bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
-                    Science
-                  </span>
-                </h2>
-                <p className="text-lg text-muted-foreground">HSC Science Achievers</p>
-              </div>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-semibold mb-6">
+              <Medal className="w-4 h-4" />
+              <span>ICSE Board</span>
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                ICSE 10th Toppers
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground">Excellence in ICSE Board Examinations</p>
+          </div>
 
-              <div className="space-y-4">
-                {science.map((topper, index) => (
-                  <div
-                    key={index}
-                    className="group bg-card rounded-xl border border-border hover:border-accent/50 p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:translate-x-1"
-                  >
-                    <div className="flex items-start gap-3 md:gap-4">
-                      {/* Image or Rank badge */}
-                      <div className="flex-shrink-0">
-                        {topper.image ? (
-                          <img 
-                            src={CONTENT_PLACEHOLDER}
-                            alt={topper.name}
-                            className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-accent/30 group-hover:border-accent/50 transition-colors"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        ) : (
-                          <div className="w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-md">
-                            {index + 1}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        {/* Name & Score */}
-                        <div className="flex items-start justify-between mb-1 md:mb-2 gap-2">
-                          <h4 className="text-base md:text-lg font-bold group-hover:text-accent transition-colors line-clamp-2">
-                            {topper.name}
-                          </h4>
-                          <div className="text-xl md:text-2xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent flex-shrink-0">
-                            {topper.score}
-                          </div>
-                        </div>
-                        
-                        {/* Details */}
-                        <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
-                          <span className="line-clamp-1">{topper.college}</span>
-                        </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            {icse10th.map((topper, index) => (
+              <div
+                key={index}
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-secondary/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary" />
+                
+                <div className="relative w-full h-32 bg-muted overflow-hidden">
+                  {topper.image ? (
+                    <img 
+                      src={topper.image}
+                      alt={topper.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-secondary/30 to-accent/30 flex items-center justify-center">
+                      <div className="text-3xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent">
+                        #{index + 1}
                       </div>
                     </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/60" />
+                </div>
+
+                <div className="p-5">
+                  <div className="text-center mb-3">
+                    <div className="text-3xl font-bold bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent mb-1">
+                      {topper.score}
+                    </div>
+                    {topper.rank && <div className="text-xs text-muted-foreground font-medium">{topper.rank}</div>}
                   </div>
-                ))}
+
+                  <h4 className="text-base font-bold mb-1 text-center group-hover:text-secondary transition-colors line-clamp-2">
+                    {topper.name}
+                  </h4>
+                  
+                  {topper.school && <p className="text-center text-muted-foreground text-xs line-clamp-2">{topper.school}</p>}
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HSC 12th Toppers */}
+      <section className="py-20 lg:py-32 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent text-sm font-semibold mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span>HSC Board</span>
             </div>
+            <h2 className="text-5xl lg:text-6xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
+                HSC 12th Toppers
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground">Excellence in HSC Science Stream</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            {hsc12th.map((topper, index) => (
+              <div
+                key={index}
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-accent/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-secondary to-accent" />
+                
+                <div className="relative w-full h-32 bg-muted overflow-hidden">
+                  {topper.image ? (
+                    <img 
+                      src={topper.image}
+                      alt={topper.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-accent/30 to-secondary/30 flex items-center justify-center">
+                      <div className="text-3xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent">
+                        #{index + 1}
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/60" />
+                </div>
+
+                <div className="p-5">
+                  <div className="text-center mb-3">
+                    <div className="text-3xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent mb-1">
+                      {topper.score}
+                    </div>
+                    {topper.rank && <div className="text-xs text-muted-foreground font-medium">{topper.rank}</div>}
+                  </div>
+
+                  <h4 className="text-base font-bold mb-1 text-center group-hover:text-accent transition-colors line-clamp-2">
+                    {topper.name}
+                  </h4>
+                  
+                  {topper.school && <p className="text-center text-muted-foreground text-xs line-clamp-2">{topper.school}</p>}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
