@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Trophy, Medal, Star, Award, Sparkles, TrendingUp } from "lucide-react"
+import { Trophy, Medal, Star, Award, Sparkles } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 import { withBasePath } from "@/lib/utils"
@@ -21,7 +21,6 @@ type ResultsContent = {
   highlights?: Highlight[]
   featuredToppers?: FeaturedTopper[]
   sscToppers?: SimpleTopper[]
-  commerceToppers?: SimpleTopper[]
   scienceToppers?: SimpleTopper[]
   statistics?: ResultStatistics
 }
@@ -72,14 +71,6 @@ const fallbackResultsByYear: Record<string, ResultsContent> = {
       { name: "Siddhi M.", score: "90.00%", standard: "ADARSH" },
       { name: "Varad D.", score: "90.00%", standard: "ADARSH" },
     ],
-    commerceToppers: [
-      { name: "Soham G.", score: "96.00%", college: "JHUNJHUNWALA COLLEGE" },
-      { name: "Roshni S.", score: "92.75%", college: "NES COLLEGE" },
-      { name: "Riya B.", score: "88.50%", college: "MCC COLLEGE" },
-      { name: "Harsh J.", score: "86.25%", college: "MCC COLLEGE" },
-      { name: "Sarthak S.", score: "86.25%", college: "MCC COLLEGE" },
-      { name: "Sandeep P.", score: "84.00%", college: "DAV COLLEGE" },
-    ],
     scienceToppers: [
       { name: "Mahesh K.", score: "94.67%", college: "RATNAI COLLEGE" },
       { name: "Aishwarya K.", score: "94.67%", college: "MITHIBAI COLLEGE" },
@@ -102,7 +93,6 @@ export default function ResultsPage() {
   const [results, setResults] = useState<ResultsContent | null>(getFallbackForYear("2024-2025"))
   const [featured, setFeatured] = useState<FeaturedTopper[]>(getFallbackForYear("2024-2025")?.featuredToppers || [])
   const [ssc, setSsc] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.sscToppers || [])
-  const [commerce, setCommerce] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.commerceToppers || [])
   const [science, setScience] = useState<SimpleTopper[]>(getFallbackForYear("2024-2025")?.scienceToppers || [])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -173,18 +163,15 @@ export default function ResultsPage() {
           if (list.length > 0) {
             setFeatured(list.filter((t) => t.category === "Featured"))
             setSsc(list.filter((t) => t.category === "SSC"))
-            setCommerce(list.filter((t) => t.category === "Commerce"))
             setScience(list.filter((t) => t.category === "Science"))
           } else if (yearResults) {
             // fallback to stored page data if no toppers
             setFeatured(yearResults.featuredToppers || [])
             setSsc(yearResults.sscToppers || [])
-            setCommerce(yearResults.commerceToppers || [])
             setScience(yearResults.scienceToppers || [])
           } else {
             setFeatured([])
             setSsc([])
-            setCommerce([])
             setScience([])
           }
         } catch (err) {
@@ -192,7 +179,6 @@ export default function ResultsPage() {
           if (yearResults) {
             setFeatured(yearResults.featuredToppers || [])
             setSsc(yearResults.sscToppers || [])
-            setCommerce(yearResults.commerceToppers || [])
             setScience(yearResults.scienceToppers || [])
           }
         }
@@ -444,71 +430,10 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      {/* Commerce & Science Toppers - Side by Side */}
+      {/* HSC Science Toppers */}
       <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
-            {/* Commerce Toppers */}
-            <div>
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>Commerce Stream</span>
-                </div>
-                <h2 className="text-4xl lg:text-5xl font-bold mb-3">
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    Commerce
-                  </span>
-                </h2>
-                <p className="text-lg text-muted-foreground">HSC Commerce Achievers</p>
-              </div>
-
-              <div className="space-y-4">
-                {commerce.map((topper, index) => (
-                  <div
-                    key={index}
-                    className="group bg-card rounded-xl border border-border hover:border-primary/50 p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:-translate-x-1"
-                  >
-                    <div className="flex items-start gap-3 md:gap-4">
-                      {/* Image or Rank badge */}
-                      <div className="flex-shrink-0">
-                        {topper.image ? (
-                          <img 
-                            src={CONTENT_PLACEHOLDER}
-                            alt={topper.name}
-                            className="w-12 md:w-14 h-12 md:h-14 rounded-lg object-cover border-2 border-primary/30 group-hover:border-primary/50 transition-colors"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        ) : (
-                          <div className="w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-md">
-                            {index + 1}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        {/* Name & Score */}
-                        <div className="flex items-start justify-between mb-1 md:mb-2 gap-2">
-                          <h4 className="text-base md:text-lg font-bold group-hover:text-primary transition-colors line-clamp-2">
-                            {topper.name}
-                          </h4>
-                          <div className="text-xl md:text-2xl font-bold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent flex-shrink-0">
-                            {topper.score}
-                          </div>
-                        </div>
-                        
-                        {/* Details */}
-                        <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
-                          <span className="line-clamp-1">{topper.college}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+          <div className="max-w-4xl mx-auto">
             {/* Science Toppers */}
             <div>
               <div className="text-center mb-12">

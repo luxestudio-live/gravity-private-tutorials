@@ -128,17 +128,6 @@ const defaultFaculty: FacultyMember[] = [
     isDefault: true,
   },
   {
-    id: 'default_10',
-    name: 'Pravin Devidas Thorat',
-    subject: 'Commerce Teacher',
-    qualification: 'M.Com, B.Ed, MBA, LLB',
-    experience: '16 Years',
-    specialization: 'O.CM. // S.P',
-    image: '/pravin-devidas-thorat.jpeg',
-    color: 'from-primary to-accent',
-    isDefault: true,
-  },
-  {
     id: 'default_11',
     name: 'Arun Saheb Gauda',
     subject: 'Accounts, Financial Studies, Economics',

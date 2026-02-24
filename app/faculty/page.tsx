@@ -118,16 +118,6 @@ const defaultFaculty: FacultyMember[] = [
 		color: "from-accent to-secondary",
 	},
 	{
-		name: "Pravin Devidas Thorat",
-		subject: "Commerce Teacher",
-		qualification: "M.Com, B.Ed, MBA, LLB",
-		experience: "16 Years",
-		specialization: "O.CM. // S.P",
-		achievements: [],
-		image: "/pravin-devidas-thorat.jpeg",
-		color: "from-primary to-accent",
-	},
-	{
 		name: "Arun Saheb Gauda",
 		subject: "Accounts, Financial Studies, Economics",
 		qualification: "B.Com (Account & Finance), M.Com (Accounts & Finance), M.Com (Management)",

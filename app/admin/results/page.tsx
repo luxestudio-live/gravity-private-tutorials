@@ -30,7 +30,6 @@ type ResultsPageMeta = {
   }
   featuredToppers?: any[]
   sscToppers?: any[]
-  commerceToppers?: any[]
   scienceToppers?: any[]
 }
 
@@ -66,14 +65,7 @@ const sampleResults2024_2025 = {
     { name: 'Siddhi M.', score: '90.00%', standard: 'ADARSH' },
     { name: 'Varad D.', score: '90.00%', standard: 'ADARSH' },
   ],
-  commerceToppers: [
-    { name: 'Soham G.', score: '96.00%', college: 'JHUNJHUNWALA COLLEGE' },
-    { name: 'Roshni S.', score: '92.75%', college: 'NES COLLEGE' },
-    { name: 'Riya B.', score: '88.50%', college: 'MCC COLLEGE' },
-    { name: 'Harsh J.', score: '86.25%', college: 'MCC COLLEGE' },
-    { name: 'Sarthak S.', score: '86.25%', college: 'MCC COLLEGE' },
-    { name: 'Sandeep P.', score: '84.00%', college: 'DAV COLLEGE' },
-  ],
+
   scienceToppers: [
     { name: 'Mahesh K.', score: '94.67%', college: 'RATNAI COLLEGE' },
     { name: 'Aishwarya K.', score: '94.67%', college: 'MITHIBAI COLLEGE' },
@@ -114,7 +106,7 @@ export default function ResultsManagement() {
   const [stats10, setStats10] = useState({ total: '', above90: '', above85: '', above80: '', passRate: '' })
   const [stats12, setStats12] = useState({ total: '', above90: '', above75: '', passRate: '' })
 
-  const categories = ['Featured', 'SSC', 'Commerce', 'Science']
+  const categories = ['Featured', 'SSC', 'Science']
 
   // Check authentication
   useEffect(() => {
@@ -238,7 +230,6 @@ export default function ResultsManagement() {
           highlights: [],
           featuredToppers: [],
           sscToppers: [],
-          commerceToppers: [],
           scienceToppers: [],
           statistics: {},
         })
