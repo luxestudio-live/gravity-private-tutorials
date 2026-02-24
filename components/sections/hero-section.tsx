@@ -39,7 +39,7 @@ export function HeroSection() {
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-            Excellence in education for 5th to 12th grade students. Expert faculty, proven methodologies, and a
+            Excellence in education for 8th to 12th grade students. Expert faculty, proven methodologies, and a
             commitment to your success.
           </p>
 
