@@ -16,7 +16,7 @@ const contactInfo = [
     title: "Visit Us",
     details: [
       "Gravity Private Tutorials",
-      "Complex 1, test Road, Mumbai -400001",
+      "Shop No 56, Centrium Mall, Lokhandwala, Mumbai- 400101",
     ],
     color: "from-primary to-accent",
   },
@@ -356,7 +356,7 @@ export default function ContactPage() {
               {/* Map */}
               <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl h-[400px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3968574835597!2d72.9373964!3d19.124098999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7ddb6c9c1b7%3A0x9d9c9c9c9c9c9c9c!2sShop%20No%201%2C%20Ground%20Floor%2C%20Sai%20Smruti%20Building%2C%20Near%20Nath%20Pai%20School%2C%20Nardas%20Nagar%2C%20T.%20P.%20Road%2C%20Bhandup%20West%2C%20Mumbai%2C%20Maharashtra%20400078!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps?q=Shop+No+56,+Centrium+Mall,+Lokhandwala,+Mumbai&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -366,7 +366,7 @@ export default function ContactPage() {
                   className="grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <a 
-                  href="https://share.google/cQLKov5ZlCt0PEJ32"
+                  href="https://www.google.com/maps/search/?api=1&query=Shop+No+56,+Centrium+Mall,+Lokhandwala,+Mumbai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-lg z-10"

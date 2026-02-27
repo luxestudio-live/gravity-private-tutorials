@@ -21,7 +21,7 @@ const testimonials = [
     rank: "",
     image: "/placeholder-user.jpg",
     content:
-      "Number 1 classes in Bhandup. All teachers teach very politely and great.",
+      "Number 1 classes in Lokhandwala. All teachers teach very politely and great.",
     rating: 5,
   },
   {

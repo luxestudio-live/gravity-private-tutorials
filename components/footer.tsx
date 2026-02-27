@@ -141,7 +141,7 @@ export function Footer() {
               <div>
                 <div className="font-medium mb-1">Visit Us</div>
                 <div className="text-background/80 text-sm leading-relaxed">
-                  Gravity Private Tutorials, Complex 1, test Road, Mumbai -400001
+                  Gravity Private Tutorials, Shop No 56, Centrium Mall, Lokhandwala, Mumbai- 400101
                 </div>
               </div>
             </div>
