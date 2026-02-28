@@ -21,6 +21,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const isHomeHero = pathname === "/" && !scrolled
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -55,8 +56,8 @@ export function Navbar() {
               decoding="async"
             />
             <span className="text-2xl lg:text-3xl font-[family-name:var(--font-bebas)] font-bold tracking-wide">
-              <span className="text-primary">GRAVITY</span>{" "}
-              <span className="text-primary">PRIVATE TUTORIALS</span>
+              <span className={isHomeHero ? "text-white" : "text-primary"}>GRAVITY</span>{" "}
+              <span className={isHomeHero ? "text-white" : "text-primary"}>PRIVATE TUTORIALS</span>
             </span>
           </Link>
 
@@ -66,12 +67,14 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-4 py-2 text-sm font-medium text-foreground/80 transition-all duration-300 hover:text-primary group overflow-hidden"
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group overflow-hidden ${
+                  isHomeHero ? "text-white/90 hover:text-white" : "text-foreground/80 hover:text-primary"
+                }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <span className="relative z-10">{link.name}</span>
                 <span className="absolute inset-0 bg-primary/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-lg" />
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                <span className={`absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${isHomeHero ? "bg-white" : "bg-primary"}`} />
               </Link>
             ))}
             <Button asChild className="ml-4 relative overflow-hidden group" size="lg">
@@ -85,7 +88,9 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors duration-300"
+            className={`lg:hidden p-2 transition-colors duration-300 ${
+              isHomeHero ? "text-white hover:text-white/80" : "text-foreground hover:text-primary"
+            }`}
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>

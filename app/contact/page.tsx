@@ -16,14 +16,14 @@ const contactInfo = [
     title: "Visit Us",
     details: [
       "Gravity Private Tutorials",
-      "Shop No 56, Centrium Mall, Lokhandwala, Mumbai- 400101",
+      "Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.",
     ],
     color: "from-primary to-accent",
   },
   {
     icon: Phone,
     title: "Call // WhatsApp",
-    details: ["+91 9321861630", "+91 9321861630 (WhatsApp)", "Mon-Sun: 9 AM - 9 PM"],
+    details: ["+91 93218 61630", "+91 8104010342", "Mon-Sun: 9 AM - 9 PM"],
     color: "from-accent to-secondary",
   },
   {
@@ -41,9 +41,9 @@ const contactInfo = [
 ]
 
 const socialMedia = [
-  { icon: Facebook, label: "Facebook", href: "#", color: "hover:bg-blue-500" },
-  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/gravity_tutorials", color: "hover:bg-pink-500" },
-  { icon: Youtube, label: "YouTube", href: "#", color: "hover:bg-red-500" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/gravityprivatetutorials/", color: "hover:bg-blue-500" },
+  { icon: Instagram, label: "Instagram", href: "https://share.google/CveCdWQsnGtAadzOk", color: "hover:bg-pink-500" },
+  { icon: Youtube, label: "YouTube", href: "https://youtube.com/@gravityprivatetutorials6739?si=e3yce1M-cjRdM3J_", color: "hover:bg-red-500" },
   { icon: MessageSquare, label: "WhatsApp", href: "https://wa.me/919321861630", color: "hover:bg-green-500" },
 ]
 
@@ -356,7 +356,7 @@ export default function ContactPage() {
               {/* Map */}
               <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl h-[400px]">
                 <iframe
-                  src="https://www.google.com/maps?q=Shop+No+56,+Centrium+Mall,+Lokhandwala,+Mumbai&output=embed"
+                  src="https://www.google.com/maps?q=Shop+No.+56,+Centrium+Mall,+Kandivali+(E),+Mumbai+400101&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -366,7 +366,7 @@ export default function ContactPage() {
                   className="grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <a 
-                  href="https://www.google.com/maps/search/?api=1&query=Shop+No+56,+Centrium+Mall,+Lokhandwala,+Mumbai"
+                  href="https://maps.app.goo.gl/wYookRnnUiAmpg848?g_st=aw"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="absolute bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-lg z-10"
@@ -420,7 +420,7 @@ export default function ContactPage() {
                     <Button size="lg" className="bg-white text-primary hover:bg-white/90 w-full group/btn" asChild>
                       <a href="tel:+919321861630">
                         <Phone className="w-5 h-5 mr-2 group-hover/decent-academy-v1/btn:rotate-12 transition-transform duration-300" />
-                        Call Now
+                        Call: 93218 61630
                       </a>
                     </Button>
                     <Button
@@ -429,9 +429,9 @@ export default function ContactPage() {
                       className="border-2 border-white text-white hover:bg-white/10 w-full bg-transparent"
                       asChild
                     >
-                      <a href="https://wa.me/919321861630" target="_blank" rel="noopener noreferrer">
+                      <a href="tel:+918104010342">
                         <MessageSquare className="w-5 h-5 mr-2" />
-                        WhatsApp Us
+                        Call: 8104010342
                       </a>
                     </Button>
                   </div>

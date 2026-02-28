@@ -1,47 +1,93 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { withBasePath } from "@/lib/utils"
 
+const heroSlides = ["/1.png", "/2.png", "/3.png", "/4.png"]
+
 export function HeroSection() {
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length)
+    }, 3500)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
-        {/* Horizontal Gradient Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10" />
-        
-        {/* Logo Background */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10">
-          <img 
-            src={withBasePath("/gravity-logo.png")}
-            alt="" 
-            className="w-[400px] md:w-[600px] h-auto object-contain"
-            loading="lazy"
-            decoding="async"
-          />
+        <div
+          className="hidden md:flex h-full w-full transition-transform duration-1000 ease-in-out"
+          style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+        >
+          {heroSlides.map((slide, index) => (
+            <div key={slide} className="relative h-full min-w-full bg-foreground">
+              <img
+                src={withBasePath(slide)}
+                alt={`Hero banner ${index + 1}`}
+                className="h-full w-full object-cover object-center"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </div>
+          ))}
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground/75 via-foreground/55 to-foreground/70 md:bg-gradient-to-r md:from-foreground/80 md:via-foreground/65 md:to-foreground/55" />
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 py-20">
+      <div className="container mx-auto px-4 lg:px-8 py-16 md:py-20">
         <div className="max-w-5xl mx-auto text-center space-y-8">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium animate-scale-in border border-primary/20 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 rounded-full text-white text-sm font-medium animate-scale-in border border-white/25 backdrop-blur-sm">
             <Sparkles className="w-4 h-4" />
-            <span>Leading Coaching Institute Since 2006</span>
+            <span>Leading Coaching Institute Since 2019</span>
           </div>
 
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.75)]">
             Transform Your
-            <span className="block mt-2 text-primary">Academic Journey</span>
+            <span className="block mt-2 text-white [text-shadow:0_4px_16px_rgba(0,0,0,0.9)]">Academic Journey</span>
           </h1>
 
-          {/* Subheading */}
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto text-pretty leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
             Excellence in education for 8th to 12th grade students. Expert faculty, proven methodologies, and a
             commitment to your success.
           </p>
+
+          <div className="md:hidden w-full max-w-md mx-auto pt-2">
+            <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-foreground/80 backdrop-blur-sm">
+              <div
+                className="flex w-full transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+              >
+                {heroSlides.map((slide, index) => (
+                  <div key={`mobile-${slide}`} className="min-w-full aspect-[16/9]">
+                    <img
+                      src={withBasePath(slide)}
+                      alt={`Hero mobile banner ${index + 1}`}
+                      className="h-full w-full object-cover"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-2 mt-3">
+              {heroSlides.map((_, index) => (
+                <span
+                  key={`dot-${index}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    index === activeSlide ? "w-5 bg-white" : "w-2 bg-white/50"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -68,25 +114,6 @@ export function HeroSection() {
             </Button>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 max-w-4xl mx-auto">
-            {[
-              { value: "20+", label: "Years Experience" },
-              { value: "10000+", label: "Students Taught" },
-              { value: "30+", label: "Expert Faculty" },
-              { value: "100%", label: "Success Rate" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="p-6 bg-card/90 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 

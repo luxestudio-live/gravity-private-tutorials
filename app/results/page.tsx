@@ -234,7 +234,7 @@ export default function ResultsPage() {
           <div className="max-w-5xl mx-auto text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-sm rounded-full text-primary text-sm font-semibold border border-primary/20 shadow-lg">
               <Sparkles className="w-5 h-5 text-secondary" />
-              <span>Celebrating Excellence Since 2006</span>
+              <span>Celebrating Excellence Since 2019</span>
             </div>
 
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-tight">

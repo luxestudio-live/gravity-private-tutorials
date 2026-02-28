@@ -32,9 +32,9 @@ const values = [
 ]
 
 const milestones = [
-  { year: "2006", event: "Institute Founded", description: "Started with a vision to transform education" },
-  { year: "2015", event: "1000+ Students", description: "Reached milestone of teaching 1000 students" },
-  { year: "2025", event: "10000+ Alumni", description: "Growing network of successful students" },
+  { year: "2019", event: "Institute Founded", description: "Started with a vision to transform education" },
+  { year: "2022", event: "1000+ Students", description: "Reached milestone of teaching 1000 students" },
+  { year: "2026", event: "10000+ Alumni", description: "Growing network of successful students" },
 ]
 
 export default function AboutPage() {
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20">
               <Award className="w-4 h-4" />
-              <span>20 Years of Educational Excellence</span>
+              <span>Leading Coaching Institute Since 2019</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-tight">

@@ -66,9 +66,9 @@ export function Footer() {
             </p>
             <div className="flex gap-3">
               {[
-                { icon: Facebook, href: "#" },
-                { icon: Instagram, href: "https://www.instagram.com/gravity_tutorials" },
-                { icon: Youtube, href: "#" },
+                { icon: Facebook, href: "https://www.facebook.com/gravityprivatetutorials/" },
+                { icon: Instagram, href: "https://share.google/CveCdWQsnGtAadzOk" },
+                { icon: Youtube, href: "https://youtube.com/@gravityprivatetutorials6739?si=e3yce1M-cjRdM3J_" },
               ].map((social, index) => (
                 <a
                   key={index}
@@ -141,7 +141,7 @@ export function Footer() {
               <div>
                 <div className="font-medium mb-1">Visit Us</div>
                 <div className="text-background/80 text-sm leading-relaxed">
-                  Gravity Private Tutorials, Shop No 56, Centrium Mall, Lokhandwala, Mumbai- 400101
+                  Gravity Private Tutorials, Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.
                 </div>
               </div>
             </div>
@@ -149,7 +149,7 @@ export function Footer() {
               <Phone className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
                 <div className="font-medium mb-1">Call Us</div>
-                <div className="text-background/80 text-sm">+91 9321861630</div>
+                <div className="text-background/80 text-sm">+91 93218 61630 / +91 8104010342</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
