@@ -5,7 +5,6 @@ import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { Trash2, Edit2, Plus } from 'lucide-react'
-import { withBasePath } from '@/lib/utils'
 
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
@@ -14,35 +13,11 @@ type GalleryImage = {
   src: string
   title: string
   description: string
-  isDefault?: boolean
 }
-
-const CONTENT_PLACEHOLDER = withBasePath('/placeholder.svg?height=400&width=400')
-
-const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
-  items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
-
-const defaultGalleryImages: GalleryImage[] = [
-  { id: 'default_1', src: '/da2.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_2', src: '/da3.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_3', src: '/da4.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_4', src: '/da7.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_5', src: '/da8.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_6', src: '/da9.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_7', src: '/daa1.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_8', src: '/daa2.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_9', src: '/daa3.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_10', src: '/daa4.png', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_11', src: '/daa5.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_12', src: '/daa6.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_13', src: '/da1.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_14', src: '/da5.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-  { id: 'default_15', src: '/da6.jpeg', title: 'Gravity Private Tutorials', description: 'Moments from Gravity Private Tutorials', isDefault: true },
-]
 
 export default function GalleryManagement() {
   const { user } = useAuth()
-  const [allImages, setAllImages] = useState<GalleryImage[]>(withPlaceholderImages(defaultGalleryImages))
+  const [allImages, setAllImages] = useState<GalleryImage[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -67,12 +42,16 @@ export default function GalleryManagement() {
     try {
       setLoading(true)
       const snap = await getDocs(collection(db, 'gallery'))
-      const newImages = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as GalleryImage[]
+      const newImages = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .filter((image): image is GalleryImage => {
+          return Boolean((image as GalleryImage).src)
+        })
       console.log('Fetched new gallery images from Firestore:', newImages)
-      setAllImages(withPlaceholderImages([...newImages, ...defaultGalleryImages]))
+      setAllImages(newImages)
     } catch (error) {
       console.error('Error fetching gallery images:', error)
-      setAllImages(withPlaceholderImages(defaultGalleryImages))
+      setAllImages([])
     } finally {
       setLoading(false)
     }
@@ -134,7 +113,7 @@ export default function GalleryManagement() {
     try {
       setUploading(true)
       console.log('Saving gallery image:', formData)
-      if (editingId && !editingId.startsWith('default_')) {
+      if (editingId) {
         await updateDoc(doc(db, 'gallery', editingId), formData)
         alert('Gallery image updated!')
         setEditingId(null)
@@ -142,8 +121,6 @@ export default function GalleryManagement() {
         const docRef = await addDoc(collection(db, 'gallery'), formData)
         console.log('Gallery image added with ID:', docRef.id)
         alert('Gallery image added!')
-      } else {
-        alert('Cannot edit default gallery images')
       }
 
       setFormData({
@@ -162,11 +139,6 @@ export default function GalleryManagement() {
   }
 
   const handleDeleteImage = async (id: string) => {
-    if (id.startsWith('default_')) {
-      alert('Cannot delete default gallery images')
-      return
-    }
-
     if (confirm('Are you sure you want to delete this gallery image?')) {
       try {
         setUploading(true)
@@ -185,10 +157,6 @@ export default function GalleryManagement() {
   }
 
   const handleEditImage = (image: GalleryImage) => {
-    if (image.isDefault) {
-      alert('Default gallery images cannot be edited. Only new images can be edited.')
-      return
-    }
     setFormData({
       src: image.src,
       title: image.title,
@@ -198,8 +166,7 @@ export default function GalleryManagement() {
     setShowForm(true)
   }
 
-  const defaultCount = allImages.filter((i) => i.isDefault).length
-  const newCount = allImages.filter((i) => !i.isDefault).length
+  const imageCount = allImages.length
 
   return (
     <div className="py-4 md:py-6">
@@ -312,58 +279,35 @@ export default function GalleryManagement() {
 
       {/* Image Lists */}
       <div className="space-y-6 md:space-y-8">
-        {/* New Images */}
-        {newCount > 0 && (
-          <div className="bg-card border border-border rounded-xl p-4 md:p-8">
-            <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">New Gallery Images ({newCount})</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-              {allImages
-                .filter((i) => !i.isDefault)
-                .map((image) => (
-                  <div key={image.id} className="border border-border rounded-lg overflow-hidden bg-muted/30 relative flex flex-col">
-                    <img src={image.src} alt={image.title} className="w-full h-32 md:h-48 object-cover" loading="lazy" decoding="async" />
-                    <div className="p-2 md:p-4 flex-1 flex flex-col">
-                      <h3 className="font-bold text-sm md:text-lg mb-1">{image.title}</h3>
-                      <p className="text-xs text-muted-foreground flex-1 line-clamp-2">{image.description}</p>
-
-                      <div className="flex gap-1 md:gap-2 mt-2 md:mt-4 pt-2 md:pt-4 border-t border-border">
-                        <button
-                          onClick={() => handleEditImage(image)}
-                          disabled={uploading}
-                          className="flex-1 flex items-center justify-center gap-1 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs md:text-sm"
-                        >
-                          <Edit2 className="w-3 md:w-4 h-3 md:h-4" />
-                          <span className="hidden sm:inline">Edit</span>
-                        </button>
-                        <button
-                          onClick={() => image.id && handleDeleteImage(image.id)}
-                          disabled={uploading}
-                          className="flex-1 flex items-center justify-center gap-1 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs md:text-sm"
-                        >
-                          <Trash2 className="w-3 md:w-4 h-3 md:h-4" />
-                          <span className="hidden sm:inline">{uploading ? 'Deleting...' : 'Delete'}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        )}
-
-        {/* Default Images */}
         <div className="bg-card border border-border rounded-xl p-4 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Default Gallery Images ({defaultCount})</h2>
-          <p className="text-xs md:text-sm text-muted-foreground mb-4 md:mb-6">Existing gallery images - cannot be edited or deleted</p>
+          <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Gallery Images ({imageCount})</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {allImages
-              .filter((i) => i.isDefault)
               .map((image) => (
-                <div key={image.id} className="border border-border rounded-lg overflow-hidden bg-muted/30">
+                <div key={image.id} className="border border-border rounded-lg overflow-hidden bg-muted/30 relative flex flex-col">
                   <img src={image.src} alt={image.title} className="w-full h-32 md:h-48 object-cover" loading="lazy" decoding="async" />
-                  <div className="p-2 md:p-4">
+                  <div className="p-2 md:p-4 flex-1 flex flex-col">
                     <h3 className="font-bold text-sm md:text-lg mb-1">{image.title}</h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2">{image.description}</p>
+                    <p className="text-xs text-muted-foreground flex-1 line-clamp-2">{image.description}</p>
+
+                    <div className="flex gap-1 md:gap-2 mt-2 md:mt-4 pt-2 md:pt-4 border-t border-border">
+                      <button
+                        onClick={() => handleEditImage(image)}
+                        disabled={uploading}
+                        className="flex-1 flex items-center justify-center gap-1 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs md:text-sm"
+                      >
+                        <Edit2 className="w-3 md:w-4 h-3 md:h-4" />
+                        <span className="hidden sm:inline">Edit</span>
+                      </button>
+                      <button
+                        onClick={() => image.id && handleDeleteImage(image.id)}
+                        disabled={uploading}
+                        className="flex-1 flex items-center justify-center gap-1 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs md:text-sm"
+                      >
+                        <Trash2 className="w-3 md:w-4 h-3 md:h-4" />
+                        <span className="hidden sm:inline">{uploading ? 'Deleting...' : 'Delete'}</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

@@ -162,6 +162,12 @@ export default function AdminDashboard() {
             🖼️ Gallery
           </Link>
           <Link
+            href="/admin/featured"
+            className="px-4 md:px-6 py-3 md:py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-medium text-sm md:text-base text-center"
+          >
+            ⭐ Featured
+          </Link>
+          <Link
             href="/admin/contact"
             className="px-4 md:px-6 py-3 md:py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-medium text-sm md:text-base text-center relative"
           >
@@ -171,6 +177,12 @@ export default function AdminDashboard() {
                 {stats.unreadContacts}
               </span>
             )}
+          </Link>
+          <Link
+            href="/admin/announcements"
+            className="px-4 md:px-6 py-3 md:py-4 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-medium text-sm md:text-base text-center"
+          >
+            🔔 Announcements
           </Link>
           <a
             href="/"

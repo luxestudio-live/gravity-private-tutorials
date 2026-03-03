@@ -5,7 +5,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { db } from "@/lib/firebase"
 import { collection, addDoc } from "firebase/firestore"
-import { MapPin, Phone, Mail, Clock, Send, Facebook, Instagram, Youtube, MessageSquare } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Send, Facebook, Instagram, Youtube, MessageSquare, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -432,6 +432,21 @@ export default function ContactPage() {
                       <a href="tel:+918104010342">
                         <MessageSquare className="w-5 h-5 mr-2" />
                         Call: 8104010342
+                      </a>
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-2 border-white text-white hover:bg-white/10 w-full bg-transparent"
+                      asChild
+                    >
+                      <a
+                        href="https://play.google.com/store/apps/details?id=com.gravity.gravitydost"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Smartphone className="w-5 h-5 mr-2" />
+                        Download Gravity - JEE/NEET
                       </a>
                     </Button>
                   </div>

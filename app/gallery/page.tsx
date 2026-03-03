@@ -6,131 +6,16 @@ import { Footer } from "@/components/footer"
 import { Camera, X } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
-import { withBasePath } from "@/lib/utils"
 
 type GalleryImage = {
   id: string
   src: string
   title: string
   description: string
-  isDefault?: boolean
 }
 
-const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=400&width=400")
-
-const withPlaceholderImages = <T extends { src: string }>(items: T[]): T[] =>
-  items.map((item) => ({ ...item, src: CONTENT_PLACEHOLDER }))
-
-const defaultGalleryImages: GalleryImage[] = [
-  {
-    id: "default_1",
-    src: "/da2.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_2",
-    src: "/da3.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_3",
-    src: "/da4.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_4",
-    src: "/da7.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_5",
-    src: "/da8.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_6",
-    src: "/da9.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_7",
-    src: "/daa1.png",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_8",
-    src: "/daa2.png",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_9",
-    src: "/daa3.png",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_10",
-    src: "/daa4.png",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_11",
-    src: "/daa5.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_12",
-    src: "/daa6.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_13",
-    src: "/da1.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_14",
-    src: "/da5.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-  {
-    id: "default_15",
-    src: "/da6.jpeg",
-    title: "Gravity Private Tutorials",
-    description: "Moments from Gravity Private Tutorials",
-    isDefault: true,
-  },
-]
-
 export default function GalleryPage() {
-  const [allImages, setAllImages] = useState<GalleryImage[]>(withPlaceholderImages(defaultGalleryImages))
+  const [allImages, setAllImages] = useState<GalleryImage[]>([])
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -142,13 +27,16 @@ export default function GalleryPage() {
     try {
       setLoading(true)
       const snap = await getDocs(collection(db, 'gallery'))
-      const newImages = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as GalleryImage[]
+      const newImages = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .filter((image): image is GalleryImage => {
+          return Boolean((image as GalleryImage).src)
+        })
       console.log('Fetched new gallery images from Firestore:', newImages)
-      // New images first, then default images
-      setAllImages(withPlaceholderImages([...newImages, ...defaultGalleryImages]))
+      setAllImages(newImages)
     } catch (error) {
       console.error('Error fetching gallery images:', error)
-      setAllImages(withPlaceholderImages(defaultGalleryImages))
+      setAllImages([])
     } finally {
       setLoading(false)
     }
@@ -204,7 +92,7 @@ export default function GalleryPage() {
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <img
-                  src={image.src || withBasePath("/placeholder.svg?height=400&width=400")}
+                  src={image.src}
                   alt={image.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   loading="lazy"
@@ -238,7 +126,7 @@ export default function GalleryPage() {
           </button>
           <div className="max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
             <img
-              src={selectedImage.src || withBasePath("/placeholder.svg?height=800&width=1200")}
+              src={selectedImage.src}
               alt={selectedImage.title}
               className="w-full h-auto rounded-2xl shadow-2xl"
               decoding="async"

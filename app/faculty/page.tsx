@@ -6,11 +6,9 @@ import React, { useEffect, useState } from "react"
 import { Award, GraduationCap, Star, Users } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
-import Image from "next/image"
-import { withBasePath } from "@/lib/utils"
 
 type FacultyMember = {
-	id?: string;
+	id: string;
 	name: string;
 	subject: string;
 	qualification: string;
@@ -21,136 +19,8 @@ type FacultyMember = {
 	color: string;
 };
 
-const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=600&width=600")
-
-const withPlaceholderImages = <T extends { image?: string }>(items: T[]): T[] =>
-	items.map((item) => ({ ...item, image: CONTENT_PLACEHOLDER }))
-
-const defaultFaculty: FacultyMember[] = [
-	{
-		name: "Virendra Kumar Badgujar",
-		subject: "",
-		qualification: "",
-		experience: "",
-		specialization: "",
-		achievements: [],
-		image: "/Virendra Kumar Badgujar.jpeg",
-		color: "from-primary to-accent",
-	},
-	{
-		name: "Ramkrishna Badgujar",
-		subject: "English",
-		qualification: "MA B.Ed - English",
-		experience: "",
-		specialization: "",
-		achievements: [],
-		image: "/ramkrishna-badgujar.jpeg",
-		color: "from-secondary to-primary",
-	},
-	{
-		name: "Sujeet Patil",
-		subject: "Marathi, Hindi",
-		qualification: "MA B.Ed Marathi Hindi",
-		experience: "",
-		specialization: "",
-		achievements: [],
-		image: "/sujeet-patil.png",
-		color: "from-accent to-secondary",
-	},
-	{
-		name: "Jayant Pawar",
-		subject: "Counsellor",
-		qualification: "",
-		experience: "",
-		specialization: "",
-		achievements: [],
-		image: "/jayant.jpeg",
-		color: "from-primary to-accent",
-	},
-	{
-		name: "Rupesh Santosh Pawar",
-		subject: "Administration Head",
-		qualification: "M.Com (Management)",
-		experience: "12 Years",
-		specialization: "",
-		achievements: [],
-		image: "/rupesh.jpeg",
-		color: "from-secondary to-primary",
-	},
-	{
-		name: "Akshay Ramchandra Bhilare",
-		subject: "Administration Head",
-		qualification: "Bachelor in Accounting & Finance",
-		experience: "12 Years",
-		specialization: "",
-		achievements: [],
-		image: "/akshay.jpeg",
-		color: "from-accent to-secondary",
-	},
-	{
-		name: "Santosh Gopal Sawant",
-		subject: "",
-		qualification: "",
-		experience: "",
-		specialization: "",
-		achievements: [],
-		image: "/santosh-gopal-sawant.jpeg",
-		color: "from-secondary to-primary",
-	},
-	{
-		name: "Pratik Sawant",
-		subject: "English, S.S",
-		qualification: "D.Ed",
-		experience: "",
-		specialization: "",
-		achievements: [],
-		image: "/pratik-sawant.jpeg",
-		color: "from-accent to-secondary",
-	},
-	{
-		name: "Pankaj Vasant Rane",
-		subject: "English",
-		qualification: "B.A., B.Ed. (Eng.), TET & CTET qualified",
-		experience: "21 Years",
-		specialization: "",
-		achievements: [],
-		image: "/pankaj.jpeg",
-		color: "from-accent to-secondary",
-	},
-	{
-		name: "Arun Saheb Gauda",
-		subject: "Accounts, Financial Studies, Economics",
-		qualification: "B.Com (Account & Finance), M.Com (Accounts & Finance), M.Com (Management)",
-		experience: "11 Years",
-		specialization: "",
-		achievements: [],
-		image: "/arun-saheb-gauda.jpeg",
-		color: "from-primary to-accent",
-	},
-	{
-		name: "Ganesh Tulsiram Rathod",
-		subject: "Maths",
-		qualification: "BSc IT, MSc Math, MSc IT - Pursuing",
-		experience: "9 Years",
-		specialization: "",
-		achievements: [],
-		image: "/ganesh.jpeg",
-		color: "from-primary to-accent",
-	},
-	{
-		name: "Praveena Gelot",
-		subject: "History",
-		qualification: "D.El.Ed, B.A, B.Ed, M.A",
-		experience: "6 Years",
-		specialization: "",
-		achievements: [],
-		image: "/praveena.jpeg",
-		color: "from-secondary to-primary",
-	},
-]
-
 export default function FacultyPage() {
-	const [allFaculty, setAllFaculty] = useState<FacultyMember[]>(withPlaceholderImages(defaultFaculty))
+	const [allFaculty, setAllFaculty] = useState<FacultyMember[]>([])
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
@@ -159,11 +29,11 @@ export default function FacultyPage() {
 				setLoading(true)
 				const snap = await getDocs(collection(db, 'faculty'))
 				const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
-				console.log('Public page - Fetched new faculty from Firestore:', newFaculty)
-				setAllFaculty(withPlaceholderImages([...defaultFaculty, ...newFaculty]))
+				console.log('Public page - Fetched faculty from Firestore:', newFaculty)
+				setAllFaculty(newFaculty)
 			} catch (error) {
 				console.error('Error fetching faculty:', error)
-				setAllFaculty(withPlaceholderImages(defaultFaculty))
+				setAllFaculty([])
 			} finally {
 				setLoading(false)
 			}
@@ -216,9 +86,9 @@ export default function FacultyPage() {
 								</div>
 							) : (
 								<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-									{allFaculty.map((member, index) => (
+									{allFaculty.map((member) => (
 									<div
-										key={index}
+										key={member.id}
 										className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
 									>
 										{/* Image */}
@@ -227,10 +97,6 @@ export default function FacultyPage() {
 												<img
 													src={member.image}
 													alt={member.name}
-													onError={(e) => {
-														console.error(`Failed to load image for ${member.name}:`, member.image)
-														e.currentTarget.src = withBasePath("/placeholder.svg")
-													}}
 													className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ${
 														member.name === "Sujeet Patil" ? "object-center" : "object-top"
 													}`}

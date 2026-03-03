@@ -4,53 +4,63 @@ import { useState } from "react"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { GraduationCap, Beaker, BookOpen, CheckCircle2, Clock, Users, ArrowRight, Target } from "lucide-react"
+import { GraduationCap, Beaker, BookOpen, CheckCircle2, Clock, Users, ArrowRight, Target, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 type GradeLevel = "8-10" | "11-12"
 
-const juniorClassCards = [
+const juniorBatchCards = [
   {
-    className: "Class 8th",
-    tag: "Foundation Year",
-    boards: ["ICSE", "CBSE"],
+    title: "Class 8th to 10th",
+    subtitle: "ICSE",
+    subtitleClass: "text-primary",
+    pillClass: "border-primary/20 bg-primary/10 text-primary",
+    iconClass: "text-primary",
     subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Social Studies", "English"],
-    points: ["Strong fundamentals", "Regular practice sheets", "Weekly chapter tests"],
+    details: ["Concept clarity and fundamentals", "Regular worksheets and practice", "Weekly chapter-wise tests"],
     icon: GraduationCap,
   },
   {
-    className: "Class 9th",
-    tag: "Progression Year",
-    boards: ["ICSE", "CBSE"],
+    title: "Class 8th to 10th",
+    subtitle: "CBSE",
+    subtitleClass: "text-secondary",
+    pillClass: "border-secondary/20 bg-secondary/10 text-secondary",
+    iconClass: "text-secondary",
     subjects: ["Mathematics", "Science"],
-    points: ["Board + foundation approach", "Application-based problems", "Performance tracking"],
+    details: ["NCERT-focused preparation", "Application-based learning", "Periodic progress tracking"],
     icon: BookOpen,
   },
   {
-    className: "Class 10th",
-    tag: "Board Readiness",
-    boards: ["ICSE", "CBSE", "Foundation"],
+    title: "JEE/NEET Foundation Batch",
+    subtitle: "& Olympiad",
+    subtitleClass: "text-accent",
+    pillClass: "border-accent/20 bg-accent/10 text-accent",
+    iconClass: "text-accent",
     subjects: ["Physics", "Chemistry", "Mathematics", "Biology"],
-    points: ["Revision strategy", "Mock test series", "Exam writing techniques"],
+    details: ["Early competitive exam orientation", "Advanced problem-solving sessions", "Olympiad preparation support"],
     icon: Target,
   },
 ]
 
-const seniorClassCards = [
+const seniorBatchCards = [
   {
-    className: "Class 11th",
-    tag: "Integrated + Non-Integrated",
-    exams: ["IIT JEE", "MHT-CET", "NEET"],
+    title: "IIT JEE, MHT-CET & NEET",
+    subtitle: "Integrated Batches",
+    subtitleClass: "text-primary",
+    pillClass: "border-primary/20 bg-primary/10 text-primary",
+    iconClass: "text-primary",
     subjects: ["Physics", "Chemistry", "Mathematics", "Biology"],
-    points: ["Concept depth for PCM/PCB", "Entrance-aligned practice", "Structured doubt solving"],
+    details: ["Boards + entrance integrated plan", "High-intensity test practice", "Structured doubt resolution"],
     icon: Beaker,
   },
   {
-    className: "Class 12th",
-    tag: "Boards + Entrance Focus",
-    exams: ["IIT JEE", "MHT-CET", "NEET"],
+    title: "Class 11th & 12th Non Integrated",
+    subtitle: "MHT-CET + Boards",
+    subtitleClass: "text-secondary",
+    pillClass: "border-secondary/20 bg-secondary/10 text-secondary",
+    iconClass: "text-secondary",
     subjects: ["Physics", "Chemistry", "Mathematics", "Biology"],
-    points: ["Board scoring strategy", "CET/JEE/NEET test cycles", "Final revision support"],
+    details: ["Dedicated board coverage", "MHT-CET aligned preparation", "Revision and mock exam strategy"],
     icon: GraduationCap,
   },
 ]
@@ -146,35 +156,27 @@ export default function CoursesPage() {
               </div>
 
               <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-                {juniorClassCards.map((card) => (
+                {juniorBatchCards.map((card) => (
                   <div
-                    key={card.className}
+                    key={`${card.title}-${card.subtitle}`}
                     className="group relative bg-card rounded-3xl border border-border/50 p-7 hover:border-primary/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
                   >
                     <div className="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-gradient-to-r from-primary to-accent" />
                     <div className="flex items-center justify-between mb-5">
                       <div>
-                        <h3 className="text-2xl font-bold leading-tight">{card.className}</h3>
-                        <p className="text-primary font-semibold mt-1">{card.tag}</p>
+                        <h3 className="text-2xl font-bold leading-tight">{card.title}</h3>
+                        <p className={`font-semibold mt-1 ${card.subtitleClass}`}>{card.subtitle}</p>
                       </div>
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <card.icon className="w-5 h-5 text-primary" />
+                        <card.icon className={`w-5 h-5 ${card.iconClass}`} />
                       </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {card.boards.map((board) => (
-                        <span key={board} className="px-3 py-1.5 rounded-full text-xs font-semibold border border-secondary/20 bg-secondary/10 text-secondary">
-                          {board}
-                        </span>
-                      ))}
                     </div>
 
                     <div className="flex flex-wrap gap-2 mb-6">
                       {card.subjects.map((subject) => (
                         <span
                           key={subject}
-                          className="px-3 py-1.5 rounded-full text-sm font-medium border border-primary/20 bg-primary/10 text-primary"
+                          className={`px-3 py-1.5 rounded-full text-sm font-medium border ${card.pillClass}`}
                         >
                           {subject}
                         </span>
@@ -182,10 +184,10 @@ export default function CoursesPage() {
                     </div>
 
                     <div className="space-y-2 mb-6">
-                      {card.points.map((point) => (
-                        <div key={point} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                          <span className="text-sm text-muted-foreground">{point}</span>
+                      {card.details.map((detail) => (
+                        <div key={detail} className="flex items-start gap-2">
+                          <CheckCircle2 className={`w-4 h-4 mt-1 flex-shrink-0 ${card.iconClass}`} />
+                          <span className="text-sm text-muted-foreground">{detail}</span>
                         </div>
                       ))}
                     </div>
@@ -211,35 +213,27 @@ export default function CoursesPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
-                {seniorClassCards.map((card) => (
+                {seniorBatchCards.map((card) => (
                   <div
-                    key={card.className}
+                    key={`${card.title}-${card.subtitle}`}
                     className="group relative bg-card rounded-3xl border border-border/50 p-7 hover:border-primary/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
                   >
                     <div className="absolute inset-x-0 top-0 h-1 rounded-t-3xl bg-gradient-to-r from-primary to-accent" />
                     <div className="flex items-center justify-between mb-5">
                       <div>
-                        <h3 className="text-2xl font-bold leading-tight">{card.className}</h3>
-                        <p className="text-primary font-semibold mt-1">{card.tag}</p>
+                        <h3 className="text-2xl font-bold leading-tight">{card.title}</h3>
+                        <p className={`font-semibold mt-1 ${card.subtitleClass}`}>{card.subtitle}</p>
                       </div>
                       <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <card.icon className="w-5 h-5 text-primary" />
+                        <card.icon className={`w-5 h-5 ${card.iconClass}`} />
                       </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {card.exams.map((exam) => (
-                        <span key={exam} className="px-3 py-1.5 rounded-full text-xs font-semibold border border-secondary/20 bg-secondary/10 text-secondary">
-                          {exam}
-                        </span>
-                      ))}
                     </div>
 
                     <div className="flex flex-wrap gap-2 mb-6">
                       {card.subjects.map((subject) => (
                         <span
                           key={subject}
-                          className="px-3 py-1.5 rounded-full text-sm font-medium border border-primary/20 bg-primary/10 text-primary"
+                          className={`px-3 py-1.5 rounded-full text-sm font-medium border ${card.pillClass}`}
                         >
                           {subject}
                         </span>
@@ -247,10 +241,10 @@ export default function CoursesPage() {
                     </div>
 
                     <div className="space-y-2 mb-6">
-                      {card.points.map((point) => (
-                        <div key={point} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                          <span className="text-sm text-muted-foreground">{point}</span>
+                      {card.details.map((detail) => (
+                        <div key={detail} className="flex items-start gap-2">
+                          <CheckCircle2 className={`w-4 h-4 mt-1 flex-shrink-0 ${card.iconClass}`} />
+                          <span className="text-sm text-muted-foreground">{detail}</span>
                         </div>
                       ))}
                     </div>
@@ -297,6 +291,30 @@ export default function CoursesPage() {
                 <p className="text-muted-foreground">{feature.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-20">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center bg-card border border-border/50 rounded-3xl p-8 lg:p-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium border border-primary/20 mb-5">
+              <Smartphone className="w-4 h-4" />
+              <span>Companion App</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-3">Install Gravity - JEE/NEET</h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Stay connected with course updates, learning resources, and important announcements.
+            </p>
+            <Button size="lg" asChild>
+              <Link
+                href="https://play.google.com/store/apps/details?id=com.gravity.gravitydost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open on Google Play
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

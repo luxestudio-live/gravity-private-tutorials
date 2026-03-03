@@ -5,10 +5,8 @@ import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { Trash2, Edit2, Plus, Upload } from 'lucide-react'
-import { withBasePath } from '@/lib/utils'
 
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-const CLOUDINARY_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY
 
 type FacultyMember = {
   id: string
@@ -19,148 +17,7 @@ type FacultyMember = {
   specialization: string
   image: string
   color: string
-  isDefault?: boolean
 }
-
-const CONTENT_PLACEHOLDER = withBasePath('/placeholder.svg?height=600&width=600')
-
-const withPlaceholderImages = <T extends { image?: string }>(items: T[]): T[] =>
-  items.map((item) => ({ ...item, image: CONTENT_PLACEHOLDER }))
-
-const defaultFaculty: FacultyMember[] = [
-  {
-    id: 'default_1',
-    name: 'Virendra Kumar Badgujar',
-    subject: '',
-    qualification: '',
-    experience: '',
-    specialization: '',
-    image: '/Virendra Kumar Badgujar.jpeg',
-    color: 'from-primary to-accent',
-    isDefault: true,
-  },
-  {
-    id: 'default_2',
-    name: 'Ramkrishna Badgujar',
-    subject: 'English',
-    qualification: 'MA B.Ed - English',
-    experience: '',
-    specialization: '',
-    image: '/ramkrishna-badgujar.jpeg',
-    color: 'from-secondary to-primary',
-    isDefault: true,
-  },
-  {
-    id: 'default_3',
-    name: 'Sujeet Patil',
-    subject: 'Marathi, Hindi',
-    qualification: 'MA B.Ed Marathi Hindi',
-    experience: '',
-    specialization: '',
-    image: '/sujeet-patil.png',
-    color: 'from-accent to-secondary',
-    isDefault: true,
-  },
-  {
-    id: 'default_4',
-    name: 'Jayant Pawar',
-    subject: 'Counsellor',
-    qualification: '',
-    experience: '',
-    specialization: '',
-    image: '/jayant.jpeg',
-    color: 'from-primary to-accent',
-    isDefault: true,
-  },
-  {
-    id: 'default_5',
-    name: 'Rupesh Santosh Pawar',
-    subject: 'Administration Head',
-    qualification: 'M.Com (Management)',
-    experience: '12 Years',
-    specialization: '',
-    image: '/rupesh.jpeg',
-    color: 'from-secondary to-primary',
-    isDefault: true,
-  },
-  {
-    id: 'default_6',
-    name: 'Akshay Ramchandra Bhilare',
-    subject: 'Administration Head',
-    qualification: 'Bachelor in Accounting & Finance',
-    experience: '12 Years',
-    specialization: '',
-    image: '/akshay.jpeg',
-    color: 'from-accent to-secondary',
-    isDefault: true,
-  },
-  {
-    id: 'default_7',
-    name: 'Santosh Gopal Sawant',
-    subject: '',
-    qualification: '',
-    experience: '',
-    specialization: '',
-    image: '/santosh-gopal-sawant.jpeg',
-    color: 'from-secondary to-primary',
-    isDefault: true,
-  },
-  {
-    id: 'default_8',
-    name: 'Pratik Sawant',
-    subject: 'English, S.S',
-    qualification: 'D.Ed',
-    experience: '',
-    specialization: '',
-    image: '/pratik-sawant.jpeg',
-    color: 'from-accent to-secondary',
-    isDefault: true,
-  },
-  {
-    id: 'default_9',
-    name: 'Pankaj Vasant Rane',
-    subject: 'English',
-    qualification: 'B.A., B.Ed. (Eng.), TET & CTET qualified',
-    experience: '21 Years',
-    specialization: '',
-    image: '/pankaj.jpeg',
-    color: 'from-accent to-secondary',
-    isDefault: true,
-  },
-  {
-    id: 'default_11',
-    name: 'Arun Saheb Gauda',
-    subject: 'Accounts, Financial Studies, Economics',
-    qualification: 'B.Com (Account & Finance), M.Com (Accounts & Finance), M.Com (Management)',
-    experience: '11 Years',
-    specialization: '',
-    image: '/arun-saheb-gauda.jpeg',
-    color: 'from-primary to-accent',
-    isDefault: true,
-  },
-  {
-    id: 'default_12',
-    name: 'Ganesh Tulsiram Rathod',
-    subject: 'Maths',
-    qualification: 'BSc IT, MSc Math, MSc IT - Pursuing',
-    experience: '9 Years',
-    specialization: '',
-    image: '/ganesh.jpeg',
-    color: 'from-primary to-accent',
-    isDefault: true,
-  },
-  {
-    id: 'default_13',
-    name: 'Praveena Gelot',
-    subject: 'History',
-    qualification: 'D.El.Ed, B.A, B.Ed, M.A',
-    experience: '6 Years',
-    specialization: '',
-    image: '/praveena.jpeg',
-    color: 'from-secondary to-primary',
-    isDefault: true,
-  },
-]
 
 const colors = [
   'from-primary to-accent',
@@ -171,7 +28,7 @@ const colors = [
 
 export default function FacultyManagement() {
   const { user } = useAuth()
-  const [allFaculty, setAllFaculty] = useState<FacultyMember[]>(withPlaceholderImages(defaultFaculty))
+  const [allFaculty, setAllFaculty] = useState<FacultyMember[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -201,11 +58,11 @@ export default function FacultyManagement() {
       setLoading(true)
       const snap = await getDocs(collection(db, 'faculty'))
       const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
-      console.log('Fetched new faculty from Firestore:', newFaculty)
-      setAllFaculty(withPlaceholderImages([...defaultFaculty, ...newFaculty]))
+      console.log('Fetched faculty from Firestore:', newFaculty)
+      setAllFaculty(newFaculty)
     } catch (error) {
       console.error('Error fetching faculty:', error)
-      setAllFaculty(withPlaceholderImages(defaultFaculty))
+      setAllFaculty([])
     } finally {
       setLoading(false)
     }
@@ -262,7 +119,7 @@ export default function FacultyManagement() {
     try {
       setUploading(true)
       console.log('Saving faculty data:', formData)
-      if (editingId && !editingId.startsWith('default_')) {
+      if (editingId) {
         await updateDoc(doc(db, 'faculty', editingId), formData)
         alert('Faculty member updated!')
         setEditingId(null)
@@ -270,8 +127,6 @@ export default function FacultyManagement() {
         const docRef = await addDoc(collection(db, 'faculty'), formData)
         console.log('Faculty added with ID:', docRef.id)
         alert('Faculty member added!')
-      } else {
-        alert('Cannot edit default faculty data')
       }
 
       setFormData({
@@ -294,11 +149,6 @@ export default function FacultyManagement() {
   }
 
   const handleDeleteFaculty = async (id: string) => {
-    if (id.startsWith('default_')) {
-      alert('Cannot delete default faculty data')
-      return
-    }
-
     if (confirm('Are you sure you want to delete this faculty member?')) {
       try {
         setUploading(true)
@@ -317,10 +167,6 @@ export default function FacultyManagement() {
   }
 
   const handleEditFaculty = (member: FacultyMember) => {
-    if (member.isDefault) {
-      alert('Default faculty data cannot be edited. Only new entries can be edited.')
-      return
-    }
     setFormData({
       name: member.name,
       subject: member.subject,
@@ -334,8 +180,7 @@ export default function FacultyManagement() {
     setShowForm(true)
   }
 
-  const defaultFacultyCount = allFaculty.filter((f) => f.isDefault).length
-  const newFacultyCount = allFaculty.filter((f) => !f.isDefault).length
+  const facultyCount = allFaculty.length
 
   return (
     <div className="py-4 md:py-6">
@@ -529,63 +374,39 @@ export default function FacultyManagement() {
 
       {/* Faculty Lists */}
       <div className="space-y-6 md:space-y-8">
-        {/* Default Faculty */}
         <div className="bg-card border border-border rounded-xl p-4 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Default Faculty ({defaultFacultyCount})</h2>
-          <p className="text-xs md:text-sm text-muted-foreground mb-4 md:mb-6">Existing faculty members - cannot be edited or deleted</p>
+          <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Faculty Members ({facultyCount})</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-            {allFaculty
-              .filter((f) => f.isDefault)
-              .map((member) => (
-                <div key={member.id} className="border border-border rounded-lg p-3 md:p-4 bg-muted/30">
-                  {member.image && <img src={member.image} alt={member.name} className="w-full h-32 md:h-48 object-cover rounded mb-2 md:mb-4" loading="lazy" decoding="async" />}
-                  <h3 className="font-bold text-base md:text-lg mb-1">{member.name}</h3>
-                  <p className="text-xs md:text-sm text-primary font-medium">{member.subject}</p>
-                  <p className="text-xs text-muted-foreground">{member.qualification}</p>
-                  {member.experience && <p className="text-xs text-muted-foreground">{member.experience}</p>}
+            {allFaculty.map((member) => (
+              <div key={member.id} className="border border-border rounded-lg p-4 bg-muted/30 relative">
+                {member.image && <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded mb-4" loading="lazy" decoding="async" />}
+                <h3 className="font-bold text-lg mb-1">{member.name}</h3>
+                <p className="text-sm text-primary font-medium">{member.subject}</p>
+                <p className="text-xs text-muted-foreground">{member.qualification}</p>
+                {member.experience && <p className="text-xs text-muted-foreground">{member.experience}</p>}
+
+                <div className="flex gap-2 mt-4 pt-4 border-t border-border">
+                  <button
+                    onClick={() => handleEditFaculty(member)}
+                    disabled={uploading}
+                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => member.id && handleDeleteFaculty(member.id)}
+                    disabled={uploading}
+                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    {uploading ? 'Deleting...' : 'Delete'}
+                  </button>
                 </div>
-              ))}
-          </div>
-        </div>
-
-        {/* New Faculty */}
-        {newFacultyCount > 0 && (
-          <div className="bg-card border border-border rounded-xl p-4 md:p-8">
-            <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Added Faculty ({newFacultyCount})</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-              {allFaculty
-                .filter((f) => !f.isDefault)
-                .map((member) => (
-                  <div key={member.id} className="border border-border rounded-lg p-4 bg-muted/30 relative">
-                    {member.image && <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded mb-4" loading="lazy" decoding="async" />}
-                    <h3 className="font-bold text-lg mb-1">{member.name}</h3>
-                    <p className="text-sm text-primary font-medium">{member.subject}</p>
-                    <p className="text-xs text-muted-foreground">{member.qualification}</p>
-                    {member.experience && <p className="text-xs text-muted-foreground">{member.experience}</p>}
-
-                    <div className="flex gap-2 mt-4 pt-4 border-t border-border">
-                      <button
-                        onClick={() => handleEditFaculty(member)}
-                        disabled={uploading}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => member.id && handleDeleteFaculty(member.id)}
-                        disabled={uploading}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                        {uploading ? 'Deleting...' : 'Delete'}
-                      </button>
-                    </div>
-                  </div>
-                ))}
+              </div>
+            ))}
             </div>
           </div>
-        )}
       </div>
     </div>
   )

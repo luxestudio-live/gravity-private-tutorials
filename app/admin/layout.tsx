@@ -2,11 +2,11 @@
 
 import { useAuth } from '@/lib/auth-context'
 import { useRouter, usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import Link from 'next/link'
-import { LogOut, Users, BarChart3, Image as ImageIcon, Mail, Menu, X } from 'lucide-react'
+import { LogOut, Users, BarChart3, Image as ImageIcon, Mail, Menu, X, Bell, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -14,9 +14,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter()
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const mainRef = useRef<HTMLElement | null>(null)
 
   // Skip auth check for login page
   const isLoginPage = pathname === '/admin/login'
+
+  const resetScrollToTop = () => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: 'auto' })
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }
 
   useEffect(() => {
     if (!isLoginPage && !loading && !user) {
@@ -24,9 +32,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   }, [user, loading, router, isLoginPage])
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+  }, [])
+
   // Close sidebar when route changes
   useEffect(() => {
     setSidebarOpen(false)
+    resetScrollToTop()
+    const timer = window.setTimeout(() => resetScrollToTop(), 0)
+    return () => window.clearTimeout(timer)
   }, [pathname])
 
   // Show login page without layout
@@ -56,6 +73,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/results', icon: BarChart3, label: 'Results' },
     { href: '/admin/faculty', icon: Users, label: 'Faculty' },
     { href: '/admin/gallery', icon: ImageIcon, label: 'Gallery' },
+    { href: '/admin/featured', icon: Star, label: 'Featured' },
+    { href: '/admin/announcements', icon: Bell, label: 'Announcements' },
     { href: '/admin/contact', icon: Mail, label: 'Contacts' },
   ]
 
@@ -105,6 +124,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link
                 key={item.href}
                 href={item.href}
+                scroll={true}
+                onClick={() => resetScrollToTop()}
                 className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-primary/10 transition-colors"
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
@@ -141,7 +162,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content */}
-      <main className="lg:ml-64 mt-16 lg:mt-0 px-4 md:px-6 lg:px-8 min-h-screen">
+      <main
+        ref={mainRef}
+        className="pt-20 lg:pt-4 px-4 md:px-6 lg:px-8 min-h-screen lg:min-h-0 lg:fixed lg:inset-y-0 lg:left-64 lg:right-0 lg:overflow-y-auto"
+      >
         {children}
       </main>
     </div>
