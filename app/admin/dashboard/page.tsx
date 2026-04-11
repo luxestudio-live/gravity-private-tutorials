@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { db } from '@/lib/firebase'
 import { collection, getDocs } from 'firebase/firestore'
 import Link from 'next/link'
-import { BarChart3, Users, Image as ImageIcon, Mail, Award } from 'lucide-react'
+import { BarChart3, Users, Image as ImageIcon, Mail, Award, MessageSquare } from 'lucide-react'
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -14,18 +14,20 @@ export default function AdminDashboard() {
     contacts: 0,
     unreadContacts: 0,
     academicYears: 0,
+    reviews: 0,
   })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [toppersSnap, facultySnap, gallerySnap, contactsSnap, resultsSnap] = await Promise.all([
+        const [toppersSnap, facultySnap, gallerySnap, contactsSnap, resultsSnap, reviewsSnap] = await Promise.all([
           getDocs(collection(db, 'toppers')),
           getDocs(collection(db, 'faculty')),
           getDocs(collection(db, 'gallery')),
           getDocs(collection(db, 'contacts')),
           getDocs(collection(db, 'resultsPages')),
+          getDocs(collection(db, 'reviews')),
         ])
 
         const unreadContacts = contactsSnap.docs.filter(
@@ -39,6 +41,7 @@ export default function AdminDashboard() {
           contacts: contactsSnap.size,
           unreadContacts,
           academicYears: resultsSnap.size,
+          reviews: reviewsSnap.size,
         })
       } catch (error) {
         console.error('Error fetching stats:', error)
@@ -100,6 +103,14 @@ export default function AdminDashboard() {
       color: 'from-pink-500 to-pink-600',
       href: '/admin/results',
     },
+    {
+      title: 'Reviews',
+      value: stats.reviews,
+      description: 'Homepage student/parent reviews',
+      icon: MessageSquare,
+      color: 'from-cyan-500 to-cyan-600',
+      href: '/admin/reviews',
+    },
   ]
 
   return (
@@ -110,7 +121,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-6 mb-8">
         {statCards.map((card) => {
           const Icon = card.icon
           return (
@@ -183,6 +194,12 @@ export default function AdminDashboard() {
             className="px-4 md:px-6 py-3 md:py-4 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-medium text-sm md:text-base text-center"
           >
             🔔 Announcements
+          </Link>
+          <Link
+            href="/admin/reviews"
+            className="px-4 md:px-6 py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all font-medium text-sm md:text-base text-center"
+          >
+            💬 Reviews
           </Link>
           <a
             href="/"

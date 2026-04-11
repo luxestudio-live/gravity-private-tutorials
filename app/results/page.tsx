@@ -132,11 +132,11 @@ export default function ResultsPage() {
                   <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent" />
 
                   {topper.image && (
-                    <div className="relative w-full h-40 md:h-48 overflow-hidden bg-muted">
+                    <div className="relative w-full h-60 md:h-48 overflow-hidden bg-muted">
                       <img
                         src={topper.image}
                         alt={topper.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover object-[50%_50%] md:object-center scale-85 md:scale-100 group-hover:scale-110 transition-transform duration-500"
                         loading="lazy"
                         decoding="async"
                       />
@@ -199,12 +199,12 @@ export default function ResultsPage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
 
-                <div className="relative w-full h-32 bg-muted overflow-hidden">
+                <div className="relative w-full h-56 sm:h-32 bg-muted overflow-hidden">
                   {topper.image ? (
                     <img
                       src={topper.image}
                       alt={topper.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover object-[50%_50%] md:object-center scale-85 md:scale-100 group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                       decoding="async"
                     />
@@ -261,12 +261,12 @@ export default function ResultsPage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary" />
 
-                <div className="relative w-full h-32 bg-muted overflow-hidden">
+                <div className="relative w-full h-56 sm:h-32 bg-muted overflow-hidden">
                   {topper.image ? (
                     <img
                       src={topper.image}
                       alt={topper.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover object-[50%_50%] md:object-center scale-85 md:scale-100 group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                       decoding="async"
                     />
@@ -323,12 +323,12 @@ export default function ResultsPage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-secondary to-accent" />
 
-                <div className="relative w-full h-32 bg-muted overflow-hidden">
+                <div className="relative w-full h-56 sm:h-32 bg-muted overflow-hidden">
                   {topper.image ? (
                     <img
                       src={topper.image}
                       alt={topper.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover object-[50%_50%] md:object-center scale-85 md:scale-100 group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                       decoding="async"
                     />

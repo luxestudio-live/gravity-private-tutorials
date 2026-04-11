@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import Link from 'next/link'
-import { LogOut, Users, BarChart3, Image as ImageIcon, Mail, Menu, X, Bell, Star } from 'lucide-react'
+import { LogOut, Users, BarChart3, Image as ImageIcon, Mail, Menu, X, Bell, Star, MessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -73,6 +73,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/results', icon: BarChart3, label: 'Results' },
     { href: '/admin/faculty', icon: Users, label: 'Faculty' },
     { href: '/admin/gallery', icon: ImageIcon, label: 'Gallery' },
+    { href: '/admin/reviews', icon: MessageSquare, label: 'Reviews' },
     { href: '/admin/featured', icon: Star, label: 'Featured' },
     { href: '/admin/announcements', icon: Bell, label: 'Announcements' },
     { href: '/admin/contact', icon: Mail, label: 'Contacts' },
