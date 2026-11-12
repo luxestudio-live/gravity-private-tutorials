@@ -33,11 +33,10 @@
 - Uploaded images are preserved and displayed correctly
 
 ## 6) Results System (Topper-Focused)
-- Four fixed categories:
-  - CBSE 10th Toppers
-  - ICSE 10th Toppers
-  - HSC 12th Toppers
-  - Star Achievers (NEET/JEE/CET)
+- Three fixed categories:
+  - Entrance (NEET/JEE/CET)
+  - ICSE Class 10th Toppers
+  - CBSE Class 10th Toppers
 - Admin-driven result records
 - Top 10 limit per category
 - Position-based ordering (manual position control)

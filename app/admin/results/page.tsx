@@ -25,39 +25,33 @@ type Topper = {
 }
 
 const normalizeTopperSection = (category?: string, board?: string): TopperSection | null => {
-  if (category === 'STAR_ACHIEVERS' || category === 'Featured') return 'STAR_ACHIEVERS'
-  if (category === 'CBSE_10TH' || category === 'CBSE-10th' || (category === '10th' && board === 'CBSE')) return 'CBSE_10TH'
+  if (category === 'STAR_ACHIEVERS' || category === 'Featured' || category === 'ENTRANCE' || category === 'Entrance') return 'STAR_ACHIEVERS'
   if (category === 'ICSE_10TH' || category === 'ICSE-10th' || (category === '10th' && board === 'ICSE')) return 'ICSE_10TH'
-  if (category === 'HSC_12TH' || category === 'HSC-12th' || (category === '12th' && board === 'HSC')) return 'HSC_12TH'
+  if (category === 'CBSE_10TH' || category === 'CBSE-10th' || (category === '10th' && board === 'CBSE')) return 'CBSE_10TH'
   return null
 }
 
 const categories: { key: TopperSection; title: string; subtitle: string }[] = [
   {
-    key: 'CBSE_10TH',
-    title: 'CBSE 10th Toppers',
-    subtitle: 'Excellence in CBSE Board Examinations',
+    key: 'STAR_ACHIEVERS',
+    title: 'Entrance (NEET/JEE/CET)',
+    subtitle: 'Excellence in NEET, JEE & CET Entrance Examinations',
   },
   {
     key: 'ICSE_10TH',
-    title: 'ICSE 10th Toppers',
+    title: 'ICSE Class 10th Toppers',
     subtitle: 'Excellence in ICSE Board Examinations',
   },
   {
-    key: 'HSC_12TH',
-    title: 'HSC 12th Toppers',
-    subtitle: 'Excellence in HSC Science Stream',
-  },
-  {
-    key: 'STAR_ACHIEVERS',
-    title: 'Star Achievers',
-    subtitle: 'Excellence in NEET, JEE & CET',
+    key: 'CBSE_10TH',
+    title: 'CBSE Class 10th Toppers',
+    subtitle: 'Excellence in CBSE Board Examinations',
   },
 ]
 
 export default function ResultsManagement() {
   const { user } = useAuth()
-  const [selectedCategory, setSelectedCategory] = useState<TopperSection>('CBSE_10TH')
+  const [selectedCategory, setSelectedCategory] = useState<TopperSection>('STAR_ACHIEVERS')
   const [toppers, setToppers] = useState<Topper[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)

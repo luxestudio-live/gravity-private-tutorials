@@ -7,7 +7,7 @@ import { Trophy, Medal, Sparkles } from "lucide-react"
 import { db } from "@/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
 
-type TopperSection = "STAR_ACHIEVERS" | "CBSE_10TH" | "ICSE_10TH" | "HSC_12TH"
+type TopperSection = "STAR_ACHIEVERS" | "ICSE_10TH" | "CBSE_10TH"
 
 type Topper = {
   id: string
@@ -24,18 +24,16 @@ type Topper = {
 }
 
 const normalizeTopperSection = (category?: string, board?: string): TopperSection | null => {
-  if (category === "STAR_ACHIEVERS" || category === "Featured") return "STAR_ACHIEVERS"
-  if (category === "CBSE_10TH" || category === "CBSE-10th" || (category === "10th" && board === "CBSE")) return "CBSE_10TH"
+  if (category === "STAR_ACHIEVERS" || category === "Featured" || category === "Entrance" || category === "ENTRANCE") return "STAR_ACHIEVERS"
   if (category === "ICSE_10TH" || category === "ICSE-10th" || (category === "10th" && board === "ICSE")) return "ICSE_10TH"
-  if (category === "HSC_12TH" || category === "HSC-12th" || (category === "12th" && board === "HSC")) return "HSC_12TH"
+  if (category === "CBSE_10TH" || category === "CBSE-10th" || (category === "10th" && board === "CBSE")) return "CBSE_10TH"
   return null
 }
 
 export default function ResultsPage() {
   const [featured, setFeatured] = useState<Topper[]>([])
-  const [cbse10th, setCbse10th] = useState<Topper[]>([])
   const [icse10th, setIcse10th] = useState<Topper[]>([])
-  const [hsc12th, setHsc12th] = useState<Topper[]>([])
+  const [cbse10th, setCbse10th] = useState<Topper[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -54,15 +52,13 @@ export default function ResultsPage() {
         const sortByPosition = (items: Topper[]) => items.sort((a, b) => (a.position ?? 999) - (b.position ?? 999))
 
         setFeatured(sortByPosition(list.filter((t) => t.category === "STAR_ACHIEVERS")).slice(0, 10))
-        setCbse10th(sortByPosition(list.filter((t) => t.category === "CBSE_10TH")).slice(0, 10))
         setIcse10th(sortByPosition(list.filter((t) => t.category === "ICSE_10TH")).slice(0, 10))
-        setHsc12th(sortByPosition(list.filter((t) => t.category === "HSC_12TH")).slice(0, 10))
+        setCbse10th(sortByPosition(list.filter((t) => t.category === "CBSE_10TH")).slice(0, 10))
       } catch (error) {
         console.error("Error fetching toppers:", error)
         setFeatured([])
-        setCbse10th([])
         setIcse10th([])
-        setHsc12th([])
+        setCbse10th([])
       } finally {
         setLoading(false)
       }
@@ -117,7 +113,7 @@ export default function ResultsPage() {
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold mb-4">
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Star Achievers
+                Entrance Toppers
               </span>
             </h2>
             <p className="text-xl text-muted-foreground">Excellence in NEET, JEE & CET</p>
@@ -179,75 +175,13 @@ export default function ResultsPage() {
       <section className="py-20 lg:py-32 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
-              <Medal className="w-4 h-4" />
-              <span>CBSE Board</span>
-            </div>
-            <h2 className="text-5xl lg:text-6xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                CBSE 10th Toppers
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground">Excellence in CBSE Board Examinations</p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
-            {cbse10th.map((topper, index) => (
-              <div
-                key={topper.id}
-                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-primary/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-              >
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
-
-                <div className="relative w-full h-56 sm:h-32 bg-muted overflow-hidden">
-                  {topper.image ? (
-                    <img
-                      src={topper.image}
-                      alt={topper.name}
-                      className="w-full h-full object-cover object-[50%_50%] md:object-center scale-85 md:scale-100 group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
-                      <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
-                        #{index + 1}
-                      </div>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/60" />
-                </div>
-
-                <div className="p-5">
-                  <div className="text-center mb-3">
-                    <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent mb-1">
-                      {topper.score}
-                    </div>
-                    {topper.rank && <div className="text-xs text-muted-foreground font-medium">{topper.rank}</div>}
-                  </div>
-
-                  <h4 className="text-base font-bold mb-1 text-center group-hover:text-primary transition-colors line-clamp-2">
-                    {topper.name}
-                  </h4>
-
-                  {topper.school && <p className="text-center text-muted-foreground text-xs line-clamp-2">{topper.school}</p>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 lg:py-32 bg-muted/30">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-semibold mb-6">
               <Medal className="w-4 h-4" />
               <span>ICSE Board</span>
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold mb-4">
               <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                ICSE 10th Toppers
+                ICSE Class 10th Toppers
               </span>
             </h2>
             <p className="text-xl text-muted-foreground">Excellence in ICSE Board Examinations</p>
@@ -300,28 +234,28 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-32 bg-background">
+      <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent text-sm font-semibold mb-6">
-              <Sparkles className="w-4 h-4" />
-              <span>HSC Board</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-semibold mb-6">
+              <Medal className="w-4 h-4" />
+              <span>CBSE Board</span>
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
-                HSC 12th Toppers
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                CBSE Class 10th Toppers
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground">Excellence in HSC Science Stream</p>
+            <p className="text-xl text-muted-foreground">Excellence in CBSE Board Examinations</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
-            {hsc12th.map((topper, index) => (
+            {cbse10th.map((topper, index) => (
               <div
                 key={topper.id}
-                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-accent/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border hover:border-primary/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-secondary to-accent" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
 
                 <div className="relative w-full h-56 sm:h-32 bg-muted overflow-hidden">
                   {topper.image ? (
@@ -333,8 +267,8 @@ export default function ResultsPage() {
                       decoding="async"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-accent/30 to-secondary/30 flex items-center justify-center">
-                      <div className="text-3xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent">
+                    <div className="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
+                      <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
                         #{index + 1}
                       </div>
                     </div>
@@ -344,13 +278,13 @@ export default function ResultsPage() {
 
                 <div className="p-5">
                   <div className="text-center mb-3">
-                    <div className="text-3xl font-bold bg-gradient-to-br from-accent to-secondary bg-clip-text text-transparent mb-1">
+                    <div className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent mb-1">
                       {topper.score}
                     </div>
                     {topper.rank && <div className="text-xs text-muted-foreground font-medium">{topper.rank}</div>}
                   </div>
 
-                  <h4 className="text-base font-bold mb-1 text-center group-hover:text-accent transition-colors line-clamp-2">
+                  <h4 className="text-base font-bold mb-1 text-center group-hover:text-primary transition-colors line-clamp-2">
                     {topper.name}
                   </h4>
 
