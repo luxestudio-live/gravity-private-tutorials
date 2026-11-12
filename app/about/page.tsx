@@ -1,8 +1,24 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Target, Eye, Award, Users, BookOpen, Heart, Lightbulb } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "About Us | Excellence Since 2019",
+  description:
+    "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials, established in 2019 in Kandivali (E), Mumbai.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Us | Gravity Private Tutorials",
+    description:
+      "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials in Kandivali (E), Mumbai.",
+    url: "https://www.gravityprivatetutorials.com/about",
+  },
+}
 
 const values = [
   {

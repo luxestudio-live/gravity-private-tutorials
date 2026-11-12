@@ -1,7 +1,23 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { PartyPopper, BookOpen, Trophy, Music, Users, FlaskConical, Palette, Mic } from "lucide-react"
 import { withBasePath } from "@/lib/utils"
+
+export const metadata: Metadata = {
+  title: "Student Activities & Events",
+  description:
+    "Explore student workshops, science fairs, annual day celebrations, interactive seminars, and extracurricular activities at Gravity Private Tutorials.",
+  alternates: {
+    canonical: "/activities",
+  },
+  openGraph: {
+    title: "Student Activities & Events | Gravity Private Tutorials",
+    description:
+      "Explore workshops, science fairs, celebrations, and extracurriculars at Gravity Private Tutorials.",
+    url: "https://www.gravityprivatetutorials.com/activities",
+  },
+}
 
 const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=400&width=600")
 
