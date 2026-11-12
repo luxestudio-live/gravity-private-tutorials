@@ -131,15 +131,6 @@ const jsonLd = {
     "https://wa.me/919321861630",
   ],
 }
-      {
-        url: "/gravity-logo-normal.png",
-        type: "image/png",
-      },
-    ],
-    apple: "/gravity-logo-normal.png",
-    shortcut: "/gravity-logo-normal.png",
-  },
-}
 
 export default function RootLayout({
   children,
