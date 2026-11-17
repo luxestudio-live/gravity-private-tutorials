@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "About Us | Excellence Since 2019",
+  title: "About Us | Excellence Since 2019 | Gravity Private Tutorials",
   description:
     "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials, established in 2019 with branches in Kandivali (E) & Santacruz (W), Mumbai.",
   alternates: {
@@ -17,7 +17,37 @@ export const metadata: Metadata = {
     description:
       "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials with centers in Kandivali (E) & Santacruz (W), Mumbai.",
     url: "https://www.gravityprivatetutorials.com/about",
+    siteName: "Gravity Private Tutorials",
+    images: ["/gravity-logo.png"],
+    locale: "en_IN",
+    type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | Gravity Private Tutorials",
+    description:
+      "Discover the history, leadership, and educational vision of Gravity Private Tutorials in Mumbai.",
+    images: ["/gravity-logo.png"],
+  },
+}
+
+const aboutBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.gravityprivatetutorials.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "About Us",
+      item: "https://www.gravityprivatetutorials.com/about",
+    },
+  ],
 }
 
 const values = [
@@ -56,6 +86,10 @@ const milestones = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutBreadcrumbSchema) }}
+      />
       <Navbar />
 
       {/* Hero Section */}

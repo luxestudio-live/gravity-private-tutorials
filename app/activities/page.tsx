@@ -5,9 +5,9 @@ import { PartyPopper, BookOpen, Trophy, Music, Users, FlaskConical, Palette, Mic
 import { withBasePath } from "@/lib/utils"
 
 export const metadata: Metadata = {
-  title: "Student Activities & Events",
+  title: "Student Activities & Events | Gravity Private Tutorials",
   description:
-    "Explore student workshops, science fairs, annual day celebrations, interactive seminars, and extracurricular activities at Gravity Private Tutorials.",
+    "Explore student workshops, science fairs, annual day celebrations, interactive seminars, and extracurricular activities at Gravity Private Tutorials, Mumbai.",
   alternates: {
     canonical: "/activities",
   },
@@ -16,7 +16,37 @@ export const metadata: Metadata = {
     description:
       "Explore workshops, science fairs, celebrations, and extracurriculars at Gravity Private Tutorials.",
     url: "https://www.gravityprivatetutorials.com/activities",
+    siteName: "Gravity Private Tutorials",
+    images: ["/gravity-logo.png"],
+    locale: "en_IN",
+    type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Student Activities & Events | Gravity Private Tutorials",
+    description:
+      "Discover campus workshops, cultural celebrations, and extracurriculars at Gravity Private Tutorials.",
+    images: ["/gravity-logo.png"],
+  },
+}
+
+const activitiesBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.gravityprivatetutorials.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Activities",
+      item: "https://www.gravityprivatetutorials.com/activities",
+    },
+  ],
 }
 
 const CONTENT_PLACEHOLDER = withBasePath("/placeholder.svg?height=400&width=600")
@@ -118,6 +148,10 @@ const upcomingEvents = [
 export default function ActivitiesPage() {
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(activitiesBreadcrumbSchema) }}
+      />
       <Navbar />
 
       {/* Hero Section */}

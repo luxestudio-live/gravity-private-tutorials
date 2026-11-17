@@ -10,6 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://www.gravityprivatetutorials.com/sitemap.xml",
+    host: "https://www.gravityprivatetutorials.com",
   }
 }
 
