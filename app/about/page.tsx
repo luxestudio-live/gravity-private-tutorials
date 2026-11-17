@@ -8,14 +8,14 @@ import Link from "next/link"
 export const metadata: Metadata = {
   title: "About Us | Excellence Since 2019",
   description:
-    "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials, established in 2019 in Kandivali (E), Mumbai.",
+    "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials, established in 2019 with branches in Kandivali (E) & Santacruz (W), Mumbai.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About Us | Gravity Private Tutorials",
     description:
-      "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials in Kandivali (E), Mumbai.",
+      "Discover the story, mission, core values, and teaching philosophy of Gravity Private Tutorials with centers in Kandivali (E) & Santacruz (W), Mumbai.",
     url: "https://www.gravityprivatetutorials.com/about",
   },
 }

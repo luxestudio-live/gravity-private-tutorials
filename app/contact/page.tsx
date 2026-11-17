@@ -13,32 +13,50 @@ import { Textarea } from "@/components/ui/textarea"
 const contactInfo = [
   {
     icon: MapPin,
-    title: "Visit Us",
+    title: "Kandivali (E) Branch",
     details: [
-      "Gravity Private Tutorials",
-      "Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.",
+      "Shop No. 56, Centrium Mall,",
+      "Kandivali (East), Mumbai – 400101.",
     ],
     color: "from-primary to-accent",
+  },
+  {
+    icon: MapPin,
+    title: "Santacruz (W) Branch",
+    details: [
+      "Ratandeep, Shop No. H/73, Plot No. 33,",
+      "Near Asha Parekh Hospital, Santacruz (W), Mumbai – 400054.",
+    ],
+    color: "from-accent to-secondary",
   },
   {
     icon: Phone,
     title: "Call // WhatsApp",
     details: ["+91 93218 61630", "+91 8104010342", "Mon-Sun: 9 AM - 9 PM"],
-    color: "from-accent to-secondary",
-  },
-  {
-    icon: Mail,
-    title: "Email Us",
-    details: ["info@gravitytutorials.com", "admissions@gravitytutorials.com", "support@gravitytutorials.com"],
     color: "from-secondary to-primary",
   },
   {
-    icon: Clock,
-    title: "Office Hours",
-    details: ["Mon - Sat:", "7 AM - 11 AM", "2 PM - 9:30 PM", "Sunday: 9 AM - 9 PM"],
-    color: "from-primary to-accent",
+    icon: Mail,
+    title: "Email & Hours",
+    details: ["info@gravitytutorials.com", "Mon - Sat: 7 AM - 9:30 PM", "Sunday: 9 AM - 9 PM"],
+    color: "from-primary to-secondary",
   },
 ]
+
+const branches = {
+  kandivali: {
+    name: "Kandivali (East) Branch",
+    address: "Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.",
+    mapUrl: "https://www.google.com/maps?q=Shop+No.+56,+Centrium+Mall,+Kandivali+(E),+Mumbai+400101&output=embed",
+    directionsUrl: "https://maps.app.goo.gl/wYookRnnUiAmpg848?g_st=aw",
+  },
+  santacruz: {
+    name: "Santacruz (West) Branch",
+    address: "Ratandeep, Shop No. H/73, Plot No. 33, Well, Near Asha Parekh Hospital, Opposite Kalki Showroom, Santacruz West, Mumbai – 400054.",
+    mapUrl: "https://www.google.com/maps?q=Ratandeep,+Plot+No.+33,+Near+Asha+Parekh+Hospital,+Opposite+Kalki+Showroom,+Santacruz+West,+Mumbai+400054&output=embed",
+    directionsUrl: "https://www.google.com/maps/search/?api=1&query=Ratandeep+Near+Asha+Parekh+Hospital+Santacruz+West+Mumbai+400054",
+  },
+}
 
 const socialMedia = [
   { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/gravityprivatetutorials/", color: "hover:bg-blue-500" },
@@ -48,6 +66,7 @@ const socialMedia = [
 ]
 
 export default function ContactPage() {
+  const [activeBranch, setActiveBranch] = useState<"kandivali" | "santacruz">("kandivali")
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -351,28 +370,64 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Map & Social */}
+            {/* Map & Branches */}
             <div className="space-y-8">
               {/* Map */}
-              <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl h-[400px]">
-                <iframe
-                  src="https://www.google.com/maps?q=Shop+No.+56,+Centrium+Mall,+Kandivali+(E),+Mumbai+400101&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-                <a 
-                  href="https://maps.app.goo.gl/wYookRnnUiAmpg848?g_st=aw"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-lg z-10"
-                >
-                  Get Directions
-                </a>
+              <div className="group relative bg-card rounded-3xl border border-border/50 hover:border-primary/50 overflow-hidden transition-all duration-500 hover:shadow-2xl">
+                <div className="p-4 bg-muted/40 border-b border-border/50 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setActiveBranch("kandivali")}
+                      className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-all ${
+                        activeBranch === "kandivali"
+                          ? "bg-primary text-primary-foreground shadow"
+                          : "bg-background text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      Kandivali (East)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveBranch("santacruz")}
+                      className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold transition-all ${
+                        activeBranch === "santacruz"
+                          ? "bg-primary text-primary-foreground shadow"
+                          : "bg-background text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      Santacruz (West)
+                    </button>
+                  </div>
+                  <span className="text-xs text-muted-foreground font-medium hidden sm:inline">
+                    {branches[activeBranch].name}
+                  </span>
+                </div>
+                <div className="px-4 py-2.5 bg-background/60 border-b border-border/40 text-xs text-muted-foreground leading-relaxed">
+                  <strong className="text-foreground font-semibold">Address: </strong>
+                  {branches[activeBranch].address}
+                </div>
+                <div className="relative h-[340px]">
+                  <iframe
+                    key={activeBranch}
+                    src={branches[activeBranch].mapUrl}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <a 
+                    href={branches[activeBranch].directionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs md:text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg z-10"
+                  >
+                    Get Directions
+                  </a>
+                </div>
               </div>
 
               {/* Social Media */}

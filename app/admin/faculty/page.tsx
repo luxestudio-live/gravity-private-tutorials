@@ -17,6 +17,8 @@ type FacultyMember = {
   specialization: string
   image: string
   color: string
+  order?: number
+  createdAt?: number
 }
 
 const colors = [
@@ -41,6 +43,7 @@ export default function FacultyManagement() {
     specialization: '',
     image: '',
     color: 'from-primary to-accent',
+    order: '',
   })
 
   useEffect(() => {
@@ -58,8 +61,16 @@ export default function FacultyManagement() {
       setLoading(true)
       const snap = await getDocs(collection(db, 'faculty'))
       const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
-      console.log('Fetched faculty from Firestore:', newFaculty)
-      setAllFaculty(newFaculty)
+      const sorted = newFaculty.sort((a, b) => {
+        if (a.order !== undefined && b.order !== undefined && a.order !== b.order) {
+          return a.order - b.order
+        }
+        if (a.order !== undefined && b.order === undefined) return -1
+        if (a.order === undefined && b.order !== undefined) return 1
+        return (a.createdAt ?? 0) - (b.createdAt ?? 0)
+      })
+      console.log('Fetched faculty from Firestore:', sorted)
+      setAllFaculty(sorted)
     } catch (error) {
       console.error('Error fetching faculty:', error)
       setAllFaculty([])
@@ -119,12 +130,36 @@ export default function FacultyManagement() {
     try {
       setUploading(true)
       console.log('Saving faculty data:', formData)
+      const maxOrder = allFaculty.reduce((max, f) => Math.max(max, f.order ?? 0), 0)
+      const orderNum = formData.order ? Number(formData.order) : (maxOrder + 1)
+
       if (editingId) {
-        await updateDoc(doc(db, 'faculty', editingId), formData)
+        const updatePayload: any = {
+          name: formData.name,
+          subject: formData.subject,
+          qualification: formData.qualification,
+          experience: formData.experience,
+          specialization: formData.specialization,
+          image: formData.image,
+          color: formData.color,
+          order: orderNum,
+        }
+        await updateDoc(doc(db, 'faculty', editingId), updatePayload)
         alert('Faculty member updated!')
         setEditingId(null)
-      } else if (!editingId) {
-        const docRef = await addDoc(collection(db, 'faculty'), formData)
+      } else {
+        const createPayload = {
+          name: formData.name,
+          subject: formData.subject,
+          qualification: formData.qualification,
+          experience: formData.experience,
+          specialization: formData.specialization,
+          image: formData.image,
+          color: formData.color,
+          order: orderNum,
+          createdAt: Date.now(),
+        }
+        const docRef = await addDoc(collection(db, 'faculty'), createPayload)
         console.log('Faculty added with ID:', docRef.id)
         alert('Faculty member added!')
       }
@@ -137,6 +172,7 @@ export default function FacultyManagement() {
         specialization: '',
         image: '',
         color: 'from-primary to-accent',
+        order: '',
       })
       setShowForm(false)
       await fetchFaculty()
@@ -175,6 +211,7 @@ export default function FacultyManagement() {
       specialization: member.specialization,
       image: member.image,
       color: member.color,
+      order: member.order !== undefined ? String(member.order) : '',
     })
     setEditingId(member.id)
     setShowForm(true)
@@ -199,7 +236,13 @@ export default function FacultyManagement() {
                 specialization: '',
                 image: '',
                 color: 'from-primary to-accent',
+                order: '',
               })
+            } else {
+              setFormData((prev) => ({
+                ...prev,
+                order: String(allFaculty.length + 1),
+              }))
             }
             setShowForm(!showForm)
           }}
@@ -310,7 +353,7 @@ export default function FacultyManagement() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Specialization</label>
                 <input
@@ -318,6 +361,23 @@ export default function FacultyManagement() {
                   value={formData.specialization}
                   onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
                   placeholder="Optional specialization"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '0.375rem',
+                    fontSize: '1rem',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Display Order (Optional)</label>
+                <input
+                  type="number"
+                  value={formData.order}
+                  onChange={(e) => setFormData({ ...formData, order: e.target.value })}
+                  placeholder={`Next (${allFaculty.length + 1})`}
                   style={{
                     width: '100%',
                     padding: '0.75rem',
@@ -380,7 +440,12 @@ export default function FacultyManagement() {
             {allFaculty.map((member) => (
               <div key={member.id} className="border border-border rounded-lg p-4 bg-muted/30 relative">
                 {member.image && <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded mb-4" loading="lazy" decoding="async" />}
-                <h3 className="font-bold text-lg mb-1">{member.name}</h3>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-bold text-lg">{member.name}</h3>
+                  <span className="px-2 py-0.5 text-xs font-semibold rounded bg-primary/10 text-primary">
+                    Order: {member.order ?? (allFaculty.indexOf(member) + 1)}
+                  </span>
+                </div>
                 <p className="text-sm text-primary font-medium">{member.subject}</p>
                 <p className="text-xs text-muted-foreground">{member.qualification}</p>
                 {member.experience && <p className="text-xs text-muted-foreground">{member.experience}</p>}

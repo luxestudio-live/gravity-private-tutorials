@@ -58,7 +58,7 @@ export function Footer() {
               <span className="text-secondary">
                 GRAVITY
               </span>
-              <span className="text-accent ml-2">PRIVATE TUTORIALS</span>
+              <span className="text-secondary ml-2">PRIVATE TUTORIALS</span>
             </h3>
             <p className="text-background/80 leading-relaxed mb-6 max-w-md">
               Empowering students to achieve academic excellence through innovative teaching methods and personalized
@@ -135,28 +135,42 @@ export function Footer() {
 
         {/* Contact Info */}
         <div className="border-t border-background/20 pt-8 mb-8">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="flex items-start gap-3">
               <MapPin className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
-                <div className="font-medium mb-1">Visit Us</div>
+                <div className="font-medium mb-1">Kandivali Branch (East)</div>
                 <div className="text-background/80 text-sm leading-relaxed">
-                  Gravity Private Tutorials, Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.
+                  Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
+              <div>
+                <div className="font-medium mb-1">Santacruz Branch (West)</div>
+                <div className="text-background/80 text-sm leading-relaxed">
+                  Ratandeep, Shop No. H/73, Plot No. 33, Well, Near Asha Parekh Hospital, Opposite Kalki Showroom, Santacruz West, Mumbai – 400054.
                 </div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Phone className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
-                <div className="font-medium mb-1">Call Us</div>
-                <div className="text-background/80 text-sm">+91 93218 61630 / +91 8104010342</div>
+                <div className="font-medium mb-1">Call // WhatsApp</div>
+                <div className="text-background/80 text-sm leading-relaxed">
+                  +91 93218 61630<br />
+                  +91 8104010342
+                </div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Mail className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
                 <div className="font-medium mb-1">Email Us</div>
-                <div className="text-background/80 text-sm">info@gravitytutorials.com</div>
+                <div className="text-background/80 text-sm leading-relaxed">
+                  info@gravitytutorials.com
+                </div>
               </div>
             </div>
           </div>

@@ -17,6 +17,8 @@ type FacultyMember = {
 	achievements?: string[];
 	image: string;
 	color: string;
+	order?: number;
+	createdAt?: number;
 };
 
 export default function FacultyPage() {
@@ -29,8 +31,16 @@ export default function FacultyPage() {
 				setLoading(true)
 				const snap = await getDocs(collection(db, 'faculty'))
 				const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
-				console.log('Public page - Fetched faculty from Firestore:', newFaculty)
-				setAllFaculty(newFaculty)
+				const sorted = newFaculty.sort((a, b) => {
+					if (a.order !== undefined && b.order !== undefined && a.order !== b.order) {
+						return a.order - b.order
+					}
+					if (a.order !== undefined && b.order === undefined) return -1
+					if (a.order === undefined && b.order !== undefined) return 1
+					return (a.createdAt ?? 0) - (b.createdAt ?? 0)
+				})
+				console.log('Public page - Fetched faculty from Firestore:', sorted)
+				setAllFaculty(sorted)
 			} catch (error) {
 				console.error('Error fetching faculty:', error)
 				setAllFaculty([])

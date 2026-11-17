@@ -32,10 +32,13 @@ export const metadata: Metadata = {
     template: "%s | Gravity Private Tutorials",
   },
   description:
-    "Gravity Private Tutorials is Mumbai's premier coaching institute in Kandivali (E), offering expert coaching for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and competitive entrance exams including IIT JEE, NEET, and MHT-CET.",
+    "Gravity Private Tutorials is Mumbai's premier coaching institute with centers in Kandivali (E) and Santacruz (W), offering expert coaching for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and competitive entrance exams including IIT JEE, NEET, and MHT-CET.",
   keywords: [
     "Gravity Private Tutorials",
     "Gravity Tutorials Kandivali",
+    "Gravity Tutorials Santacruz",
+    "Santacruz West Coaching",
+    "Private Tutorials Santacruz West",
     "ICSE 10th Coaching Mumbai",
     "CBSE 10th Coaching Kandivali",
     "IIT JEE Coaching Mumbai",
@@ -62,7 +65,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Gravity Private Tutorials | Premier Coaching for ICSE, CBSE & Entrance Exams",
     description:
-      "Premier coaching institute in Kandivali (E), Mumbai for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and Entrance Exams (IIT JEE, NEET, MHT-CET).",
+      "Premier coaching institute with centers in Kandivali (E) and Santacruz (W), Mumbai for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and Entrance Exams (IIT JEE, NEET, MHT-CET).",
     url: "https://www.gravityprivatetutorials.com",
     siteName: "Gravity Private Tutorials",
     images: [
@@ -80,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Gravity Private Tutorials | Premier Coaching for ICSE, CBSE & Entrance Exams",
     description:
-      "Premier coaching institute in Kandivali (E), Mumbai for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and Entrance Exams (IIT JEE, NEET, MHT-CET).",
+      "Premier coaching institute with centers in Kandivali (E) and Santacruz (W), Mumbai for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and Entrance Exams (IIT JEE, NEET, MHT-CET).",
     images: ["/gravity-logo.png"],
   },
   robots: {
@@ -114,15 +117,27 @@ const jsonLd = {
   logo: "https://www.gravityprivatetutorials.com/gravity-logo.png",
   image: "https://www.gravityprivatetutorials.com/gravity-logo.png",
   description:
-    "Premier coaching institute in Kandivali (E), Mumbai for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and Entrance Exams (IIT JEE, NEET, MHT-CET).",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Shop No. 56, Centrium Mall",
-    addressLocality: "Kandivali (East)",
-    addressRegion: "Mumbai, Maharashtra",
-    postalCode: "400101",
-    addressCountry: "IN",
-  },
+    "Premier coaching institute with centers in Kandivali (E) and Santacruz (W), Mumbai for Classes 8th–10th (ICSE & CBSE), 11th–12th Science, and Entrance Exams (IIT JEE, NEET, MHT-CET).",
+  address: [
+    {
+      "@type": "PostalAddress",
+      name: "Kandivali (East) Branch",
+      streetAddress: "Shop No. 56, Centrium Mall",
+      addressLocality: "Kandivali (East)",
+      addressRegion: "Mumbai, Maharashtra",
+      postalCode: "400101",
+      addressCountry: "IN",
+    },
+    {
+      "@type": "PostalAddress",
+      name: "Santacruz (West) Branch",
+      streetAddress: "Ratandeep, Shop No. H/73, Plot No. 33, Well, Near Asha Parekh Hospital, Opposite Kalki Showroom",
+      addressLocality: "Santacruz (West)",
+      addressRegion: "Mumbai, Maharashtra",
+      postalCode: "400054",
+      addressCountry: "IN",
+    },
+  ],
   telephone: ["+91 93218 61630", "+91 8104010342"],
   email: "info@gravitytutorials.com",
   sameAs: [
