@@ -288,7 +288,7 @@ const jsonLd = {
       url: "https://www.gravityprivatetutorials.com",
       name: "Gravity Private Tutorials",
       publisher: { "@id": "https://www.gravityprivatetutorials.com/#organization" },
-      inLanguage": "en-IN",
+      inLanguage: "en-IN",
     },
     {
       "@type": "FAQPage",
