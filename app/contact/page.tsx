@@ -15,6 +15,7 @@ const contactInfo = [
     icon: MapPin,
     title: "Kandivali (E) Branch",
     details: [
+      "Gravity Private Tutorials",
       "Shop No. 56, Centrium Mall,",
       "Kandivali (East), Mumbai – 400101.",
     ],
@@ -24,8 +25,9 @@ const contactInfo = [
     icon: MapPin,
     title: "Santacruz (W) Branch",
     details: [
-      "Ratandeep, Shop No. H/73, Plot No. 33,",
-      "Near Asha Parekh Hospital, Santacruz (W), Mumbai – 400054.",
+      "Gravity Private Tutorials",
+      "Ratandeep, Shop No. H/73, Plot No. 33, Well,",
+      "Near Asha Parekh Hospital, Opposite Kalki Showroom, Santacruz West, Mumbai – 400054.",
     ],
     color: "from-accent to-secondary",
   },

@@ -141,7 +141,7 @@ export function Footer() {
               <div>
                 <div className="font-medium mb-1">Kandivali Branch (East)</div>
                 <div className="text-background/80 text-sm leading-relaxed">
-                  Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.
+                  Gravity Private Tutorials, Shop No. 56, Centrium Mall, Kandivali (E), Mumbai 400101.
                 </div>
               </div>
             </div>
