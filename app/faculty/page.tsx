@@ -21,30 +21,35 @@ type FacultyMember = {
 	createdAt?: number;
 };
 
-const DEFAULT_FACULTY_ORDER: Record<string, number> = {
-	"virendra kumar badgujar": 1,
-	"ramkrishna badgujar": 2,
-	"sujeet patil": 3,
-	"jayant pawar": 4,
-	"rupesh santosh pawar": 5,
-	"akshay ramchandra bhilare": 6,
-	"santosh gopal sawant": 7,
-	"pratik sawant": 8,
-	"pankaj vasant rane": 9,
-	"arun saheb gauda": 10,
-	"ganesh tulsiram rathod": 11,
-	"praveena gelot": 12,
+const getKnownOrder = (name: string): number | null => {
+	const n = (name || "").trim().toLowerCase();
+	if (n.includes("jitesh")) return 1;
+	if (n.includes("raju") || n.includes("prajapati")) return 2;
+	if (n.includes("prakash") || n.includes("mishra")) return 3;
+	if (n.includes("virendra")) return 4;
+	if (n.includes("ramkrishna")) return 5;
+	if (n.includes("sujeet")) return 6;
+	if (n.includes("jayant")) return 7;
+	if (n.includes("rupesh")) return 8;
+	if (n.includes("akshay")) return 9;
+	if (n.includes("santosh")) return 10;
+	if (n.includes("pratik")) return 11;
+	if (n.includes("pankaj")) return 12;
+	if (n.includes("arun")) return 13;
+	if (n.includes("ganesh")) return 14;
+	if (n.includes("praveena")) return 15;
+	return null;
 };
 
 const getFacultyOrder = (f: FacultyMember, fallbackIndex = 0): number => {
 	if (typeof f.order === "number" && !isNaN(f.order)) {
 		return f.order;
 	}
-	const normalized = (f.name || "").trim().toLowerCase();
-	if (DEFAULT_FACULTY_ORDER[normalized] !== undefined) {
-		return DEFAULT_FACULTY_ORDER[normalized];
+	const known = getKnownOrder(f.name);
+	if (known !== null) {
+		return known;
 	}
-	return 100 + fallbackIndex;
+	return 20 + fallbackIndex;
 };
 
 export default function FacultyPage() {
