@@ -21,6 +21,32 @@ type FacultyMember = {
 	createdAt?: number;
 };
 
+const DEFAULT_FACULTY_ORDER: Record<string, number> = {
+	"virendra kumar badgujar": 1,
+	"ramkrishna badgujar": 2,
+	"sujeet patil": 3,
+	"jayant pawar": 4,
+	"rupesh santosh pawar": 5,
+	"akshay ramchandra bhilare": 6,
+	"santosh gopal sawant": 7,
+	"pratik sawant": 8,
+	"pankaj vasant rane": 9,
+	"arun saheb gauda": 10,
+	"ganesh tulsiram rathod": 11,
+	"praveena gelot": 12,
+};
+
+const getFacultyOrder = (f: FacultyMember, fallbackIndex = 0): number => {
+	if (typeof f.order === "number" && !isNaN(f.order)) {
+		return f.order;
+	}
+	const normalized = (f.name || "").trim().toLowerCase();
+	if (DEFAULT_FACULTY_ORDER[normalized] !== undefined) {
+		return DEFAULT_FACULTY_ORDER[normalized];
+	}
+	return 100 + fallbackIndex;
+};
+
 export default function FacultyPage() {
 	const [allFaculty, setAllFaculty] = useState<FacultyMember[]>([])
 	const [loading, setLoading] = useState(true)
@@ -31,12 +57,12 @@ export default function FacultyPage() {
 				setLoading(true)
 				const snap = await getDocs(collection(db, 'faculty'))
 				const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
-				const sorted = newFaculty.sort((a, b) => {
-					if (a.order !== undefined && b.order !== undefined && a.order !== b.order) {
-						return a.order - b.order
+				const sorted = [...newFaculty].sort((a, b) => {
+					const orderA = getFacultyOrder(a, newFaculty.indexOf(a))
+					const orderB = getFacultyOrder(b, newFaculty.indexOf(b))
+					if (orderA !== orderB) {
+						return orderA - orderB
 					}
-					if (a.order !== undefined && b.order === undefined) return -1
-					if (a.order === undefined && b.order !== undefined) return 1
 					return (a.createdAt ?? 0) - (b.createdAt ?? 0)
 				})
 				console.log('Public page - Fetched faculty from Firestore:', sorted)

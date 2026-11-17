@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'
-import { Trash2, Edit2, Plus, Upload } from 'lucide-react'
+import { Trash2, Edit2, Plus, Upload, ArrowUp, ArrowDown, ArrowDownUp } from 'lucide-react'
 
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
@@ -19,6 +19,32 @@ type FacultyMember = {
   color: string
   order?: number
   createdAt?: number
+}
+
+const DEFAULT_FACULTY_ORDER: Record<string, number> = {
+  "virendra kumar badgujar": 1,
+  "ramkrishna badgujar": 2,
+  "sujeet patil": 3,
+  "jayant pawar": 4,
+  "rupesh santosh pawar": 5,
+  "akshay ramchandra bhilare": 6,
+  "santosh gopal sawant": 7,
+  "pratik sawant": 8,
+  "pankaj vasant rane": 9,
+  "arun saheb gauda": 10,
+  "ganesh tulsiram rathod": 11,
+  "praveena gelot": 12,
+}
+
+const getFacultyOrder = (f: FacultyMember, fallbackIndex = 0): number => {
+  if (typeof f.order === 'number' && !isNaN(f.order)) {
+    return f.order
+  }
+  const normalized = (f.name || '').trim().toLowerCase()
+  if (DEFAULT_FACULTY_ORDER[normalized] !== undefined) {
+    return DEFAULT_FACULTY_ORDER[normalized]
+  }
+  return 100 + fallbackIndex
 }
 
 const colors = [
@@ -61,12 +87,12 @@ export default function FacultyManagement() {
       setLoading(true)
       const snap = await getDocs(collection(db, 'faculty'))
       const newFaculty = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as FacultyMember[]
-      const sorted = newFaculty.sort((a, b) => {
-        if (a.order !== undefined && b.order !== undefined && a.order !== b.order) {
-          return a.order - b.order
+      const sorted = [...newFaculty].sort((a, b) => {
+        const orderA = getFacultyOrder(a, newFaculty.indexOf(a))
+        const orderB = getFacultyOrder(b, newFaculty.indexOf(b))
+        if (orderA !== orderB) {
+          return orderA - orderB
         }
-        if (a.order !== undefined && b.order === undefined) return -1
-        if (a.order === undefined && b.order !== undefined) return 1
         return (a.createdAt ?? 0) - (b.createdAt ?? 0)
       })
       console.log('Fetched faculty from Firestore:', sorted)
@@ -76,6 +102,46 @@ export default function FacultyManagement() {
       setAllFaculty([])
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleMove = async (index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1
+    if (targetIndex < 0 || targetIndex >= allFaculty.length) return
+
+    try {
+      setUploading(true)
+      const current = allFaculty[index]
+      const neighbor = allFaculty[targetIndex]
+
+      // Assign clear 1-based orders reflecting the swap
+      await updateDoc(doc(db, 'faculty', current.id), { order: targetIndex + 1 })
+      await updateDoc(doc(db, 'faculty', neighbor.id), { order: index + 1 })
+
+      await fetchFaculty()
+    } catch (err: any) {
+      console.error('Error reordering faculty:', err)
+      alert('Failed to reorder: ' + err.message)
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const handleNormalizeOrders = async () => {
+    if (!confirm('This will explicitly save clean sequential order numbers (1 to ' + allFaculty.length + ') to all faculty in Firestore. Proceed?')) return
+    try {
+      setUploading(true)
+      for (let i = 0; i < allFaculty.length; i++) {
+        const member = allFaculty[i]
+        await updateDoc(doc(db, 'faculty', member.id), { order: i + 1 })
+      }
+      alert('All faculty orders (1 to ' + allFaculty.length + ') have been locked and saved to Firestore!')
+      await fetchFaculty()
+    } catch (err: any) {
+      console.error('Error normalizing orders:', err)
+      alert('Error: ' + err.message)
+    } finally {
+      setUploading(false)
     }
   }
 
@@ -130,7 +196,7 @@ export default function FacultyManagement() {
     try {
       setUploading(true)
       console.log('Saving faculty data:', formData)
-      const maxOrder = allFaculty.reduce((max, f) => Math.max(max, f.order ?? 0), 0)
+      const maxOrder = allFaculty.reduce((max, f, idx) => Math.max(max, getFacultyOrder(f, idx)), 0)
       const orderNum = formData.order ? Number(formData.order) : (maxOrder + 1)
 
       if (editingId) {
@@ -435,26 +501,53 @@ export default function FacultyManagement() {
       {/* Faculty Lists */}
       <div className="space-y-6 md:space-y-8">
         <div className="bg-card border border-border rounded-xl p-4 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Faculty Members ({facultyCount})</h2>
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+            <h2 className="text-xl md:text-2xl font-bold">Faculty Members ({facultyCount})</h2>
+            <button
+              onClick={handleNormalizeOrders}
+              disabled={uploading}
+              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm rounded-lg bg-secondary/20 hover:bg-secondary/30 text-secondary-foreground border border-secondary/40 font-medium transition-colors disabled:opacity-50"
+              title="Save clean sequential numbers (1, 2, 3...) to database"
+            >
+              <ArrowDownUp className="w-4 h-4" />
+              <span>Lock / Renumber Order (1..N)</span>
+            </button>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-            {allFaculty.map((member) => (
+            {allFaculty.map((member, index) => (
               <div key={member.id} className="border border-border rounded-lg p-4 bg-muted/30 relative">
                 {member.image && <img src={member.image} alt={member.name} className="w-full h-48 object-cover rounded mb-4" loading="lazy" decoding="async" />}
                 <div className="flex items-center justify-between mb-1">
                   <h3 className="font-bold text-lg">{member.name}</h3>
                   <span className="px-2 py-0.5 text-xs font-semibold rounded bg-primary/10 text-primary">
-                    Order: {member.order ?? (allFaculty.indexOf(member) + 1)}
+                    Order: {member.order ?? (index + 1)}
                   </span>
                 </div>
                 <p className="text-sm text-primary font-medium">{member.subject}</p>
                 <p className="text-xs text-muted-foreground">{member.qualification}</p>
                 {member.experience && <p className="text-xs text-muted-foreground">{member.experience}</p>}
 
-                <div className="flex gap-2 mt-4 pt-4 border-t border-border">
+                <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
+                  <button
+                    onClick={() => handleMove(index, 'up')}
+                    disabled={uploading || index === 0}
+                    title="Move Up"
+                    className="p-2 bg-muted hover:bg-muted/80 rounded transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <ArrowUp className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => handleMove(index, 'down')}
+                    disabled={uploading || index === allFaculty.length - 1}
+                    title="Move Down"
+                    className="p-2 bg-muted hover:bg-muted/80 rounded transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <ArrowDown className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={() => handleEditFaculty(member)}
                     disabled={uploading}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs md:text-sm font-medium"
                   >
                     <Edit2 className="w-4 h-4" />
                     Edit
@@ -462,10 +555,10 @@ export default function FacultyManagement() {
                   <button
                     onClick={() => member.id && handleDeleteFaculty(member.id)}
                     disabled={uploading}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-destructive/10 text-destructive hover:bg-destructive/20 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs md:text-sm font-medium"
                   >
                     <Trash2 className="w-4 h-4" />
-                    {uploading ? 'Deleting...' : 'Delete'}
+                    {uploading ? '...' : 'Delete'}
                   </button>
                 </div>
               </div>
